@@ -9,6 +9,9 @@
 //  }
 //}
 
+import 'package:almasaood_app/ui/CheckNumber.dart';
+import 'package:almasaood_app/ui/VerificationCode.dart';
+import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -17,7 +20,7 @@ import 'local/AppLocal.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return new MaterialApp(debugShowCheckedModeBanner: false,theme: ThemeData(fontFamily: 'Proxima Nova'),
       supportedLocales: [const Locale('ar'), const Locale('en', 'US')],
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home: new MyPage(),
+      home:  VerificationCode(),
     );
   }
 }
