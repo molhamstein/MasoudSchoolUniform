@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AlmasaoodColors {
   static const pink = Color(0xffFFf5f0);
   static const green = Color(0xFFd2edca);
+  static const darkGreen = Color(0xFF1acfa7);
   static const white = Color(0xFFffffff);
   static const black = Color(0xFF000000);
   static const darkBlue = Color(0xFF727aec);

@@ -15,7 +15,7 @@ class MainButton extends StatefulWidget {
 
   MainButton(
       {@required this.onPressed,
-      this.text,
+        @required this.text,
       this.height = 50,
       this.width = 250,
       this.color = AlmasaoodColors.white,
