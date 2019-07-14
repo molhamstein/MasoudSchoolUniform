@@ -1,5 +1,6 @@
 import 'package:almasaood_app/Widgets/AuthTextField.dart';
 import 'package:almasaood_app/Widgets/MainButton.dart';
+import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
@@ -57,7 +58,12 @@ class _CheckNumberState extends State<CheckNumber> {
               Padding(
                 padding: const EdgeInsets.only(top: 64.0),
                 child: MainButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUp()),
+                    );
+                  },
                     text: "Submit",
                 ),
               ),

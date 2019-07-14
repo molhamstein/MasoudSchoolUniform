@@ -12,6 +12,9 @@
 import 'package:almasaood_app/ui/Cart.dart';
 import 'package:almasaood_app/ui/CheckNumber.dart';
 import 'package:almasaood_app/ui/Home.dart';
+import 'package:almasaood_app/ui/PickUpLocation.dart';
+import 'package:almasaood_app/ui/ProductDetails.dart';
+import 'package:almasaood_app/ui/SplashScreen.dart';
 import 'package:almasaood_app/ui/VerificationCode.dart';
 import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +43,7 @@ class MyApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home:  Cart(),
+      home:  PickUpLocation(),
     );
   }
 }

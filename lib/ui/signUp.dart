@@ -3,6 +3,7 @@ import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
+import 'VerificationCode.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 alignment: FractionalOffset.topRight),
           ),
-          height: MediaQuery.of(context).size.height,
+//          height: MediaQuery.of(context).size.height,
           child: Column(
             children: <Widget>[
               Padding(
@@ -62,9 +63,15 @@ class _SignUpState extends State<SignUp> {
                         hint: "Your full name",
                       ))),
               Padding(
-                padding: const EdgeInsets.only(top: 64.0),
+                padding: const EdgeInsets.only(top: 64.0, bottom: 32),
                 child: MainButton(color: AlmasaoodColors.darkBlue,textColor: AlmasaoodColors.white,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => VerificationCode()),
+                    );
+
+                  },
                   text: "Submit",
                 ),
               ),
