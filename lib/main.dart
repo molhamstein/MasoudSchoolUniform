@@ -25,7 +25,7 @@ import 'local/AppLocal.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(debugShowCheckedModeBanner: false,theme: ThemeData(fontFamily: 'Proxima Nova'),
+    return new MaterialApp(debugShowCheckedModeBanner: false,theme: ThemeData(fontFamily: 'ProximaNova'),
       supportedLocales: [const Locale('ar'), const Locale('en', 'US')],
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home:  PickUpLocation(),
+      home:  SplashScreen(),
     );
   }
 }

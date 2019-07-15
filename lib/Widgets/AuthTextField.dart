@@ -37,7 +37,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
         hintText: widget.hint,
         hintStyle: TextStyle(
             color: AlmasaoodColors.black,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
             fontSize: 18),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(

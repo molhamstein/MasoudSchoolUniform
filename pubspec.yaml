@@ -32,6 +32,8 @@ dependencies:
   device_info: ^0.4.0+2
   permission_handler: ^3.1.0
   android_intent: ^0.3.1+1
+  auto_size_text: ^2.0.2
+
 
 
 
@@ -83,11 +85,14 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Proxima Nova
+    - family: ProximaNova
       fonts:
-       - asset: assets/fonts/ProximaNova-Bold.ttf
-       - asset: assets/fonts/ProximaNova-Regular.ttf
-       - asset: assets/fonts/ProximaNova-Semibold.ttf
+        - asset: assets/fonts/ProximaNova-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/ProximaNova-Regular.ttf
+          weight: 200
+        - asset: assets/fonts/ProximaNova-Semibold.ttf
+          weight: 500
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

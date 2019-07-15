@@ -54,7 +54,7 @@ class _MainButtonState extends State<MainButton> {
             widget.text,
             style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 color: widget.textColor),
           ),
         ));

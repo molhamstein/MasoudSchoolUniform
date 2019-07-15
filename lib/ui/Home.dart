@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../AlmasaoodColors.dart';
 import 'Cart.dart';
@@ -22,7 +23,7 @@ class _HomeState extends State<Home> {
     var size = MediaQuery.of(context).size;
 
     /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight  ) /1.5;
+    final double itemHeight = (size.height - kToolbarHeight  ) /1.1;
     final double itemWidth = size.width ;
     return Scaffold(
         body: Container(
@@ -74,13 +75,14 @@ class _HomeState extends State<Home> {
                               Text(
                                 "Welcome",
                                 style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
+                                    fontSize: 22, fontWeight: FontWeight.w700, color: AlmasaoodColors.text),
                               ),
-                              Text(
-                                "Samar",
-                                style: TextStyle(
-                                    fontSize: 26, fontWeight: FontWeight.bold),
-                              )
+//                              Text(
+//                                "Abdulrahman",
+//                                style: TextStyle(
+//                                    fontSize: 36, fontWeight: FontWeight.w700),
+//                              )
+                            SizedBox(width: 100,child: AutoSizeText("Abdulrahman" , style: TextStyle(fontWeight: FontWeight.w700,fontSize: 32 ),maxLines: 1,))
                             ],
                           ),
                           Column(
@@ -209,7 +211,7 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom: 15),
-                  child: Text("Formal shirt-KG"),
+                  child: Text("Formal shirt-KG",style: TextStyle(fontWeight: FontWeight.w700,color: AlmasaoodColors.text  ),),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -245,7 +247,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(5),
                     child: Container(
                       color: AlmasaoodColors.lightBlue,
                       child: Padding(
