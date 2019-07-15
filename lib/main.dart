@@ -9,14 +9,7 @@
 //  }
 //}
 
-import 'package:almasaood_app/ui/Cart.dart';
-import 'package:almasaood_app/ui/CheckNumber.dart';
-import 'package:almasaood_app/ui/Home.dart';
-import 'package:almasaood_app/ui/PickUpLocation.dart';
-import 'package:almasaood_app/ui/ProductDetails.dart';
 import 'package:almasaood_app/ui/SplashScreen.dart';
-import 'package:almasaood_app/ui/VerificationCode.dart';
-import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -25,7 +18,9 @@ import 'local/AppLocal.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(debugShowCheckedModeBanner: false,theme: ThemeData(fontFamily: 'ProximaNova'),
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'ProximaNova'),
       supportedLocales: [const Locale('ar'), const Locale('en', 'US')],
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
@@ -43,7 +38,7 @@ class MyApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home:  SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

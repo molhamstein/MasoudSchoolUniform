@@ -20,7 +20,7 @@ class _CartState extends State<Cart> {
       ),
       child: Padding(
         padding:
-            const EdgeInsets.only(top: 80.0, left: 24, right: 24, bottom: 32),
+            const EdgeInsets.only(top: 80.0, left: 8, right: 8, bottom: 32),
         child: Column(
           children: <Widget>[
             Expanded(
@@ -65,9 +65,9 @@ class _CartState extends State<Cart> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: <Widget>[
-                                                            Text("Formal"),
+                                                            Text("Formal",style: TextStyle(fontSize: 12),),
                                                             Text(
-                                                                "TROUSER/SHORT")
+                                                                "TROUSER/SHORT",style: TextStyle(fontSize: 12),)
                                                           ],
                                                         ),
                                                         Row(
@@ -109,9 +109,9 @@ class _CartState extends State<Cart> {
                                                                     padding: const EdgeInsets
                                                                             .only(
                                                                         left:
-                                                                            8.0,
+                                                                            6.0,
                                                                         right:
-                                                                            8),
+                                                                            6),
                                                                     child: Text(
                                                                       "KG-1",
                                                                       style: TextStyle(
@@ -126,7 +126,7 @@ class _CartState extends State<Cart> {
                                                                     const EdgeInsets
                                                                             .only(
                                                                         top:
-                                                                            10.0),
+                                                                            8.0),
                                                                 child: Row(
                                                                   children: <
                                                                       Widget>[
@@ -197,7 +197,7 @@ class _CartState extends State<Cart> {
                                                                 padding:
                                                                     const EdgeInsets
                                                                             .only(left:
-                                                                        8.0, right: 8,top: 2,bottom: 2),
+                                                                        4.0, right: 4,top: 2,bottom: 2),
                                                                 child: Row(
                                                                   children: <
                                                                       Widget>[
@@ -211,7 +211,7 @@ class _CartState extends State<Cart> {
                                                                         Icons
                                                                             .remove,
                                                                         size:
-                                                                            35,
+                                                                            30,
                                                                         color: AlmasaoodColors
                                                                             .white,
                                                                       ),
@@ -220,9 +220,9 @@ class _CartState extends State<Cart> {
                                                                       padding: const EdgeInsets
                                                                               .only(
                                                                           left:
-                                                                              16.0,
+                                                                              12.0,
                                                                           right:
-                                                                              16),
+                                                                              12),
                                                                       child:
                                                                           Text(
                                                                         "3",
@@ -230,7 +230,7 @@ class _CartState extends State<Cart> {
                                                                             fontWeight:
                                                                                 FontWeight.bold,
                                                                             color: AlmasaoodColors.white,
-                                                                            fontSize: 32),
+                                                                            fontSize: 28),
                                                                       ),
                                                                     ),
                                                                     Padding(
@@ -243,7 +243,7 @@ class _CartState extends State<Cart> {
                                                                         Icons
                                                                             .add,
                                                                         size:
-                                                                            35,
+                                                                            30,
                                                                         color: AlmasaoodColors
                                                                             .white,
                                                                       ),

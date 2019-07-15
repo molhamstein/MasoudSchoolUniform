@@ -4,6 +4,7 @@ import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
+import '../ApiProvider.dart';
 
 class CheckNumber extends StatefulWidget {
   @override
@@ -85,10 +86,12 @@ class _CheckNumberState extends State<CheckNumber> with SingleTickerProviderStat
                     padding: const EdgeInsets.only(top: 64.0),
                     child: MainButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignUp()),
-                        );
+//                        Navigator.push(
+//                          context,
+//                          MaterialPageRoute(builder: (context) => SignUp()),
+//                        );
+
+                      apiProvider.getProfile();
                       },
                       text: "Submit",
                     ),
