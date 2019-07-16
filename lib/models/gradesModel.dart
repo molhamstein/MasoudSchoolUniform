@@ -1,5 +1,4 @@
-
-class GradesList{
+class GradesList {
   final List<GradesModel> grades;
 
   GradesList({
@@ -7,13 +6,10 @@ class GradesList{
   });
 
   factory GradesList.fromJson(List<dynamic> parsedJson) {
-
     List<GradesModel> grades = new List<GradesModel>();
-    grades = parsedJson.map((i)=>GradesModel.fromJson(i)).toList();
+    grades = parsedJson.map((i) => GradesModel.fromJson(i)).toList();
 
-    return new GradesList(
-        grades: grades
-    );
+    return new GradesList(grades: grades);
   }
 }
 
@@ -29,10 +25,15 @@ class GradesModel {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   String get nameEn => _nameEn;
+
   set nameEn(String nameEn) => _nameEn = nameEn;
+
   String get nameAr => _nameAr;
+
   set nameAr(String nameAr) => _nameAr = nameAr;
 
   GradesModel.fromJson(Map<String, dynamic> json) {

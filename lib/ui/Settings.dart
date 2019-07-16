@@ -39,11 +39,12 @@ class _SettingsState extends State<Settings> {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top:32.0,bottom: 64),
+                      padding: const EdgeInsets.only(top: 32.0, bottom: 64),
                       child: Text("Some Slogan about the service"),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 32.0, right: 32,bottom: 16),
+                      padding: const EdgeInsets.only(
+                          left: 32.0, right: 32, bottom: 16),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -73,8 +74,12 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top:64.0,bottom: 32),
-                      child: Text("Log out",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),),
+                      padding: const EdgeInsets.only(top: 64.0, bottom: 32),
+                      child: Text(
+                        "Log out",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
                     )
                   ],
                 ),

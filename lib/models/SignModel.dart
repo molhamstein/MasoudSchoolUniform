@@ -8,8 +8,11 @@ class SignInModel {
   }
 
   String get message => _message;
+
   set message(String message) => _message = message;
+
   bool get created => _created;
+
   set created(bool created) => _created = created;
 
   SignInModel.fromJson(Map<String, dynamic> json) {

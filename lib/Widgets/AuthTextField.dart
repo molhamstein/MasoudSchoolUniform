@@ -7,7 +7,8 @@ class AuthTextField extends StatefulWidget {
   final Function onChange;
   final String hint;
 
-  AuthTextField({@required this.textEditingController, this.onChange, this.hint});
+  AuthTextField(
+      {@required this.textEditingController, this.onChange, this.hint});
 
   @override
   _AuthTextFieldState createState() => _AuthTextFieldState();

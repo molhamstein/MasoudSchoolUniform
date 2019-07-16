@@ -41,171 +41,168 @@ class _HomeState extends State<Home> {
                   ),
                   alignment: FractionalOffset.topRight),
             ),
-            child:
-                   CustomScrollView(
-                    slivers: <Widget>[
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          return Column(children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(top: 28.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Cart()),
-                                      );
-                                    },
-                                    child: Image.asset(
-                                      "assets/images/ic_cart.png",
-                                      scale: 1.5,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  )
-                                ],
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    return Column(children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 28.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Cart()),
+                                );
+                              },
+                              child: Image.asset(
+                                "assets/images/ic_cart.png",
+                                scale: 1.5,
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      "Welcome",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w700,
-                                          color: AlmasaoodColors.text),
-                                    ),
+                            SizedBox(
+                              width: 20,
+                            )
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "Welcome",
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                    color: AlmasaoodColors.text),
+                              ),
 //                              Text(
 //                                "Abdulrahman",
 //                                style: TextStyle(
 //                                    fontSize: 36, fontWeight: FontWeight.w700),
 //                              )
-                                    SizedBox(
-                                        width: 100,
-                                        child: AutoSizeText(
-                                          "Abdulrahman",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 32),
-                                          maxLines: 1,
-                                        ))
-                                  ],
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Image.asset(
-                                      "assets/images/logo.png",
-                                      width: 180,
-                                      height: 180,
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 40,
-                              child: StreamBuilder<List<GradesModel>>(
-                                stream: bloc.gradesStream,
-                                builder: (context, snapshot) {
-                                  if(snapshot.hasData && snapshot.data != null){
-                                    print(snapshot.data.length);
-                                  }
-                                  return ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: s.length,
-                                      itemBuilder: (context, index) {
-                                        for (int i = 0; i < s.length; i++)
-                                          checkedList.add(false);
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, right: 8),
-                                          child: Row(
-                                            children: <Widget>[
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      for (int i = 0;
-                                                          i < s.length;
-                                                          i++) {
-                                                        checkedList[i] = (false);
-                                                        checkedList[index] = true;
-                                                      }
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    color: checkedList[index] ==
-                                                            false
-                                                        ? AlmasaoodColors.darkBlue
-                                                        : AlmasaoodColors.white,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 24.0,
-                                                              right: 24,
-                                                              top: 8,
-                                                              bottom: 8),
-                                                      child: Text(
-                                                        s[index],
-                                                        style: TextStyle(
-                                                            color: checkedList[
-                                                                        index] ==
-                                                                    false
-                                                                ? AlmasaoodColors
-                                                                    .white
-                                                                : AlmasaoodColors
-                                                                    .lightBlue),
-                                                      ),
-                                                    ),
+                              SizedBox(
+                                  width: 100,
+                                  child: AutoSizeText(
+                                    "Abdulrahman",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 32),
+                                    maxLines: 1,
+                                  ))
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/images/logo.png",
+                                width: 180,
+                                height: 180,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 40,
+                        child: StreamBuilder<List<GradesModel>>(
+                            stream: bloc.gradesStream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData && snapshot.data != null) {
+                                print(snapshot.data.length);
+                              }
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: s.length,
+                                  itemBuilder: (context, index) {
+                                    for (int i = 0; i < s.length; i++)
+                                      checkedList.add(false);
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8),
+                                      child: Row(
+                                        children: <Widget>[
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            child: InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  for (int i = 0;
+                                                      i < s.length;
+                                                      i++) {
+                                                    checkedList[i] = (false);
+                                                    checkedList[index] = true;
+                                                  }
+                                                });
+                                              },
+                                              child: Container(
+                                                color: checkedList[index] ==
+                                                        false
+                                                    ? AlmasaoodColors.darkBlue
+                                                    : AlmasaoodColors.white,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 24.0,
+                                                          right: 24,
+                                                          top: 8,
+                                                          bottom: 8),
+                                                  child: Text(
+                                                    s[index],
+                                                    style: TextStyle(
+                                                        color: checkedList[
+                                                                    index] ==
+                                                                false
+                                                            ? AlmasaoodColors
+                                                                .white
+                                                            : AlmasaoodColors
+                                                                .lightBlue),
                                                   ),
                                                 ),
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        );
-                                      });
-                                }
-                              ),
-                            )
-                          ]);
-                        }, childCount: 1),
-                      ),
-                      StreamBuilder<List<ProductsModel>>(
-                          stream: bloc.productsStream,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData && snapshot.data != null) {
-                              print(snapshot.data.length);
-                            }
-
-                            return SliverGrid(
-                              delegate:
-                                  SliverChildBuilderDelegate((context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ProductCard(),
-                                );
-                              }, childCount: 5),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      childAspectRatio: (itemWidth / itemHeight),
-                                      crossAxisCount: 2));
-                        }
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            }),
                       )
-                    ],
-                  )
+                    ]);
+                  }, childCount: 1),
+                ),
+                StreamBuilder<List<ProductsModel>>(
+                    stream: bloc.productsStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && snapshot.data != null) {
+                        print(snapshot.data.length);
+                      }
+
+                      return SliverGrid(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ProductCard(),
+                            );
+                          }, childCount: 5),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: (itemWidth / itemHeight),
+                                  crossAxisCount: 2));
+                    })
+              ],
+            )
 
 //          Column(
 //        children: <Widget>[

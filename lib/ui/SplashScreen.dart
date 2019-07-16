@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'CheckNumber.dart';
-import 'Home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -11,15 +10,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-
   @override
   void initState() {
-    Timer(Duration(seconds: 1),()=>Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CheckNumber()),
-    ));
-
+    Timer(
+        Duration(seconds: 1),
+        () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CheckNumber()),
+            ));
   }
 
   @override
@@ -29,16 +27,23 @@ class _SplashScreenState extends State<SplashScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset("assets/images/logo.png",height: 150,width: 150),
-          Center(child: Image.asset("assets/images/splashArt.png",width:MediaQuery.of(context).size.width-150,)),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Image.asset("assets/images/logo.png", height: 150, width: 150),
+          Center(
+              child: Image.asset(
+            "assets/images/splashArt.png",
+            width: MediaQuery.of(context).size.width - 150,
+          )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset("assets/images/splash_footer.png", width: MediaQuery.of(context).size.width-50,),
+              Image.asset(
+                "assets/images/splash_footer.png",
+                width: MediaQuery.of(context).size.width - 50,
+              ),
             ],
           )
         ],
       ),
     );
   }
-
 }

@@ -46,7 +46,8 @@ class _CheckNumberState extends State<CheckNumber>
           if (snapshot.hasData && snapshot.data != null) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                  builder: (context) => VerificationCode(numberController.text,snapshot.data.created)));
+                  builder: (context) => VerificationCode(
+                      numberController.text, snapshot.data.created)));
             });
           }
 

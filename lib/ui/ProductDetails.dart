@@ -138,7 +138,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    child: Text("Description",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                    child: Text(
+                      "Description",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 4.0),
@@ -188,12 +192,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   Container(
                     height: 80,
-                    child: ListView.builder(shrinkWrap: true,
+                    child: ListView.builder(
+                        shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: 4,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(left:8.0,right: 8),
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
                             child: CircularPercentIndicator(
                               radius: 50.0,
                               lineWidth: 3.5,
@@ -211,7 +216,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         }),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:8.0,bottom: 24),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 24),
                     child: MainButton(
                       onPressed: () {},
                       text: "Add To Cart",

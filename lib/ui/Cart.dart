@@ -65,9 +65,16 @@ class _CartState extends State<Cart> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: <Widget>[
-                                                            Text("Formal",style: TextStyle(fontSize: 12),),
                                                             Text(
-                                                                "TROUSER/SHORT",style: TextStyle(fontSize: 12),)
+                                                              "Formal",
+                                                              style: TextStyle(
+                                                                  fontSize: 12),
+                                                            ),
+                                                            Text(
+                                                              "TROUSER/SHORT",
+                                                              style: TextStyle(
+                                                                  fontSize: 12),
+                                                            )
                                                           ],
                                                         ),
                                                         Row(
@@ -196,8 +203,14 @@ class _CartState extends State<Cart> {
                                                               child: Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                            .only(left:
-                                                                        4.0, right: 4,top: 2,bottom: 2),
+                                                                            .only(
+                                                                        left:
+                                                                            4.0,
+                                                                        right:
+                                                                            4,
+                                                                        top: 2,
+                                                                        bottom:
+                                                                            2),
                                                                 child: Row(
                                                                   children: <
                                                                       Widget>[

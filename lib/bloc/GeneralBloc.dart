@@ -8,8 +8,6 @@ import 'package:rxdart/rxdart.dart';
 import '../ApiProvider.dart';
 import '../AppConstant.dart';
 
-enum FilterType { ALL, FIRST_GRADE, SECOND_GRADE, THIRD_GRADE }
-
 class SingletonBloc {
   static final SingletonBloc _singletonBloc = new SingletonBloc._internal();
 
@@ -99,48 +97,6 @@ class SingletonBloc {
       _gradesController.sink.add(valGrad.grades);
     });
   }
-
-//  getProductList(FilterType f) {
-//    apiProvider.products().then((onVal) {
-//
-//      productList.value = [];
-//
-//      switch (f) {
-//        case FilterType.ALL:
-//          {
-//            for (int i = 0; i < onVal.products.length; i++) {
-//              productList.value.add(onVal.products[i]);
-//            }
-//            break;
-//          }
-//        case FilterType.FIRST_GRADE:
-//          {
-//            for (int i = 0; i < onVal.products.length; i++) {
-//              if (onVal.products[i].grade.id == 1)
-//                productList.value.add(onVal.products[i]);
-//            }
-//            break;
-//          }
-//        case FilterType.SECOND_GRADE:
-//          {
-//            for (int i = 0; i < onVal.products.length; i++) {
-//              if (onVal.products[i].grade.id == 2)
-//                productList.value.add(onVal.products[i]);
-//            }
-//            break;
-//          }
-//        case FilterType.THIRD_GRADE:
-//          {
-//            for (int i = 0; i < onVal.products.length; i++) {
-//              if (onVal.products[i].grade.id == 3)
-//                productList.value.add(onVal.products[i]);
-//            }
-//            break;
-//          }
-//      }
-//    });
-//  }
-
 }
 
 final bloc = SingletonBloc();

@@ -1,4 +1,3 @@
-
 class ProductList {
   final List<ProductsModel> products;
 
@@ -7,16 +6,12 @@ class ProductList {
   });
 
   factory ProductList.fromJson(List<dynamic> parsedJson) {
-
     List<ProductsModel> products = new List<ProductsModel>();
-    products = parsedJson.map((i)=>ProductsModel.fromJson(i)).toList();
+    products = parsedJson.map((i) => ProductsModel.fromJson(i)).toList();
 
-    return new ProductList(
-        products: products
-    );
+    return new ProductList(products: products);
   }
 }
-
 
 class ProductsModel {
   int _id;

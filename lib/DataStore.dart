@@ -1,8 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-class DataStore{
-
+class DataStore {
   static Future<bool> setGender(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -14,5 +12,4 @@ class DataStore{
 //      print("lang is "+   prefs.getString(_kLanguageCode)) ;
     return prefs.getString('Gender') ?? '';
   }
-
 }

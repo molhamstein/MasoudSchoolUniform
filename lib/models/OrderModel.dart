@@ -8,11 +8,11 @@ class OrderModel {
 
   OrderModel(
       {int id,
-        List<Products> products,
-        String deliveryAddress,
-        double deliveryLat,
-        double devliveryLng,
-        String center}) {
+      List<Products> products,
+      String deliveryAddress,
+      double deliveryLat,
+      double devliveryLng,
+      String center}) {
     this._id = id;
     this._products = products;
     this._deliveryAddress = deliveryAddress;
@@ -22,17 +22,28 @@ class OrderModel {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   List<Products> get products => _products;
+
   set products(List<Products> products) => _products = products;
+
   String get deliveryAddress => _deliveryAddress;
+
   set deliveryAddress(String deliveryAddress) =>
       _deliveryAddress = deliveryAddress;
+
   double get deliveryLat => _deliveryLat;
+
   set deliveryLat(double deliveryLat) => _deliveryLat = deliveryLat;
+
   double get devliveryLng => _devliveryLng;
+
   set devliveryLng(double devliveryLng) => _devliveryLng = devliveryLng;
+
   String get center => _center;
+
   set center(String center) => _center = center;
 
   OrderModel.fromJson(Map<String, dynamic> json) {
@@ -75,10 +86,15 @@ class Products {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   int get count => _count;
+
   set count(int count) => _count = count;
+
   int get product => _product;
+
   set product(int product) => _product = product;
 
   Products.fromJson(Map<String, dynamic> json) {

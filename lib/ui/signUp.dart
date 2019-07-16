@@ -8,8 +8,6 @@ import '../AlmasaoodColors.dart';
 import 'Home.dart';
 
 class SignUp extends StatefulWidget {
-
-
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -210,8 +208,8 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                                 color: AlmasaoodColors.darkBlue,
                                 textColor: AlmasaoodColors.white,
                                 onPressed: () {
-                                  bloc.f_signUp( "first", "last",
-                                      "email@email.com");
+                                  bloc.f_signUp(
+                                      "first", "last", "email@email.com");
 
 //                            Navigator.push(
 //                              context,
