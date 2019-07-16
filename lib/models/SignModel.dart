@@ -14,13 +14,13 @@ class SignInModel {
 
   SignInModel.fromJson(Map<String, dynamic> json) {
     _message = json['message'];
-    _created = json['created'];
+    _created = json['verified'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this._message;
-    data['created'] = this._created;
+    data['verified'] = this._created;
     return data;
   }
 }

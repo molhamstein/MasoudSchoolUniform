@@ -35,6 +35,9 @@ dependencies:
   auto_size_text: ^2.0.2
   rxdart: ^0.22.0
   http: ^0.12.0+2
+  shared_preferences: ^0.5.3+4
+
+
 
 
 

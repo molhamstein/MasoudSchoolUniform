@@ -30,7 +30,7 @@ class ProductsModel {
   String _gender;
   String _status;
   String _createdAt;
-  Image _image;
+  Images _image;
   Grade _grade;
 
   ProductsModel(
@@ -45,7 +45,7 @@ class ProductsModel {
       String gender,
       String status,
       String createdAt,
-      Image image,
+      Images image,
       Grade grade}) {
     this._id = id;
     this._products = products;
@@ -106,9 +106,9 @@ class ProductsModel {
 
   set createdAt(String createdAt) => _createdAt = createdAt;
 
-  Image get image => _image;
+  Images get image => _image;
 
-  set image(Image image) => _image = image;
+  set image(Images image) => _image = image;
 
   Grade get grade => _grade;
 
@@ -131,7 +131,7 @@ class ProductsModel {
     _gender = json['gender'];
     _status = json['status'];
     _createdAt = json['createdAt'];
-    _image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+    _image = json['image'] != null ? new Images.fromJson(json['image']) : null;
     _grade = json['grade'] != null ? new Grade.fromJson(json['grade']) : null;
   }
 
@@ -381,12 +381,12 @@ class AbstractProduct {
   }
 }
 
-class Image {
+class Images {
   int _id;
   String _file;
   String _createdAt;
 
-  Image({int id, String file, String createdAt}) {
+  Images({int id, String file, String createdAt}) {
     this._id = id;
     this._file = file;
     this._createdAt = createdAt;
@@ -404,7 +404,7 @@ class Image {
 
   set createdAt(String createdAt) => _createdAt = createdAt;
 
-  Image.fromJson(Map<String, dynamic> json) {
+  Images.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _file = json['file'];
     _createdAt = json['createdAt'];

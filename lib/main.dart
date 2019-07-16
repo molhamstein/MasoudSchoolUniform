@@ -9,6 +9,9 @@
 //  }
 //}
 
+import 'package:almasaood_app/ui/Home.dart';
+import 'package:almasaood_app/ui/LastStep.dart';
+import 'package:almasaood_app/ui/Settings.dart';
 import 'package:almasaood_app/ui/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -38,7 +41,7 @@ class MyApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home: SplashScreen(),
+      home: Home(),
     );
   }
 }

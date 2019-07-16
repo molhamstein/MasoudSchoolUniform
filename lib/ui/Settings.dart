@@ -16,26 +16,38 @@ class _SettingsState extends State<Settings> {
         iconTheme: IconThemeData(color: AlmasaoodColors.textDark),
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: AlmasaoodColors.pink,
-          image: DecorationImage(
-              image: ExactAssetImage(
-                "assets/images/bg_MeasureTape.png",
-              ),
-              alignment: FractionalOffset.topRight),
+          color: AlmasaoodColors.textLight,
         ),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Image.asset("assets/images/logo.png"),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Text("Some Slogan about the service"),
-                      Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: AlmasaoodColors.pink,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/images/logo.png",
+                      height: 150,
+                      width: 150,
+                    ),
+                  )),
+              Container(
+                color: AlmasaoodColors.textLight,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top:32.0,bottom: 64),
+                      child: Text("Some Slogan about the service"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32.0, right: 32,bottom: 16),
+                      child: Column(
                         children: <Widget>[
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text("Contact us"),
                               Icon(Icons.arrow_forward_ios)
@@ -44,9 +56,13 @@ class _SettingsState extends State<Settings> {
                           Divider()
                         ],
                       ),
-                      Column(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 32.0, right: 32),
+                      child: Column(
                         children: <Widget>[
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text("Terms of service"),
                               Icon(Icons.arrow_forward_ios)
@@ -55,13 +71,16 @@ class _SettingsState extends State<Settings> {
                           Divider()
                         ],
                       ),
-                      Text("Log out")
-                    ],
-                  ),
-                )
-              ],
-            )
-          ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top:64.0,bottom: 32),
+                      child: Text("Log out",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
