@@ -68,9 +68,8 @@ class ApiProvider {
     }
   }
 
-  Future<OrderModel> createOrder(deliveryAddress, delieveryLat ,delieveryLng,List<Map <String, int>>array) async {
-
-
+  Future<OrderModel> createOrder(deliveryAddress, delieveryLat, delieveryLng,
+      List<Map<String, int>> array) async {
     _headers['Authorization'] =
         "Bearer 5d301f006c60ce9037f171765faa0c36102b77fe";
     print(ordersURL);
@@ -90,8 +89,6 @@ class ApiProvider {
       return OrderModel.fromJson(json.decode(response.body));
     } else {
       print(response.body);
-
-//      return OrderModel.fromJson(json.decode(response.body));
       throw json.decode(response.body);
     }
   }

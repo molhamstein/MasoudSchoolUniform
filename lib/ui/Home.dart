@@ -1,6 +1,7 @@
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/gradesModel.dart';
+import 'package:almasaood_app/models/productDetailsModel.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -19,11 +20,10 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-//    bloc.getProductList(FilterType.ALL);
-//    apiProvider.createOrder();
-    bloc.createOrder();
-//    bloc.f_grades();
-//    bloc.f_getProducts(-1);
+
+//    bloc.createOrder();
+    bloc.f_grades();
+    bloc.f_getProducts(-1);
   }
 
   @override
@@ -55,6 +55,7 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             InkWell(
                               onTap: () {
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -120,7 +121,6 @@ class _HomeState extends State<Home> {
                             stream: bloc.gradesStream,
                             builder: (context, snapshot) {
                               if (snapshot.hasData && snapshot.data != null) {
-                                print(snapshot.data.length);
 
                                 return ListView.builder(
                                     scrollDirection: Axis.horizontal,
@@ -196,23 +196,25 @@ class _HomeState extends State<Home> {
                     stream: bloc.productsStream,
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data != null) {
-                        print(snapshot.data.length);
 
                         return SliverGrid(
                             delegate:
                                 SliverChildBuilderDelegate((context, index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: InkWell(onTap: (){
-                                  bloc.f_productDetails(snapshot.data[index]);
+                                child: InkWell(
+                                    onTap: () {
+                                      bloc.f_productDetails(
+                                          snapshot.data[index]);
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProductDetails()),
-                                  );
-
-                                },child: ProductCard(snapshot.data[index])),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetails()),
+                                      );
+                                    },
+                                    child: ProductCard(snapshot.data[index])),
                               );
                             }, childCount: snapshot.data.length),
                             gridDelegate:
@@ -335,22 +337,22 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             Text(
                               "AED",
-                              style: TextStyle(color: AlmasaoodColors.white,fontSize: 12),
+                              style: TextStyle(
+                                  color: AlmasaoodColors.white, fontSize: 12),
                             ),
                             SizedBox(
                               width: 3,
                             ),
-
                             SizedBox(
                                 width: 30,
                                 child: AutoSizeText(
                                   data.price,
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w700,color: AlmasaoodColors.white,
+                                      fontWeight: FontWeight.w700,
+                                      color: AlmasaoodColors.white,
                                       fontSize: 32),
                                   maxLines: 1,
                                 )),
-
                           ],
                         ),
                       ),
