@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
 import 'Cart.dart';
+import 'ProductDetails.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,15 +14,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> s = ["All", "First Grade", "Secondary", "KG"];
+//  List<String> s = ["All", "First Grade", "Secondary", "KG"];
   List<bool> checkedList = new List();
 
   @override
   void initState() {
 //    bloc.getProductList(FilterType.ALL);
 //    apiProvider.createOrder();
-    bloc.f_getProducts(-1);
     bloc.f_grades();
+    bloc.f_getProducts(-1);
   }
 
   @override
@@ -119,63 +120,72 @@ class _HomeState extends State<Home> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData && snapshot.data != null) {
                                 print(snapshot.data.length);
-                              }
-                              return ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: s.length,
-                                  itemBuilder: (context, index) {
-                                    for (int i = 0; i < s.length; i++)
-                                      checkedList.add(false);
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, right: 8),
-                                      child: Row(
-                                        children: <Widget>[
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            child: InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  for (int i = 0;
-                                                      i < s.length;
-                                                      i++) {
-                                                    checkedList[i] = (false);
-                                                    checkedList[index] = true;
-                                                  }
-                                                });
-                                              },
-                                              child: Container(
-                                                color: checkedList[index] ==
-                                                        false
-                                                    ? AlmasaoodColors.darkBlue
-                                                    : AlmasaoodColors.white,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 24.0,
-                                                          right: 24,
-                                                          top: 8,
-                                                          bottom: 8),
-                                                  child: Text(
-                                                    s[index],
-                                                    style: TextStyle(
-                                                        color: checkedList[
-                                                                    index] ==
-                                                                false
-                                                            ? AlmasaoodColors
-                                                                .white
-                                                            : AlmasaoodColors
-                                                                .lightBlue),
+
+                                return ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (context, index) {
+                                      for (int i = 0;
+                                          i < snapshot.data.length;
+                                          i++) checkedList.add(false);
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 8),
+                                        child: Row(
+                                          children: <Widget>[
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    for (int i = 0;
+                                                        i <
+                                                            snapshot
+                                                                .data.length;
+                                                        i++) {
+                                                      checkedList[i] = (false);
+                                                      checkedList[index] = true;
+                                                    }
+                                                    bloc.f_getProducts(snapshot
+                                                        .data[index].id);
+                                                  });
+                                                },
+                                                child: Container(
+                                                  color: checkedList[index] ==
+                                                          false
+                                                      ? AlmasaoodColors.darkBlue
+                                                      : AlmasaoodColors.white,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 24.0,
+                                                            right: 24,
+                                                            top: 8,
+                                                            bottom: 8),
+                                                    child: Text(
+                                                      snapshot
+                                                          .data[index].nameEn,
+                                                      style: TextStyle(
+                                                          color: checkedList[
+                                                                      index] ==
+                                                                  false
+                                                              ? AlmasaoodColors
+                                                                  .white
+                                                              : AlmasaoodColors
+                                                                  .lightBlue),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  });
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              } else {
+                                return Container();
+                              }
                             }),
                       )
                     ]);
@@ -186,20 +196,42 @@ class _HomeState extends State<Home> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data != null) {
                         print(snapshot.data.length);
-                      }
 
-                      return SliverGrid(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ProductCard(),
-                            );
-                          }, childCount: 5),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  childAspectRatio: (itemWidth / itemHeight),
-                                  crossAxisCount: 2));
+                        return SliverGrid(
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(onTap: (){
+                                  bloc.f_productDetails(snapshot.data[index]);
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductDetails()),
+                                  );
+
+                                },child: ProductCard(snapshot.data[index])),
+                              );
+                            }, childCount: snapshot.data.length),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    childAspectRatio: (itemWidth / itemHeight),
+                                    crossAxisCount: 2));
+                      } else {
+                        return SliverGrid(
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(),
+                              );
+                            }, childCount: 0),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    childAspectRatio: (itemWidth / itemHeight),
+                                    crossAxisCount: 2));
+                      }
                     })
               ],
             )
@@ -225,7 +257,7 @@ class _HomeState extends State<Home> {
             ));
   }
 
-  Widget ProductCard() {
+  Widget ProductCard(ProductsModel data) {
     return Stack(
       children: <Widget>[
         ClipRRect(
@@ -240,15 +272,21 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
-                  child: Image.asset(
-                    "assets/images/child.png",
-                    height: 100,
-                    width: 100,
-                  ),
+                  child: data.image != null
+                      ? Image.network(
+                          data.image.file,
+                          height: 100,
+                          width: 100,
+                        )
+                      : Image.asset(
+                          "assets/images/child.png",
+                          height: 100,
+                          width: 100,
+                        ),
                 ),
                 Padding(
                     padding: const EdgeInsets.only(top: 8.0, bottom: 15),
-                    child: Text("T-Shirt",
+                    child: Text(data.nameEn,
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: AlmasaoodColors.text))),
@@ -263,7 +301,7 @@ class _HomeState extends State<Home> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 8.0, right: 8),
                             child: Text(
-                              "KG-1",
+                              data.grade.nameEn,
                               style: TextStyle(color: AlmasaoodColors.white),
                             ),
                           ),
@@ -296,16 +334,22 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             Text(
                               "AED",
-                              style: TextStyle(color: AlmasaoodColors.white),
+                              style: TextStyle(color: AlmasaoodColors.white,fontSize: 12),
                             ),
                             SizedBox(
                               width: 3,
                             ),
-                            Text("200",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: AlmasaoodColors.white))
+
+                            SizedBox(
+                                width: 30,
+                                child: AutoSizeText(
+                                  data.price,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,color: AlmasaoodColors.white,
+                                      fontSize: 32),
+                                  maxLines: 1,
+                                )),
+
                           ],
                         ),
                       ),

@@ -37,6 +37,20 @@ class SingletonBloc {
 
   get productsStream => _productsController.stream;
 
+  final _productInfoController = BehaviorSubject<ProductsModel>();
+
+  get productInfoStream => _productInfoController.stream;
+
+  final _productSizeController = BehaviorSubject<List<Size>>();
+
+  get productSizeStream => _productSizeController.stream;
+
+
+
+  final _myCartController = BehaviorSubject<List<Size>>();
+
+  get myCartStream => _myCartController.stream;
+
   final String token = "8398556d0d07527e60f9c18f0164e2656c74cf4b";
 
 ////////////////////////////////
@@ -91,11 +105,26 @@ class SingletonBloc {
   }
 
   f_grades() {
+    GradesModel all = new GradesModel(id: -1, nameEn: "All");
+    List<GradesModel> list = [all];
     apiProvider
         .getGrades("Bearer 5d301f006c60ce9037f171765faa0c36102b77fe")
         .then((valGrad) {
-      _gradesController.sink.add(valGrad.grades);
+      for (int i = 0; i < valGrad.grades.length; i++) {
+        list.add(valGrad.grades[i]);
+        _gradesController.sink.add(list);
+      }
     });
+  }
+
+  f_productDetails(ProductsModel productItem) {
+    _productInfoController.sink.add(productItem);
+    _productSizeController.sink.add(null);
+    List<Size> sizeList = new List();
+    for (int i = 0; i < productItem.products.length; i++) {
+      sizeList.add(productItem.products[i].size);
+      _productSizeController.sink.add(sizeList);
+    }
   }
 }
 
