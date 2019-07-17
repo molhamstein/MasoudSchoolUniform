@@ -21,8 +21,9 @@ class _HomeState extends State<Home> {
   void initState() {
 //    bloc.getProductList(FilterType.ALL);
 //    apiProvider.createOrder();
-    bloc.f_grades();
-    bloc.f_getProducts(-1);
+    bloc.createOrder();
+//    bloc.f_grades();
+//    bloc.f_getProducts(-1);
   }
 
   @override

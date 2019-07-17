@@ -126,6 +126,48 @@ class SingletonBloc {
       _productSizeController.sink.add(sizeList);
     }
   }
+
+
+
+
+  createOrder(){
+    List<Map <String,int>>m  = new List();
+    List<K> k =  new List();
+    k.add(K(1,1));
+    k.add(K(2,2));
+    k.add(K(3,3));
+
+//    Map<String,int> map = new Map();
+
+    for(int i  =0 ;i < k.length ; i++){
+//      print("length i " + k.length.toString());
+//      print(k[i].count);
+//      print(k[i].proudct);
+    Map<String, int> ff = new Map();
+      ff['product'] = k[i].proudct ;
+      ff['count'] = k[i].count ;
+      m.add(ff);
+
+
+
+//      m.add();
+
+    }
+    print(m.toString());
+
+//    m[0].['product'] = 1 ;
+//    m[0]['count'] = 22 ;
+
+    apiProvider.createOrder("","","",m ).then((val){});
+  }
+
 }
 
 final bloc = SingletonBloc();
+class K {
+  int proudct ;
+  int count ;
+
+  K(this.proudct, this.count);
+
+}

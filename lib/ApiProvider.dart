@@ -68,18 +68,18 @@ class ApiProvider {
     }
   }
 
-  Future<OrderModel> createOrder() async {
+  Future<OrderModel> createOrder(deliveryAddress, delieveryLat ,delieveryLng,List<Map <String, int>>array) async {
+
+
     _headers['Authorization'] =
         "Bearer 5d301f006c60ce9037f171765faa0c36102b77fe";
     print(ordersURL);
+
     final body = json.encode({
       "deliveryAddress": "mazzeh 1 ",
       "delieveryLat": 20,
       "delieveryLng": 30,
-      "products": [
-        {"product": 1, "count": 12},
-        {"product": 2, "count": 24}
-      ]
+      "products": array
     });
     print(body);
 
