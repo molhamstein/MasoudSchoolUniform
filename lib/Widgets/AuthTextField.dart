@@ -6,9 +6,10 @@ class AuthTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final Function onChange;
   final String hint;
+  final TextInputType type ;
 
   AuthTextField(
-      {@required this.textEditingController, this.onChange, this.hint});
+      {@required this.textEditingController, this.onChange, this.hint , this.type = TextInputType.number});
 
   @override
   _AuthTextFieldState createState() => _AuthTextFieldState();
@@ -22,7 +23,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: widget.onChange,
+      onChanged: widget.onChange,keyboardType: widget.type,
       controller: widget.textEditingController,
       decoration: InputDecoration(
         border: InputBorder.none,

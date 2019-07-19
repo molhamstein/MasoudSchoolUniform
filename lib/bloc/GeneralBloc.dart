@@ -38,6 +38,10 @@ class SingletonBloc {
 
   get productsStream => _productsController.stream;
 
+
+
+
+
   final _productInfoController = BehaviorSubject<ProductsModel>();
 
   get productInfoStream => _productInfoController.stream;
@@ -54,10 +58,12 @@ class SingletonBloc {
 
   get cartStream => _cartController.stream;
 
+  final _productsPriceController = BehaviorSubject<double>();
 
-  final _productPriceController = BehaviorSubject<double>();
+  get productPriceStream => _productsPriceController.stream;
 
-  get productPriceStream => _productPriceController.stream;
+  get pushEstimationCost => _productsPriceController.sink
+      .add(f_estimatedPrice(true));
 
 
 
@@ -157,10 +163,9 @@ class SingletonBloc {
 
   List<ProductDetailsModel> cartItems = new List();
 
-
   f_addToCart(ProductDetailsModel orderData) {
-    print("order id out side "+orderData.id.toString());
-    int count =0 ;
+    print("order id out side " + orderData.id.toString());
+    int count = 0;
 
     if (cartItems.isNotEmpty) {
       for (int i = 0; i < cartItems.length; i++) {
@@ -168,12 +173,12 @@ class SingletonBloc {
         print("order is " + orderData.id.toString());
         print("cartItems " + cartItems[i].id.toString());
         if (orderData.id == cartItems[i].id) {
-        count += 1;
+          count += 1;
           print("added inside");
         }
       }
 
-      if(count == 0){
+      if (count == 0) {
         cartItems.add(orderData);
         _cartController.sink.add(cartItems);
       }
@@ -182,35 +187,33 @@ class SingletonBloc {
       _cartController.sink.add(cartItems);
     }
     print("list length" + cartItems.length.toString());
-
   }
 
-//  f_addToCart(ProductDetailsModel orderData) {
-//    print("order is " + orderData.id.toString());
-//    print("cartItems " + cartItems[0].id.toString());
-//
-//    if (cartItems.isNotEmpty) {
-//      for (int i = 0; i < cartItems.length; i++) {
-//        print("order is " + orderData.id.toString());
-//        print("cartItems " + cartItems[i].id.toString());
-//        if (orderData.id != cartItems[i].id) {
-//          cartItems.add(orderData);
-//          print("added inside");
-//        }
-//      }
-//    }
-//    else{
-//      print("added outside");
-//      cartItems.add(orderData);
-//
-//      print("list length" + cartItems.length.toString());
-//      _cartController.sink.add(cartItems);
-//    }}
+  f_removeItemFromCart(int count, int index) {
+    double price = double.parse(cartItems[index].price);
+    if (count == 1) {
+      cartItems.removeAt(index);
+      _cartController.sink.add(cartItems);
+    } else {
+      cartItems[index].count -= 1;
+      price /= 2;
+      cartItems[index].price = price.toString();
+      _cartController.sink.add(cartItems);
 
-  f_removeItemFromCart() {
-    cartItems.removeAt(0);
-    print(cartItems.length);
+      print(cartItems[index].count);
+    }
+  }
+
+  f_IncreaseOrderCount(int index) {
+
+
+    double price = double.parse(cartItems[index].price);
+    cartItems[index].count += 1;
+    price *= 2;
+    cartItems[index].price = price.toString();
     _cartController.sink.add(cartItems);
+    pushEstimationCost();
+
   }
 
   int f_getProductId(ProductsModel product, int sizeId) {
@@ -221,6 +224,16 @@ class SingletonBloc {
         return product.products[i].id;
       }
     }
+  }
+
+  double f_estimatedPrice(bool withDelivery) {
+    double price = 0;
+    for (int i = 0; i < cartItems.length; i++) {
+      price += double.parse(cartItems[i].price);
+      _productsPriceController.sink.add(price);
+    }
+
+    return price;
   }
 }
 

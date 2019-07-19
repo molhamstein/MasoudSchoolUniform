@@ -155,7 +155,7 @@ class _HomeState extends State<Home> {
                                                 child: Container(
                                                   color: checkedList[index] ==
                                                           false
-                                                      ? AlmasaoodColors.darkBlue
+                                                      ? AlmasaoodColors.primaryColor
                                                       : AlmasaoodColors.white,
                                                   child: Padding(
                                                     padding:
@@ -300,7 +300,7 @@ class _HomeState extends State<Home> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(25),
                         child: Container(
-                          color: AlmasaoodColors.darkBlue,
+                          color: AlmasaoodColors.primaryColor,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 8.0, right: 8),
                             child: Text(
@@ -346,7 +346,7 @@ class _HomeState extends State<Home> {
                             SizedBox(
                                 width: 30,
                                 child: AutoSizeText(
-                                  data.price,
+                                  data.getPrice(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       color: AlmasaoodColors.white,

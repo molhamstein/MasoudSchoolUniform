@@ -11,7 +11,7 @@ import 'models/VerifyModel.dart';
 import 'models/gradesModel.dart';
 
 class ApiProvider {
-  static String baseURL = "http://104.217.253.15:3034/api/v1/";
+  static String baseURL = "http://104.217.253.15:3434/api/v1/";
   static String signInURL = baseURL + "mobile-auth/login/";
   static String verifyURL = baseURL + "mobile-auth/verify/";
   static String productsURL = baseURL + "abstract-products/";

@@ -12,7 +12,7 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AlmasaoodColors.darkBlue,
+        backgroundColor: AlmasaoodColors.primaryColor,
         iconTheme: IconThemeData(color: AlmasaoodColors.textDark),
       ),
       body: Container(

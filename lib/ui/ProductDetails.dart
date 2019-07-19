@@ -74,7 +74,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                               CrossAxisAlignment.end,
                                           children: <Widget>[
                                             Text(
-                                              snapshot.data.price,
+                                              "900",
                                               style: TextStyle(
                                                   fontSize: 30,
                                                   fontWeight: FontWeight.bold),
@@ -103,7 +103,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                           borderRadius:
                                               BorderRadius.circular(5),
                                           child: Container(
-                                            color: AlmasaoodColors.darkBlue,
+                                            color: AlmasaoodColors.primaryColor,
                                             child: Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 24.0,
@@ -176,7 +176,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: Row(
                               children: <Widget>[
                                 Container(
-                                  color: AlmasaoodColors.darkBlue,
+                                  color: AlmasaoodColors.primaryColor,
                                   width: MediaQuery.of(context).size.width / 2,
                                   height: 2,
                                   child: Divider(),
@@ -210,7 +210,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               children: <Widget>[
                                 Container(
                                   width: MediaQuery.of(context).size.width / 2,
-                                  color: AlmasaoodColors.darkBlue,
+                                  color: AlmasaoodColors.primaryColor,
                                   height: 2,
                                   child: Divider(),
                                 ),
@@ -243,7 +243,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                 lineWidth: 3.5,
                                                 percent: 1,
                                                 progressColor:
-                                                    AlmasaoodColors.darkBlue,
+                                                    AlmasaoodColors.primaryColor,
                                                 center: Text(
                                                   snapshot.data[index].code,
                                                   style: TextStyle(
@@ -267,13 +267,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: MainButton(
                               onPressed: () {
 
-                                bloc.f_addToCart(new ProductDetailsModel(bloc.f_getProductId(snapshot.data ,sizeItem.id),Images(file: snapshot.data.image== null ? "" :snapshot.data.image.file ),snapshot.data.nameEn,snapshot.data.nameAr,snapshot.data.price,Grade(nameEn: snapshot.data.grade.nameEn,nameAr: snapshot.data.grade.nameAr),snapshot.data.gender,Size(code: sizeItem.code),1));
+                                bloc.f_addToCart(new ProductDetailsModel(bloc.f_getProductId(snapshot.data ,sizeItem.id),Images(file: snapshot.data.image== null ? "" :snapshot.data.image.file ),snapshot.data.nameEn,snapshot.data.nameAr,snapshot.data.getPrice(),Grade(nameEn: snapshot.data.grade.nameEn,nameAr: snapshot.data.grade.nameAr),snapshot.data.gender,Size(code: sizeItem.code),1));
 //                                bloc.f_getProductId(snapshot.data ,sizeId);
 
                               },
                               text: "Add To Cart",
                               textColor: AlmasaoodColors.white,
-                              color: AlmasaoodColors.darkBlue,
+                              color: AlmasaoodColors.primaryColor,
                             ),
                           )
                         ],

@@ -9,7 +9,11 @@
 //  }
 //}
 
+import 'package:almasaood_app/ui/CheckNumber.dart';
 import 'package:almasaood_app/ui/Home.dart';
+import 'package:almasaood_app/ui/SplashScreen.dart';
+import 'package:almasaood_app/ui/VerificationCode.dart';
+import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home: Home(),
+      home: CheckNumber(),
     );
   }
 }

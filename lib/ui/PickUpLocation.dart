@@ -188,7 +188,7 @@ class PickUpLocationState extends State<PickUpLocation> {
                         });
                       },
                       width: MediaQuery.of(context).size.width - 64,
-                      color: AlmasaoodColors.darkBlue,
+                      color: AlmasaoodColors.primaryColor,
                       textColor: AlmasaoodColors.white,
                     ),
                   ],

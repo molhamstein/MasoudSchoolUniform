@@ -13,7 +13,7 @@ class _LastStepState extends State<LastStep> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: AlmasaoodColors.darkBlue,
+        color: AlmasaoodColors.primaryColor,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -45,7 +45,7 @@ class _LastStepState extends State<LastStep> {
                 onPressed: () {},
                 text: "Back to home",
                 textColor: AlmasaoodColors.white,
-                color: AlmasaoodColors.darkBlue,
+                color: AlmasaoodColors.primaryColor,
                 width: 200,
                 height: 40,
               ),
