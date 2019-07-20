@@ -7,6 +7,7 @@ class AlmasaoodColors {
   static const white = Color(0xFFffffff);
   static const black = Color(0xFF000000);
   static const primaryColor= Color(0xFF61b5ca);//to 0xFF61b5ca //primary
+  static const secondary= Color(0xFF002D42);//to 0xFF61b5ca //primary
   static const lightBlue = Color(0xFFafcbff);
   static const textDark = Color(0xFF3f4547);
   static const text = Color(0xFF949292);

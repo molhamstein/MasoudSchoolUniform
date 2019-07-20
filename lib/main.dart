@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
 
         return supportedLocales.first;
       },
-      home: CheckNumber(),
+      home: Home(),
     );
   }
 }

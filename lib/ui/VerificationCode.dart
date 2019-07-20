@@ -91,10 +91,9 @@ class _VerificationCodeState extends State<VerificationCode>
                       child: Stack(
                         children: <Widget>[
 
-                          Container(
-                            height: MediaQuery.of(context).size.height,
+                          Container(height: MediaQuery.of(context).size.height,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,mainAxisSize: MainAxisSize.max,
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:

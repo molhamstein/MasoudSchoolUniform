@@ -70,9 +70,8 @@ flutter:
     - assets/lang/en.json
     - assets/lang/ar.json
     - assets/images/
-    - assets/images/sce_gary.png
-    - assets/images/sce_gray2.png
-    -
+
+
 #    - assets/images/logo.png
 #    - assets/images/logo_white.png
 #    - assets/images/phoneIcon.png

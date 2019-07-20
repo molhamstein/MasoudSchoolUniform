@@ -197,7 +197,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                                             ),
                                           ],
                                         ),
-                                        child: AuthTextField(
+                                        child: AuthTextField(type: TextInputType.text,
                                           textEditingController:
                                               firstNameController,
                                           hint: "First name",
@@ -224,7 +224,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                                             ),
                                           ],
                                         ),
-                                        child: AuthTextField(
+                                        child: AuthTextField(type: TextInputType.text,
                                           textEditingController: lastNameController,
                                           hint: "Last name",
                                         ))),
