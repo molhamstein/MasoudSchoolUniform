@@ -39,6 +39,24 @@ class _HomeState extends State<Home> {
     }
     final double itemWidth = size.width;
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AlmasaoodColors.pink,
+          elevation: 0,
+          actions: <Widget>[
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Cart()),
+                );
+              },
+              child: Image.asset(
+                "assets/images/ic_cart.png",
+                scale: 1.5,
+              ),
+            ),
+          ],
+        ),
         body: Container(
             decoration: BoxDecoration(
               color: AlmasaoodColors.pink,
@@ -70,30 +88,6 @@ class _HomeState extends State<Home> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         return Column(children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 32.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Cart()),
-                                    );
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/ic_cart.png",
-                                    scale: 1.5,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                )
-                              ],
-                            ),
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
@@ -397,32 +391,43 @@ class _HomeState extends State<Home> {
                         color: AlmasaoodColors.lightBlue,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text(
-                                "AED",
-                                style: TextStyle(
-                                    color: AlmasaoodColors.white, fontSize: 12),
+                          child: DashedContainer(
+                            blankLength: 10,
+                            dashColor: AlmasaoodColors.white,
+                            borderRadius: 2,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 4.0, right: 4),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    "AED",
+                                    style: TextStyle(
+                                        color: AlmasaoodColors.white,
+                                        fontSize: 12),
+                                  ),
+                                  SizedBox(
+                                    width: 3,
+                                  ),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width <
+                                              330
+                                          ? 30
+                                          : 50,
+                                      child: Center(
+                                        child: AutoSizeText(
+                                          data.getPrice(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: AlmasaoodColors.white,
+                                              fontSize: 32),
+                                          maxLines: 1,
+                                        ),
+                                      )),
+                                ],
                               ),
-                              SizedBox(
-                                width: 3,
-                              ),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width < 330
-                                      ? 30
-                                      : 50,
-                                  child: Center(
-                                    child: AutoSizeText(
-                                      data.getPrice(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: AlmasaoodColors.white,
-                                          fontSize: 32),
-                                      maxLines: 1,
-                                    ),
-                                  )),
-                            ],
+                            ),
                           ),
                         ),
                       ),

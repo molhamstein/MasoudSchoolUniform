@@ -14,278 +14,514 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   Size sizeItem = new Size();
+  List<bool> checkedList = new List();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AlmasaoodColors.pink,
+          elevation: 0,
+          iconTheme: IconThemeData(color: AlmasaoodColors.textDark),
+        ),
         body: Container(
-      color: AlmasaoodColors.pink,
-      height: MediaQuery.of(context).size.height,
-      child: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: ExactAssetImage(
-                  "assets/images/bg_MeasureTape.png",
-                ),
-                alignment: FractionalOffset.topRight),
-          ),
-          child: StreamBuilder<ProductsModel>(
-              stream: bloc.productInfoStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data != null) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(top: 80.0, left: 16, right: 16),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 32,
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                width: (MediaQuery.of(context).size.width / 3) *
-                                        2 -
-                                    16,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      snapshot.data.nameEn,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22),
-                                    ),
-//                                Text(
-//                                  "TROUSER/SHORT",
-//                                  style: TextStyle(
-//                                      fontWeight: FontWeight.bold, fontSize: 22),
-//                                ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
+          color: AlmasaoodColors.pink,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Container(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Stack(children: <Widget>[
+                              Transform.rotate(
+                                angle: 5.8,
+                                child: Image.asset(
+                                  "assets/images/sce_gary.png",
+                                  height: MediaQuery.of(context).size.width / 4,
+                                  width: MediaQuery.of(context).size.width / 4,
+                                ),
+                              ),
+                              Image.asset(
+                                "assets/images/sce_gray2.png",
+                                height: MediaQuery.of(context).size.width / 4,
+                                width: MediaQuery.of(context).size.width / 4,
+                              )
+                            ])
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  StreamBuilder<ProductsModel>(
+                      stream: bloc.productInfoStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData && snapshot.data != null) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 16, right: 16),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width - 32,
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        width:
+                                            (MediaQuery.of(context).size.width /
+                                                        3) *
+                                                    2 -
+                                                16,
+                                        child: Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.end,
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              "900",
-                                              style: TextStyle(
-                                                  fontSize: 30,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              "AED",
+                                              snapshot.data.nameEn,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16),
+                                                  fontSize: 22),
+                                            ),
+//
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: <Widget>[
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      snapshot.data.getPrice(),
+                                                      style: TextStyle(
+                                                          fontSize: 30,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      "AED",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize: 16,
+                                                          color: AlmasaoodColors
+                                                              .text),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 15,
+                                                )
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 8.0),
+                                              child: Text(
+                                                "Type",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 16,
+                                                    color:
+                                                        AlmasaoodColors.text),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    boxShadow: <BoxShadow>[
+                                                      BoxShadow(
+                                                        color: AlmasaoodColors
+                                                            .primaryColor,
+                                                        blurRadius: 15.0,
+                                                        offset: Offset(0, 11),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    child: Container(
+                                                      color: AlmasaoodColors
+                                                          .primaryColor,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 16.0,
+                                                                right: 16,
+                                                                top: 5,
+                                                                bottom: 5),
+                                                        child: Text(
+                                                          snapshot.data.grade
+                                                              .nameEn,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  AlmasaoodColors
+                                                                      .white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    boxShadow: <BoxShadow>[
+                                                      BoxShadow(
+                                                        color: AlmasaoodColors
+                                                            .primaryColor,
+                                                        blurRadius: 15.0,
+                                                        offset: Offset(0, 11),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    child: Container(
+                                                      color: AlmasaoodColors
+                                                          .lightBlue,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 16.0,
+                                                                right: 16,
+                                                                top: 5,
+                                                                bottom: 5),
+                                                        child: Text(
+                                                          snapshot.data.gender,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  AlmasaoodColors
+                                                                      .black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             )
                                           ],
                                         ),
-                                        SizedBox(
-                                          width: 15,
-                                        )
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 8.0),
-                                      child: Text("Type"),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          child: Container(
-                                            color: AlmasaoodColors.primaryColor,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 24.0,
-                                                  right: 24,
-                                                  top: 8,
-                                                  bottom: 8),
-                                              child: Text(
-                                                snapshot.data.grade.nameEn,
-                                                style: TextStyle(
-                                                    color:
-                                                        AlmasaoodColors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          child: Container(
-                                            color: AlmasaoodColors.lightBlue,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 16.0,
-                                                  right: 16,
-                                                  top: 8,
-                                                  bottom: 8),
-                                              child: Text(
-                                                snapshot.data.gender,
-                                                style: TextStyle(
-                                                    color:
-                                                        AlmasaoodColors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width:
-                                    MediaQuery.of(context).size.width / 3 - 16,
-                                child: Column(
-                                  children: <Widget>[
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                    3 -
+                                                16,
+                                        child: Column(
+                                          children: <Widget>[
 //                                  Image.network(""),
 
-                                    Image.asset(
-                                      "assets/images/child.png",
-                                      height: 200,
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Text(
-                              "Description",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  color: AlmasaoodColors.primaryColor,
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  height: 2,
-                                  child: Divider(),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16.0),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                    child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  child: Text(snapshot.data.descriptionEn),
-                                )),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Text("Choose Size"),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  color: AlmasaoodColors.primaryColor,
-                                  height: 2,
-                                  child: Divider(),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 80,
-                            child: StreamBuilder<List<Size>>(
-                                stream: bloc.productSizeStream,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData &&
-                                      snapshot.data != null) {
-                                    print("lenght is  : " +
-                                        snapshot.data.length.toString());
-
-                                    return ListView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: snapshot.data.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0, right: 8),
-                                            child: InkWell(onTap: (){
-                                              sizeItem = snapshot.data[index]
-;                                            },
-                                              child: CircularPercentIndicator(
-                                                radius: 50.0,
-                                                lineWidth: 3.5,
-                                                percent: 1,
-                                                progressColor:
-                                                    AlmasaoodColors.primaryColor,
-                                                center: Text(
-                                                  snapshot.data[index].code,
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: AlmasaoodColors
-                                                          .textDark),
+                                            snapshot.data.image != null
+                                                ? Container(
+                                                    child: Image.network(
+                                                      snapshot.data.image.file,
+                                                      height: 200,
+                                                      width: 150,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      boxShadow: <BoxShadow>[
+                                                        BoxShadow(
+                                                          color: Colors.black12,
+                                                          blurRadius: 10,
+                                                          offset: Offset(0, 8),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    child: Image.asset(
+                                                      "assets/images/child.png",
+                                                      height: 200,
+                                                      width: 150,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      boxShadow: <BoxShadow>[
+                                                        BoxShadow(
+                                                          color: Colors.black12,
+                                                          blurRadius: 10,
+                                                          offset: Offset(0, 8),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Text(
+                                      "Description",
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 4.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              boxShadow: <BoxShadow>[
+                                                BoxShadow(
+                                                  color: AlmasaoodColors
+                                                      .primaryColor,
+                                                  blurRadius: 5.0,
+                                                  offset: Offset(0, 3),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          );
-                                        });
-                                  } else {
-                                    return Container();
-                                  }
-                                }),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 8.0, bottom: 24),
-                            child: MainButton(
-                              onPressed: () {
+                                            child: Container(
+                                              color:
+                                                  AlmasaoodColors.primaryColor,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
+                                              height: 3,
+                                              child: Divider(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 16.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                            child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.5,
+//                                  child: Text(snapshot.data.descriptionEn),
+                                          child: Text(
+                                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700,
+                                                color: AlmasaoodColors.text),
+                                          ),
+                                        )),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 24.0),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Text(
+                                        "Choose Size",
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 4.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                color: AlmasaoodColors
+                                                    .primaryColor,
+                                                blurRadius: 5.0,
+                                                offset: Offset(0, 3),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2,
+                                            color: AlmasaoodColors.primaryColor,
+                                            height: 3,
+                                            child: Divider(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 80,
+                                    child: StreamBuilder<List<Size>>(
+                                        stream: bloc.productSizeStream,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData &&
+                                              snapshot.data != null) {
+                                            print("lenght is  : " +
+                                                snapshot.data.length
+                                                    .toString());
 
-                                bloc.f_addToCart(new ProductDetailsModel(bloc.f_getProductId(snapshot.data ,sizeItem.id),Images(file: snapshot.data.image== null ? "" :snapshot.data.image.file ),snapshot.data.nameEn,snapshot.data.nameAr,snapshot.data.getPrice(),Grade(nameEn: snapshot.data.grade.nameEn,nameAr: snapshot.data.grade.nameAr),snapshot.data.gender,Size(code: sizeItem.code),1));
+                                            for (int i = 0;
+                                                i < snapshot.data.length;
+                                                i++) checkedList.add(false);
+
+                                            return ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: snapshot.data.length,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8.0,
+                                                            right: 8),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          for (int i = 0;
+                                                              i <
+                                                                  snapshot.data
+                                                                      .length;
+                                                              i++) {
+                                                            checkedList[i] =
+                                                                (false);
+                                                            checkedList[index] =
+                                                                true;
+                                                          }
+
+                                                          sizeItem = snapshot
+                                                              .data[index];
+                                                        });
+                                                      },
+                                                      child:
+                                                          CircularPercentIndicator(
+                                                        radius: 50.0,
+                                                        lineWidth: 3.5,
+                                                        percent: 1,
+                                                        progressColor:
+                                                            AlmasaoodColors
+                                                                .primaryColor,
+                                                        center: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(50),
+                                                          child: Container(
+                                                            height: 44,
+                                                            width: 44,
+                                                            color: checkedList[
+                                                                        index] ==
+                                                                    false
+                                                                ? AlmasaoodColors
+                                                                    .pink
+                                                                : AlmasaoodColors
+                                                                    .primaryColor,
+                                                            child: Center(
+                                                              child: Text(
+                                                                snapshot
+                                                                    .data[index]
+                                                                    .code,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        20,
+                                                                    color: checkedList[index] ==
+                                                                            false
+                                                                        ? AlmasaoodColors
+                                                                            .text
+                                                                        : AlmasaoodColors
+                                                                            .white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                });
+                                          } else {
+                                            return Container();
+                                          }
+                                        }),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 24),
+                                    child: MainButton(
+                                      onPressed: () {
+                                        bloc.f_addToCart(
+                                            new ProductDetailsModel(
+                                                bloc.f_getProductId(
+                                                    snapshot.data, sizeItem.id),
+                                                Images(
+                                                    file: snapshot
+                                                                .data.image ==
+                                                            null
+                                                        ? ""
+                                                        : snapshot
+                                                            .data.image.file),
+                                                snapshot.data.nameEn,
+                                                snapshot.data.nameAr,
+                                                snapshot.data.getPrice(),
+                                                Grade(
+                                                    nameEn: snapshot
+                                                        .data.grade.nameEn,
+                                                    nameAr: snapshot
+                                                        .data.grade.nameAr),
+                                                snapshot.data.gender,
+                                                Size(code: sizeItem.code),
+                                                1));
 //                                bloc.f_getProductId(snapshot.data ,sizeId);
-
-                              },
-                              text: "Add To Cart",
-                              textColor: AlmasaoodColors.white,
-                              color: AlmasaoodColors.primaryColor,
+                                      },
+                                      text: "Add To Cart",
+                                      textColor: AlmasaoodColors.white,
+                                      color: AlmasaoodColors.primaryColor,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
-        ),
-      ),
-    ));
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }

@@ -15,355 +15,412 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: AlmasaoodColors.textDark),
+          elevation: 0,
+          backgroundColor: AlmasaoodColors.pink,
+          leading: InkWell(onTap: (){Navigator.of(context).pop();},
+            child: Image.asset(
+              "assets/images/close.png",
+              scale: 4,
+            ),
+          ),
+        ),
         body: Container(
-      decoration: BoxDecoration(
-        color: AlmasaoodColors.pink,
-      ),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(top: 80.0, left: 8, right: 8, bottom: 32),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Container(
-                  color: AlmasaoodColors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        child: StreamBuilder<List<ProductDetailsModel>>(
-                            stream: bloc.cartStream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData && snapshot.data != null) {
-                                return CustomScrollView(
-                                  slivers: <Widget>[
-                                    SliverList(
-                                        delegate: SliverChildBuilderDelegate(
-                                            (context, index) {
-                                      return Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: Column(
-                                              children: <Widget>[
-                                                Row(
-                                                  children: <Widget>[
-                                                    snapshot.data[index].image
-                                                                .file !=
-                                                            ""
-                                                        ? Image.network(
-                                                            snapshot.data[index]
-                                                                .image.file,
-                                                            height: 90,
-                                                            width: 80,
-                                                          )
-                                                        : Image.asset(
-                                                            "assets/images/child.png",
-                                                            height: 90,
-                                                            width: 80,
-                                                          ),
-                                                    Expanded(
-                                                      child: Container(
-//                                        color: AlmasaoodColors.primaryColor,
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: <
-                                                                  Widget>[
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                      snapshot
-                                                                          .data[
-                                                                              index]
-                                                                          .nameEn,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              12),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Row(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text("AED"),
-                                                                    Text(snapshot
-                                                                        .data[
-                                                                            index]
-                                                                        .price),
-                                                                  ],
+          decoration: BoxDecoration(
+            color: AlmasaoodColors.pink,
+          ),
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 16.0, left: 8, right: 8, bottom: 32),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black45,
+                          blurRadius: 20,
+                          offset: Offset(0, 11),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        color: AlmasaoodColors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Expanded(
+                              child: StreamBuilder<List<ProductDetailsModel>>(
+                                  stream: bloc.cartStream,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData &&
+                                        snapshot.data != null) {
+                                      return CustomScrollView(
+                                        slivers: <Widget>[
+                                          SliverList(
+                                              delegate:
+                                                  SliverChildBuilderDelegate(
+                                                      (context, index) {
+                                            return Container(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Row(
+                                                        children: <Widget>[
+                                                          snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .image
+                                                                      .file !=
+                                                                  ""
+                                                              ? Image.network(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .image
+                                                                      .file,
+                                                                  height: 90,
+                                                                  width: 80,
                                                                 )
-                                                              ],
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top: 8.0),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
+                                                              : Image.asset(
+                                                                  "assets/images/child.png",
+                                                                  height: 90,
+                                                                  width: 80,
+                                                                ),
+                                                          Expanded(
+                                                            child: Container(
+//
+                                                              child: Column(
                                                                 children: <
                                                                     Widget>[
-                                                                  Column(
+                                                                  Row(
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .start,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
+                                                                            .spaceBetween,
                                                                     children: <
                                                                         Widget>[
-                                                                      ClipRRect(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(25),
-                                                                        child:
-                                                                            Container(
-                                                                          color:
-                                                                              AlmasaoodColors.primaryColor,
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(left: 6.0, right: 6),
-                                                                            child:
-                                                                                Text(
-                                                                              snapshot.data[index].grade.nameEn,
-                                                                              style: TextStyle(color: AlmasaoodColors.white),
-                                                                            ),
+                                                                      Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                            snapshot.data[index].nameEn,
+                                                                            style: TextStyle(
+                                                                                fontSize: 18,
+                                                                                fontWeight: FontWeight.w700,
+                                                                                color: AlmasaoodColors.textDark),
                                                                           ),
-                                                                        ),
+                                                                        ],
                                                                       ),
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.only(top: 8.0),
-                                                                        child:
-                                                                            Row(
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.end,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                            "AED",
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.w700, color: AlmasaoodColors.text),
+                                                                          ),
+                                                                          Text(
+                                                                            snapshot.data[index].price,
+                                                                            style: TextStyle(
+                                                                                fontWeight: FontWeight.w700,
+                                                                                color: AlmasaoodColors.textDark,
+                                                                                fontSize: 26),
+                                                                          ),
+                                                                        ],
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        top:
+                                                                            8.0),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
                                                                           children: <
                                                                               Widget>[
-                                                                            ClipRRect(
-                                                                              borderRadius: BorderRadius.circular(25),
-                                                                              child: Container(
-                                                                                color: AlmasaoodColors.lightBlue,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(left: 8.0, right: 8),
-                                                                                  child: Text(
-                                                                                    snapshot.data[index].gender,
-                                                                                    style: TextStyle(color: AlmasaoodColors.black),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              width: 8,
-                                                                            ),
                                                                             ClipRRect(
                                                                               borderRadius: BorderRadius.circular(25),
                                                                               child: Container(
                                                                                 color: AlmasaoodColors.primaryColor,
                                                                                 child: Padding(
-                                                                                  padding: const EdgeInsets.only(left: 12.0, right: 12, top: 2, bottom: 2),
+                                                                                  padding: const EdgeInsets.only(left: 8.0, right: 8, top: 2, bottom: 2),
                                                                                   child: Text(
-                                                                                    snapshot.data[index].size.code,
-                                                                                    style: TextStyle(color: AlmasaoodColors.white, fontSize: 10),
+                                                                                    snapshot.data[index].grade.nameEn,
+                                                                                    style: TextStyle(color: AlmasaoodColors.white),
                                                                                   ),
-                                                                                ),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                  ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            25),
-                                                                    child:
-                                                                        Container(
-                                                                      color: AlmasaoodColors
-                                                                          .primaryColor,
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: const EdgeInsets.only(
-                                                                            left:
-                                                                                4.0,
-                                                                            right:
-                                                                                4,
-                                                                            top:
-                                                                                2,
-                                                                            bottom:
-                                                                                2),
-                                                                        child:
-                                                                            Row(
-                                                                          children: <
-                                                                              Widget>[
-                                                                            InkWell(
-                                                                              onTap: () {
-                                                                                setState(() {
-                                                                                  bloc.f_removeItemFromCart(snapshot.data[index].count, index);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(left: 4.0),
-                                                                                child: Icon(
-                                                                                  Icons.remove,
-                                                                                  size: 30,
-                                                                                  color: AlmasaoodColors.white,
                                                                                 ),
                                                                               ),
                                                                             ),
                                                                             Padding(
-                                                                              padding: const EdgeInsets.only(left: 12.0, right: 12),
-                                                                              child: Text(
-                                                                                snapshot.data[index].count.toString(),
-                                                                                style: TextStyle(fontWeight: FontWeight.bold, color: AlmasaoodColors.white, fontSize: 28),
-                                                                              ),
-                                                                            ),
-                                                                            InkWell(
-                                                                              onTap: () {
-                                                                                bloc.f_IncreaseOrderCount(index);
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(right: 4.0),
-                                                                                child: Icon(
-                                                                                  Icons.add,
-                                                                                  size: 30,
-                                                                                  color: AlmasaoodColors.white,
-                                                                                ),
+                                                                              padding: const EdgeInsets.only(top: 8.0),
+                                                                              child: Row(
+                                                                                children: <Widget>[
+                                                                                  ClipRRect(
+                                                                                    borderRadius: BorderRadius.circular(25),
+                                                                                    child: Container(
+                                                                                      color: AlmasaoodColors.lightBlue,
+                                                                                      child: Padding(
+                                                                                        padding: const EdgeInsets.only(left: 8.0, right: 8, top: 2, bottom: 2),
+                                                                                        child: Text(
+                                                                                          snapshot.data[index].gender,
+                                                                                          style: TextStyle(color: AlmasaoodColors.black, fontWeight: FontWeight.w700),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  SizedBox(
+                                                                                    width: 8,
+                                                                                  ),
+                                                                                  ClipRRect(
+                                                                                    borderRadius: BorderRadius.circular(25),
+                                                                                    child: Container(
+                                                                                      color: AlmasaoodColors.primaryColor,
+                                                                                      child: Padding(
+                                                                                        padding: const EdgeInsets.only(left: 12.0, right: 12, top: 2, bottom: 2),
+                                                                                        child: Text(
+                                                                                          snapshot.data[index].size.code,
+                                                                                          style: TextStyle(color: AlmasaoodColors.white, fontWeight: FontWeight.w700),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  )
+                                                                                ],
                                                                               ),
                                                                             )
                                                                           ],
                                                                         ),
-                                                                      ),
+                                                                        ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(5),
+                                                                          child:
+                                                                              Container(
+                                                                            color:
+                                                                                AlmasaoodColors.primaryColor,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(left: 4.0, right: 4, top: 2, bottom: 2),
+                                                                              child: Row(
+                                                                                children: <Widget>[
+                                                                                  InkWell(
+                                                                                    onTap: () {
+                                                                                      setState(() {
+                                                                                        bloc.f_removeItemFromCart(snapshot.data[index].count, index);
+                                                                                      });
+                                                                                    },
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.only(left: 4.0),
+                                                                                      child: Icon(
+                                                                                        Icons.remove,
+                                                                                        size: 27,
+                                                                                        color: AlmasaoodColors.white,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: const EdgeInsets.only(left: 12.0, right: 12),
+                                                                                    child: Text(
+                                                                                      snapshot.data[index].count.toString(),
+                                                                                      style: TextStyle(fontWeight: FontWeight.bold, color: AlmasaoodColors.white, fontSize: 28),
+                                                                                    ),
+                                                                                  ),
+                                                                                  InkWell(
+                                                                                    onTap: () {
+                                                                                      bloc.f_IncreaseOrderCount(index);
+                                                                                    },
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.only(right: 4.0),
+                                                                                      child: Icon(
+                                                                                        Icons.add,
+                                                                                        size: 27,
+                                                                                        color: AlmasaoodColors.white,
+                                                                                      ),
+                                                                                    ),
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                      ],
                                                                     ),
                                                                   )
                                                                 ],
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
-                                                    )
-                                                  ],
+                                                      index != snapshot.data.length-1
+                                                          ? Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top:
+                                                                          16.0),
+                                                              child: Container(
+                                                                width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                                height: 2,
+                                                                color:
+                                                                    AlmasaoodColors
+                                                                        .text,
+                                                              ),
+                                                            )
+                                                          : Container()
+                                                    ],
+                                                  ),
                                                 ),
-                                                index != 4
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                top: 16.0),
-                                                        child: Container(
-                                                          width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width,
-                                                          height: 2,
-                                                          color: AlmasaoodColors
-                                                              .textDark,
-                                                        ),
-                                                      )
-                                                    : Container()
-                                              ],
-                                            ),
-                                          ),
-                                        ),
+                                              ),
+                                            );
+                                          }, childCount: snapshot.data.length))
+                                        ],
                                       );
-                                    }, childCount: snapshot.data.length))
-                                  ],
-                                );
-                              } else {
-                                return Container();
-                              }
-                            }),
-                      ),
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                  padding: const EdgeInsets.only(bottom: 16.0),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 2,
-                                    color: AlmasaoodColors.textDark,
-                                  )),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text("Delivery"),
-                                  CupertinoSwitch(
-                                    onChanged: null,
-                                    value: true,
-                                    activeColor: AlmasaoodColors.primaryColor,
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 24.0, bottom: 16),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                    } else {
+                                      return Container();
+                                    }
+                                  }),
+                            ),
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
                                   children: <Widget>[
-                                    Text("Total"),
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 16.0),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 2,
+                                          color: AlmasaoodColors.text,
+                                        )),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        Text("AED"),
-                                        StreamBuilder<double>(
-                                          stream: bloc.productPriceStream,
-                                          builder: (context, snapshot) {
-                                            if(snapshot.hasData){
-                                              return  Text(snapshot.data.toString());
-
-                                            }else {return Container();}
-
-                                          }
+                                        Text(
+                                          "Delivery",
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w700,
+                                              color: AlmasaoodColors.textDark),
+                                        ),
+                                        CupertinoSwitch(
+                                          onChanged: onChange,
+                                          value: true,
+                                          activeColor:
+                                              AlmasaoodColors.primaryColor,
                                         )
                                       ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 14.0, bottom: 16),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            "Total",
+                                            style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.w700,
+                                                color:
+                                                    AlmasaoodColors.textDark),
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Text(
+                                                "AED",
+                                                style: TextStyle(
+                                                    color: AlmasaoodColors.text,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 18),
+                                              ),
+                                              SizedBox(
+                                                width: 4,
+                                              ),
+                                              StreamBuilder<double>(
+                                                  stream:
+                                                      bloc.productPriceStream,
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.hasData) {
+                                                      return Text(
+                                                        snapshot.data
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            color:
+                                                                AlmasaoodColors
+                                                                    .textDark,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 26),
+                                                      );
+                                                    } else {
+                                                      return Container();
+                                                    }
+                                                  })
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     )
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 32),
-              child: MainButton(
-                text: "Submit",
-                color: AlmasaoodColors.primaryColor,
-                textColor: AlmasaoodColors.white,
-                onPressed: () {
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 32),
+                  child: MainButton(
+                    text: "Submit",
+                    color: AlmasaoodColors.primaryColor,
+                    textColor: AlmasaoodColors.white,
+                    onPressed: () {
 //                      Navigator.push(
 //                        context,
 //                        MaterialPageRoute(builder: (context) => ProductDetails()),
 //                      );
-                },
-              ),
-            )
-          ],
-        ),
-      ),
-    ));
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+
+  void onChange(bool value) {
+    if(value == true ){value = false  ; } else{value = true; }
   }
 }
