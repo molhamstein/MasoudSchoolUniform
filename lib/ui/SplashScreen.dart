@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
 
+import '../DataStore.dart';
 import 'CheckNumber.dart';
+import 'Home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -10,14 +13,31 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   void initState() {
+    print(dataStore.user.token);
     Timer(
-        Duration(seconds: 3),
-        () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CheckNumber()),
-            ));
+        Duration(seconds: 5),
+        () =>_NavigateTo());
+  }
+
+
+
+  _NavigateTo(){
+
+      if(dataStore.user.token == null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CheckNumber()),
+        );
+      }else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      }
+
   }
 
   @override

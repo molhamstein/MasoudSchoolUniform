@@ -5,6 +5,9 @@ import 'package:almasaood_app/models/SignModel.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
+import '../DataStore.dart';
+import '../UserFeedBack.dart';
+import '../Utils.dart';
 import 'VerificationCode.dart';
 
 class CheckNumber extends StatefulWidget {
@@ -13,10 +16,14 @@ class CheckNumber extends StatefulWidget {
 }
 
 class _CheckNumberState extends State<CheckNumber>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin,UserFeedback
+{
   TextEditingController numberController = new TextEditingController();
 
   AnimationController animationController;
+  AnimationController sce_Animationcontroller;
+  Animation sce_Animation;
+
   Animation logoAnimation;
   Animation logoAnimationFade;
 
@@ -26,6 +33,7 @@ class _CheckNumberState extends State<CheckNumber>
 
   @override
   void initState() {
+
     animationController =
         new AnimationController(vsync: this, duration: Duration(seconds: 3));
     logoAnimation = Tween(begin: -1.30, end: 0.0).animate(CurvedAnimation(
@@ -47,184 +55,222 @@ class _CheckNumberState extends State<CheckNumber>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<SignInModel>(
-        stream: bloc.signInStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                  builder: (context) => VerificationCode(
-                      numberController.text, snapshot.data.created)));
-            });
-          }
 
           return AnimatedBuilder(
             animation: animationController,
             builder: (context, child) {
               return Scaffold(
-                body: SingleChildScrollView(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AlmasaoodColors.primaryColor,
-                    ),
-                    height: MediaQuery.of(context).size.height,
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          height: MediaQuery.of(context).size.height,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
+                body: StreamBuilder<SignInModel>(
+                  stream: bloc.signInStream,
+                  builder: (context, snapshot) {
+
+                    if(snapshot.hasError && bloc.showFeedback == true ){WidgetsBinding.instance.addPostFrameCallback((_) {
+                      showInSnackBar("Some thing went wrong", context);
+                      bloc.showFeedback = false ;
+
+                    });}else
+
+
+                    if (snapshot.hasData && snapshot.data != null) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                            builder: (context) => VerificationCode(
+                                numberController.text, snapshot.data.created)));
+                      });
+                    }
+
+                    return SingleChildScrollView(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AlmasaoodColors.primaryColor,
+                        ),
+                        height: MediaQuery.of(context).size.height,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              height: MediaQuery.of(context).size.height,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Image.asset(
-                                    "assets/images/needle.png",
-                                    height:
-                                        MediaQuery.of(context).size.height / 3,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 130.0),
-                                    child: Image.asset(
-                                      "assets/images/string1.png",
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              3,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        "assets/images/needle.png",
+                                        height:
+                                            MediaQuery.of(context).size.height / 3,
+                                        width:
+                                            MediaQuery.of(context).size.width / 2,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 130.0),
+                                        child: Image.asset(
+                                          "assets/images/string1.png",
+                                          height:
+                                              MediaQuery.of(context).size.height /
+                                                  3,
 //                                    width:
 //                                        MediaQuery.of(context).size.width / 2,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Image.asset(
-                                    "assets/images/string2.png",
-                                    height:
-                                        MediaQuery.of(context).size.width / 4,
-                                    width:
-                                        MediaQuery.of(context).size.width / 4,
-                                  )
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Image.asset(
-                                    "assets/images/needles.png",
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Image.asset(
+                                        "assets/images/string2.png",
+                                        height:
+                                            MediaQuery.of(context).size.width / 4,
+                                        width:
+                                            MediaQuery.of(context).size.width / 4,
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        "assets/images/needles.png",
 //                                    width:
 //                                        MediaQuery.of(context).size.width / 3,
-                                    height:
-                                        MediaQuery.of(context).size.width / 3,
+                                        height:
+                                            MediaQuery.of(context).size.width / 3,
+                                      ),
+                                      Stack(children: <Widget>[
+                                        Image.asset(
+                                          "assets/images/sce_white.png",
+                                          height:
+                                              MediaQuery.of(context).size.width / 4,
+                                          width:
+                                              MediaQuery.of(context).size.width / 4,
+                                        ),
+                                        Image.asset(
+                                          "assets/images/sce_white_2.png",
+                                          height:
+                                              MediaQuery.of(context).size.width / 4,
+                                          width:
+                                              MediaQuery.of(context).size.width / 4,
+                                        )
+                                      ])
+                                    ],
                                   ),
-                                  Stack(children: <Widget>[
-                                    Image.asset(
-                                      "assets/images/sce_white.png",
-                                      height:
-                                          MediaQuery.of(context).size.width / 4,
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                    ),
-                                    Image.asset(
-                                      "assets/images/sce_white_2.png",
-                                      height:
-                                          MediaQuery.of(context).size.width / 4,
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                    )
-                                  ])
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Transform(
-                              transform: Matrix4.translationValues(
-                                  0.0,
-                                  logoAnimation.value *
-                                      MediaQuery.of(context).size.height,
-                                  0.0),
-                              child: FadeTransition(
-                                opacity: logoAnimationFade,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 110),
-                                  child: Image.asset(
-                                    "assets/images/logo_white.png",
-                                    height: 180,
-                                    width: 180,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Transform(
+                                  transform: Matrix4.translationValues(
+                                      0.0,
+                                      logoAnimation.value *
+                                          MediaQuery.of(context).size.height,
+                                      0.0),
+                                  child: FadeTransition(
+                                    opacity: logoAnimationFade,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 110),
+                                      child: Image.asset(
+                                        "assets/images/logo_white.png",
+                                        height: 180,
+                                        width: 180,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Transform(
-                              transform: Matrix4.translationValues(
-                                  0.0,
-                                  textFieldAnimation.value *
-                                      MediaQuery.of(context).size.height,
-                                  0.0),
-                              child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 32.0, left: 16, right: 16),
-                                  child: Container(
-                                      decoration: new BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                            color: Colors.black45,
-                                            blurRadius: 25.0,
-                                            offset: Offset(0, 5),
+                                Transform(
+                                  transform: Matrix4.translationValues(
+                                      0.0,
+                                      textFieldAnimation.value *
+                                          MediaQuery.of(context).size.height,
+                                      0.0),
+                                  child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 32.0, left: 16, right: 16),
+                                      child: Container(
+                                          decoration: new BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50)),
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                color: Colors.black45,
+                                                blurRadius: 25.0,
+                                                offset: Offset(0, 5),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                      child: AuthTextField(
-                                        textEditingController: numberController,
-                                        hint: "Mobile Number",
-                                      ))),
-                            ),
-                            Transform(
-                              transform: Matrix4.translationValues(
-                                  0.0,
-                                  buttonAnimation.value *
-                                      MediaQuery.of(context).size.height,
-                                  0.0),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 64.0),
-                                child: MainButton(
-                                  textColor: AlmasaoodColors.black,
-                                  dashColor: AlmasaoodColors.primaryColor,
-                                  onPressed: () {
-//                        Navigator.push(
-//                          context,
-//                          MaterialPageRoute(builder: (context) => SignUp()),
-//                        );
-
-//                        bloc.getProductList(FilterType.ALL);
-                                    bloc.f_SignIn(numberController.text);
-                                  },
-                                  text: "Submit",
+                                          child: AuthTextField(
+                                            textEditingController: numberController,
+                                            hint: "Mobile Number",
+                                          ))),
                                 ),
-                              ),
+                                Transform(
+                                  transform: Matrix4.translationValues(
+                                      0.0,
+                                      buttonAnimation.value *
+                                          MediaQuery.of(context).size.height,
+                                      0.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 64.0),
+                                    child: StreamBuilder<bool>(
+                                        stream: bloc.shouldRotateStream,
+                                        builder: (context, snapshot) {
+                                          return MainButton(
+                                            shouldRotate: snapshot.data,
+                                            textColor: AlmasaoodColors.black,
+                                            dashColor: AlmasaoodColors.primaryColor,
+                                            onPressed: () {
+                                              if (Utils.isValidNumber(
+                                                  numberController.text)) {
+
+
+
+                                                String tempMobile;
+                                                if (numberController.text.startsWith("09")) {
+                                                  tempMobile = numberController.text.split("0")[1];
+                                                  numberController.text = "00971" + tempMobile;
+                                                  print(tempMobile);
+                                                  print(true);
+
+
+                                                  bloc.f_SignIn(
+                                                      numberController.text);
+                                                } else if (numberController.text.startsWith("00")) {
+                                                  numberController.text = numberController.text;
+
+                                                  bloc.f_SignIn(
+                                                      numberController.text);
+                                                } else {
+                                                  print("Not valid");
+                                                  showInSnackBar("Please Enter valid number", context);
+                                                }
+
+                                              }
+                                              else {showInSnackBar("Please Enter valid number", context);
+                                              }
+                                              ;
+                                            },
+                                            text: "Submit",
+                                          );
+                                        }),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  }
                 ),
               );
             },
           );
-        });
+
   }
 }

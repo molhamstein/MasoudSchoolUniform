@@ -13,16 +13,7 @@ class ProductList {
   }
 }
 
-
-
-
-
 class ProductsModel {
-
-
-
-
-
   int _id;
   List<Products> _products;
   String _nameEn;
@@ -36,15 +27,15 @@ class ProductsModel {
 
   ProductsModel(
       {int id,
-        List<Products> products,
-        String nameEn,
-        String nameAr,
-        String descriptionAr,
-        String descriptionEn,
-        String gender,
-        String createdAt,
-        Images image,
-        Grade grade}) {
+      List<Products> products,
+      String nameEn,
+      String nameAr,
+      String descriptionAr,
+      String descriptionEn,
+      String gender,
+      String createdAt,
+      Images image,
+      Grade grade}) {
     this._id = id;
     this._products = products;
     this._nameEn = nameEn;
@@ -58,24 +49,43 @@ class ProductsModel {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   List<Products> get products => _products;
+
   set products(List<Products> products) => _products = products;
+
   String get nameEn => _nameEn;
+
   set nameEn(String nameEn) => _nameEn = nameEn;
+
   String get nameAr => _nameAr;
+
   set nameAr(String nameAr) => _nameAr = nameAr;
+
   String get descriptionAr => _descriptionAr;
+
   set descriptionAr(String descriptionAr) => _descriptionAr = descriptionAr;
+
   String get descriptionEn => _descriptionEn;
+
   set descriptionEn(String descriptionEn) => _descriptionEn = descriptionEn;
+
   String get gender => _gender;
+
   set gender(String gender) => _gender = gender;
+
   String get createdAt => _createdAt;
+
   set createdAt(String createdAt) => _createdAt = createdAt;
+
   Images get image => _image;
+
   set image(Images image) => _image = image;
+
   Grade get grade => _grade;
+
   set grade(Grade grade) => _grade = grade;
 
   ProductsModel.fromJson(Map<String, dynamic> json) {
@@ -117,13 +127,13 @@ class ProductsModel {
     return data;
   }
 
-  String getPrice(){
-    return
-
-      products.isNotEmpty?
-      products[0].price  :  "0.0";
+  String getPrice() {
+    if (products.isNotEmpty) {
+      double p = num.parse(products[0].price);
+      return p.toStringAsFixed(1);
+    } else
+      return "0.0";
   }
-
 }
 
 class Products {
@@ -136,11 +146,11 @@ class Products {
 
   Products(
       {int id,
-        String code,
-        String status,
-        String price,
-        Size size,
-        AbstractProduct abstractProduct}) {
+      String code,
+      String status,
+      String price,
+      Size size,
+      AbstractProduct abstractProduct}) {
     this._id = id;
     this._code = code;
     this._status = status;
@@ -150,16 +160,27 @@ class Products {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   String get code => _code;
+
   set code(String code) => _code = code;
+
   String get status => _status;
+
   set status(String status) => _status = status;
+
   String get price => _price;
+
   set price(String price) => _price = price;
+
   Size get size => _size;
+
   set size(Size size) => _size = size;
+
   AbstractProduct get abstractProduct => _abstractProduct;
+
   set abstractProduct(AbstractProduct abstractProduct) =>
       _abstractProduct = abstractProduct;
 
@@ -206,14 +227,23 @@ class Size {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   String get nameAr => _nameAr;
+
   set nameAr(String nameAr) => _nameAr = nameAr;
+
   String get nameEn => _nameEn;
+
   set nameEn(String nameEn) => _nameEn = nameEn;
+
   String get code => _code;
+
   set code(String code) => _code = code;
+
   String get createdAt => _createdAt;
+
   set createdAt(String createdAt) => _createdAt = createdAt;
 
   Size.fromJson(Map<String, dynamic> json) {
@@ -248,14 +278,14 @@ class AbstractProduct {
 
   AbstractProduct(
       {int id,
-        String nameEn,
-        String nameAr,
-        String descriptionAr,
-        String descriptionEn,
-        String gender,
-        String createdAt,
-        int image,
-        int grade}) {
+      String nameEn,
+      String nameAr,
+      String descriptionAr,
+      String descriptionEn,
+      String gender,
+      String createdAt,
+      int image,
+      int grade}) {
     this._id = id;
     this._nameEn = nameEn;
     this._nameAr = nameAr;
@@ -268,22 +298,39 @@ class AbstractProduct {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   String get nameEn => _nameEn;
+
   set nameEn(String nameEn) => _nameEn = nameEn;
+
   String get nameAr => _nameAr;
+
   set nameAr(String nameAr) => _nameAr = nameAr;
+
   String get descriptionAr => _descriptionAr;
+
   set descriptionAr(String descriptionAr) => _descriptionAr = descriptionAr;
+
   String get descriptionEn => _descriptionEn;
+
   set descriptionEn(String descriptionEn) => _descriptionEn = descriptionEn;
+
   String get gender => _gender;
+
   set gender(String gender) => _gender = gender;
+
   String get createdAt => _createdAt;
+
   set createdAt(String createdAt) => _createdAt = createdAt;
+
   int get image => _image;
+
   set image(int image) => _image = image;
+
   int get grade => _grade;
+
   set grade(int grade) => _grade = grade;
 
   AbstractProduct.fromJson(Map<String, dynamic> json) {
@@ -325,10 +372,15 @@ class Images {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   String get file => _file;
+
   set file(String file) => _file = file;
+
   String get createdAt => _createdAt;
+
   set createdAt(String createdAt) => _createdAt = createdAt;
 
   Images.fromJson(Map<String, dynamic> json) {
@@ -360,12 +412,19 @@ class Grade {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   String get nameEn => _nameEn;
+
   set nameEn(String nameEn) => _nameEn = nameEn;
+
   String get nameAr => _nameAr;
+
   set nameAr(String nameAr) => _nameAr = nameAr;
+
   String get createdAt => _createdAt;
+
   set createdAt(String createdAt) => _createdAt = createdAt;
 
   Grade.fromJson(Map<String, dynamic> json) {

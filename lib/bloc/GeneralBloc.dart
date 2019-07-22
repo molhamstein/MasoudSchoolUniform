@@ -1,13 +1,14 @@
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/ProfileModel.dart';
 import 'package:almasaood_app/models/SignModel.dart';
+import 'package:almasaood_app/models/StatesModel.dart';
 import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:almasaood_app/models/gradesModel.dart';
 import 'package:almasaood_app/models/productDetailsModel.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../ApiProvider.dart';
-import '../AppConstant.dart';
+import '../DataStore.dart';
 
 class SingletonBloc {
   static final SingletonBloc _singletonBloc = new SingletonBloc._internal();
@@ -16,13 +17,17 @@ class SingletonBloc {
     return _singletonBloc;
   }
 
-  SingletonBloc._internal() {}
+  SingletonBloc._internal() {
+    _shouldRotateController.sink.add(false);
+
+    withDelivery = false ;
+  }
 
   final _signInController = BehaviorSubject<SignInModel>();
 
   get signInStream => _signInController.stream;
 
-  final _verifyController = BehaviorSubject<VerifyModel>();
+  final _verifyController = PublishSubject<VerifyModel>();
 
   get verifyStream => _verifyController.stream;
 
@@ -37,10 +42,6 @@ class SingletonBloc {
   final _productsController = BehaviorSubject<List<ProductsModel>>();
 
   get productsStream => _productsController.stream;
-
-
-
-
 
   final _productInfoController = BehaviorSubject<ProductsModel>();
 
@@ -62,75 +63,141 @@ class SingletonBloc {
 
   get productPriceStream => _productsPriceController.stream;
 
-  get pushEstimationCost => _productsPriceController.sink
-      .add(f_estimatedPrice(true));
+  get pushEstimationCost =>
+      _productsPriceController.sink.add(f_estimatedPrice(withDelivery));
 
+  final _shouldRotateController = BehaviorSubject<bool>();
 
+  get shouldRotateStream => _shouldRotateController.stream;
 
+  bool showFeedback;
+  bool withDelivery;
 
-  final String token = "8398556d0d07527e60f9c18f0164e2656c74cf4b";
+  final _feedbackController = BehaviorSubject<String>();
+
+  get feedbackStream => _feedbackController.stream;
+
+  final _statesController = BehaviorSubject<List<StatesModel>>();
+
+  get statesStream => _statesController.stream;
+
+//
+//  final _feedbackController = PublishSubject<String>();
+//  get feedbackStream => _feedbackController.stream;
+//
 
 ////////////////////////////////
-  f_SignIn(mobileNumber) {
-    mobileNumber = "+" + mobileNumber;
+  f_SignIn(String mobileNumber) {
+//    mobileNumber = "+" + mobileNumber;
     print(mobileNumber);
+    _shouldRotateController.sink.add(true);
+
     apiProvider.signIn(mobileNumber).then((val) {
+      _shouldRotateController.sink.add(false);
       print(val.message);
       _signInController.sink.add(val);
+    }).catchError((e) {
+      showFeedback = true;
+      _shouldRotateController.sink.add(false);
+
+      _signInController.sink.addError(e);
     });
   }
 
   f_Verify(mobile, code) {
-    mobile = "+" + mobile;
+    _shouldRotateController.sink.add(true);
     apiProvider.verify(mobile, code).then((val) {
-      print(val.token);
-      AppConstant.token = val.token;
-
+      _shouldRotateController.sink.add(false);
       _verifyController.sink.add(val);
+    }).catchError((e) {
+      showFeedback = true;
+      _shouldRotateController.sink.add(false);
+      _verifyController.sink.addError(e);
     });
   }
 
-  f_signUp(firstName, lastName, email) {
-    apiProvider.editProfile(token, firstName, lastName, email).then((val) {
-      print(val.firstName);
+  f_signUp(firstName, lastName) {
+    _shouldRotateController.sink.add(true);
+    apiProvider
+        .editProfile(dataStore.user.token, firstName, lastName)
+        .then((val) {
+      _shouldRotateController.sink.add(false);
       _signUpController.sink.add(val);
+    }).catchError((e) {
+      showFeedback = true;
+      _shouldRotateController.sink.add(false);
+      _signUpController.sink.addError(e);
     });
   }
 
-  f_getProducts(id) {
-    List<ProductsModel> pro = new List();
-    pro = [];
+  List<ProductsModel> pro = new List();
 
-    apiProvider.products().then((valPro) {
-      if (id == -1) {
-        for (int i = 0; i < valPro.products.length; i++) {
-          pro.add(valPro.products[i]);
+  f_sortProduct(id) {
+    List<ProductsModel> sortedItems = new List();
 
-          _productsController.sink.add(pro);
-        }
-      } else {
-        for (int i = 0; i < valPro.products.length; i++) {
-          if (valPro.products[i].grade.id == id) {
-            print(valPro.products[i].nameEn);
-            pro.add(valPro.products[i]);
+    if (id == -1) {
+      for (int i = 0; i < pro.length; i++) {
+        sortedItems.add(pro[i]);
+        _productsController.sink.add(sortedItems);
+      }
+    } else {
+      for (int i = 0; i < pro.length; i++) {
+        if (pro[i].grade.id == id) {
+          print(pro[i].nameEn);
+          sortedItems.add(pro[i]);
 
-            _productsController.sink.add(pro);
-          }
+          _productsController.sink.add(sortedItems);
         }
       }
+    }
+  }
+
+  f_getProducts() {
+    pro = [];
+    apiProvider.products().then((valPro) {
+      for (int i = 0; i < valPro.products.length; i++) {
+        pro.add(valPro.products[i]);
+        _productsController.sink.add(pro);
+      }
+    }).catchError((e) {
+      _productsController.sink.addError(e);
     });
   }
+
+//  f_getProducts(id) {
+//    List<ProductsModel> pro = new List();
+//    pro = [];
+//    apiProvider.products().then((valPro) {
+//      if (id == -1) {
+//        for (int i = 0; i < valPro.products.length; i++) {
+//          pro.add(valPro.products[i]);
+//          _productsController.sink.add(pro);
+//        }
+//      } else {
+//        for (int i = 0; i < valPro.products.length; i++) {
+//          if (valPro.products[i].grade.id == id) {
+//            print(valPro.products[i].nameEn);
+//            pro.add(valPro.products[i]);
+//
+//            _productsController.sink.add(pro);
+//          }
+//        }
+//      }
+//    }).catchError((e) {
+//      _productsController.sink.addError(e);
+//    });
+//  }
 
   f_grades() {
     GradesModel all = new GradesModel(id: -1, nameEn: "All");
     List<GradesModel> list = [all];
-    apiProvider
-        .getGrades("Bearer 5d301f006c60ce9037f171765faa0c36102b77fe")
-        .then((valGrad) {
+    apiProvider.getGrades(dataStore.user.token).then((valGrad) {
       for (int i = 0; i < valGrad.grades.length; i++) {
         list.add(valGrad.grades[i]);
         _gradesController.sink.add(list);
       }
+    }).catchError((e) {
+      _gradesController.sink.addError(e);
     });
   }
 
@@ -144,21 +211,20 @@ class SingletonBloc {
     }
   }
 
-  createOrder() {
+  createOrder(List<ProductDetailsModel> data) {
     List<Map<String, int>> productsMap = new List();
-    List<K> k = new List();
-    k.add(K(1, 1));
-    k.add(K(2, 2));
-    k.add(K(3, 3));
-    for (int i = 0; i < k.length; i++) {
+    for (int i = 0; i < data.length; i++) {
       Map<String, int> item = new Map();
-      item['product'] = k[i].proudct;
-      item['count'] = k[i].count;
+      item['product'] = data[i].id;
+      item['count'] = data[i].count;
       productsMap.add(item);
     }
-    print(productsMap.toString());
-
-    apiProvider.createOrder("", "", "", productsMap).then((val) {});
+    apiProvider
+        .createOrder("", "", "", productsMap)
+        .then((val) {})
+        .catchError((e) {
+      print(e);
+    });
   }
 
   List<ProductDetailsModel> cartItems = new List();
@@ -177,14 +243,21 @@ class SingletonBloc {
           print("added inside");
         }
       }
-
       if (count == 0) {
         cartItems.add(orderData);
+        _feedbackController.sink.add("Added Sucessfully");
         _cartController.sink.add(cartItems);
+        showFeedback = true;
+      } else {
+        print("Already exist");
+        _feedbackController.sink.addError("Already exist");
+        showFeedback = true;
       }
     } else {
       cartItems.add(orderData);
       _cartController.sink.add(cartItems);
+      _feedbackController.sink.add("Added Sucessfully");
+      showFeedback = true;
     }
     print("list length" + cartItems.length.toString());
   }
@@ -194,26 +267,25 @@ class SingletonBloc {
     if (count == 1) {
       cartItems.removeAt(index);
       _cartController.sink.add(cartItems);
+      pushEstimationCost();
     } else {
       cartItems[index].count -= 1;
       price /= 2;
       cartItems[index].price = price.toString();
       _cartController.sink.add(cartItems);
+      pushEstimationCost();
 
       print(cartItems[index].count);
     }
   }
 
   f_IncreaseOrderCount(int index) {
-
-
     double price = double.parse(cartItems[index].price);
     cartItems[index].count += 1;
     price *= 2;
     cartItems[index].price = price.toString();
     _cartController.sink.add(cartItems);
     pushEstimationCost();
-
   }
 
   int f_getProductId(ProductsModel product, int sizeId) {
@@ -230,11 +302,33 @@ class SingletonBloc {
     double price = 0;
     for (int i = 0; i < cartItems.length; i++) {
       price += double.parse(cartItems[i].price);
+    }
+
+    if (withDelivery == true) {
+      price +=10;
+      _productsPriceController.sink.add(price);
+    } else {
       _productsPriceController.sink.add(price);
     }
 
     return price;
   }
+
+  f_getStates() {
+    List<StatesModel> status = new List();
+    status = [];
+    apiProvider.getStates().then((onVal) {
+      for (int i = 0; i < onVal.states.length; i++) {
+        status.add(onVal.states[i]);
+        _statesController.sink.add(status);
+      }
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+
+  f_getMarkers(){}
 }
 
 final bloc = SingletonBloc();

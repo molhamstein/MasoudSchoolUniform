@@ -7,6 +7,7 @@ import 'models/OrderModel.dart';
 import 'models/ProductModel.dart';
 import 'models/ProfileModel.dart';
 import 'models/SignModel.dart';
+import 'models/StatesModel.dart';
 import 'models/VerifyModel.dart';
 import 'models/gradesModel.dart';
 
@@ -18,6 +19,7 @@ class ApiProvider {
   static String ordersURL = baseURL + "me/orders/";
   static String profileURL = baseURL + "me/";
   static String gradesURL = baseURL + "grades/";
+  static String statesURL = baseURL + "states/";
 
   Map<String, String> _headers = {
     'Content-Type': 'application/json',
@@ -108,13 +110,12 @@ class ApiProvider {
     }
   }
 
-  Future<ProfileModel> editProfile(token, firstName, lastName, email) async {
+  Future<ProfileModel> editProfile(token, firstName, lastName) async {
     print(token);
     _headers['Authorization'] = "Bearer " + token;
     print(profileURL);
 
-    final body = json.encode(
-        {"first_name": firstName, "last_name": lastName, "email": email});
+    final body = json.encode({"first_name": firstName, "last_name": lastName});
 
     print(body);
 
@@ -143,6 +144,30 @@ class ApiProvider {
       throw json.decode(response.body);
     }
   }
+
+
+ Future<StatesList> getStates() async {
+//    _headers['Authorization'] = token;
+    print(statesURL);
+    final response = await http.get(statesURL, headers: _headers);
+    if (response.statusCode == 200) {
+      print(response.body);
+
+      return StatesList.fromJson(json.decode(response.body));
+    } else {
+      print(response.body);
+      throw json.decode(response.body);
+    }
+  }
+
+
+
+
+
+
+
+
+
 }
 
 final apiProvider = ApiProvider();

@@ -13,7 +13,8 @@ class AlmasaoodColors {
   static const text = Color(0xFF949292);
   static const textLight = Color(0xFFd9dadb);
   static const red = Color(0xFFf48498);
-
+  static const redWithOp = Color(0x88f48498);
+  static const darkBlue = Color(0x66727aec);
 
 
 

@@ -1,3 +1,4 @@
+import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:dashed_container/dashed_container.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class MainButton extends StatefulWidget {
 
   final textColor;
   final dashColor;
+  final bool shouldRotate;
 
   MainButton(
       {@required this.onPressed,
@@ -22,7 +24,8 @@ class MainButton extends StatefulWidget {
       this.width = 250,
       this.color = AlmasaoodColors.white,
       this.textColor = AlmasaoodColors.black,
-      this.dashColor = AlmasaoodColors.white});
+      this.dashColor = AlmasaoodColors.white,
+      this.shouldRotate = false});
 
   @override
   _MainButtonState createState() => _MainButtonState();
@@ -35,45 +38,55 @@ class _MainButtonState extends State<MainButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: new BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black45,
-              blurRadius: 25.0,
-              offset: Offset(0, 7),
-            ),
-          ],
-        ),
-        height: widget.height,
-        width: widget.width,
-        child: RaisedButton(
-          color: widget.color,
-          shape: new RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)),
-          onPressed: widget.onPressed,
-          child: DashedContainer(
-            dashColor: widget.dashColor,
-            blankLength: 10,
-            borderRadius: 5,
-            strokeWidth: 2,
-            dashedLength: 5,
-            child: Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-              height: widget.height - 15,
-              width: widget.width,
-              child: Center(
-                child: Text(
-                  widget.text,
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: widget.textColor),
+    return StreamBuilder<bool>(
+        stream: bloc.shouldRotateStream,
+        builder: (context, snapshot) {
+          if (snapshot.data == false) {
+            return Container(
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 25.0,
+                      offset: Offset(0, 7),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ),
-        ));
+                height: widget.height,
+                width: widget.width,
+                child: RaisedButton(padding: EdgeInsets.only(left: 8 , right: 8 ,top: 0, bottom: 0),
+                  color: widget.color,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  onPressed: widget.onPressed,
+                  child: DashedContainer(
+                    dashColor: widget.dashColor,
+                    blankLength: 10,
+                    borderRadius: 5,
+                    strokeWidth: 2,
+                    dashedLength: 5,
+                    child: Container(
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                      height: widget.height - 10,
+                      width: widget.width,
+                      child: Center(
+                        child: Text(
+                          widget.text,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: widget.textColor),
+                        ),
+                      ),
+                    ),
+                  ),
+                ));
+          } else {
+            return CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(widget.color));
+          }
+        });
   }
 }

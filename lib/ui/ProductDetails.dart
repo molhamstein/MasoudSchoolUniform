@@ -6,15 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../AlmasaoodColors.dart';
+import '../UserFeedBack.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
   Size sizeItem = new Size();
-  List<bool> checkedList = new List();
+  int temp = 0;
+
+  bool isFirst = true;
+
+  List<bool> checkedList = [true];
 
   @override
   Widget build(BuildContext context) {
@@ -147,9 +152,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                     boxShadow: <BoxShadow>[
                                                       BoxShadow(
                                                         color: AlmasaoodColors
-                                                            .primaryColor,
+                                                            .darkBlue,
                                                         blurRadius: 15.0,
-                                                        offset: Offset(0, 11),
+                                                        spreadRadius: 1,
+                                                        offset: Offset(0, 7),
                                                       ),
                                                     ],
                                                   ),
@@ -190,10 +196,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                   decoration: BoxDecoration(
                                                     boxShadow: <BoxShadow>[
                                                       BoxShadow(
-                                                        color: AlmasaoodColors
-                                                            .primaryColor,
+                                                        color: snapshot.data
+                                                                    .gender ==
+                                                                "male"
+                                                            ? AlmasaoodColors
+                                                                .lightBlue
+                                                            : AlmasaoodColors
+                                                                .redWithOp,
                                                         blurRadius: 15.0,
-                                                        offset: Offset(0, 11),
+                                                        spreadRadius: 1,
+                                                        offset: Offset(0, 7),
                                                       ),
                                                     ],
                                                   ),
@@ -202,8 +214,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                         BorderRadius.circular(
                                                             5),
                                                     child: Container(
-                                                      color: AlmasaoodColors
-                                                          .lightBlue,
+                                                      color: snapshot.data
+                                                                  .gender ==
+                                                              "male"
+                                                          ? AlmasaoodColors
+                                                              .lightBlue
+                                                          : AlmasaoodColors.red,
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -299,7 +315,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                   color: AlmasaoodColors
                                                       .primaryColor,
                                                   blurRadius: 5.0,
-                                                  offset: Offset(0, 3),
+                                                  offset: Offset(0, 1),
                                                 ),
                                               ],
                                             ),
@@ -330,7 +346,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                               1.5,
 //                                  child: Text(snapshot.data.descriptionEn),
                                           child: Text(
-                                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+                                            snapshot.data.descriptionEn,
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w700,
@@ -363,7 +379,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                 color: AlmasaoodColors
                                                     .primaryColor,
                                                 blurRadius: 5.0,
-                                                offset: Offset(0, 3),
+                                                offset: Offset(0, 1),
                                               ),
                                             ],
                                           ),
@@ -387,13 +403,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                                         builder: (context, snapshot) {
                                           if (snapshot.hasData &&
                                               snapshot.data != null) {
-                                            print("lenght is  : " +
-                                                snapshot.data.length
-                                                    .toString());
+                                            if (isFirst) {
+                                              for (int i = 0;
+                                                  i < snapshot.data.length;
+                                                  i++) checkedList.add(false);
 
-                                            for (int i = 0;
-                                                i < snapshot.data.length;
-                                                i++) checkedList.add(false);
+                                              checkedList[temp] = (false);
+                                              checkedList[0] = true;
+                                              sizeItem = snapshot.data[0];
+                                              temp = 0;
+                                              isFirst = false;
+                                            }
 
                                             return ListView.builder(
                                                 shrinkWrap: true,
@@ -409,19 +429,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                     child: InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          for (int i = 0;
-                                                              i <
-                                                                  snapshot.data
-                                                                      .length;
-                                                              i++) {
-                                                            checkedList[i] =
-                                                                (false);
-                                                            checkedList[index] =
-                                                                true;
-                                                          }
+//
+                                                          checkedList[temp] =
+                                                              (false);
+                                                          checkedList[index] =
+                                                              true;
 
                                                           sizeItem = snapshot
                                                               .data[index];
+                                                          temp = index;
                                                         });
                                                       },
                                                       child:
@@ -479,36 +495,74 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 8.0, bottom: 24),
-                                    child: MainButton(
-                                      onPressed: () {
-                                        bloc.f_addToCart(
-                                            new ProductDetailsModel(
-                                                bloc.f_getProductId(
-                                                    snapshot.data, sizeItem.id),
-                                                Images(
-                                                    file: snapshot
-                                                                .data.image ==
-                                                            null
-                                                        ? ""
-                                                        : snapshot
-                                                            .data.image.file),
-                                                snapshot.data.nameEn,
-                                                snapshot.data.nameAr,
-                                                snapshot.data.getPrice(),
-                                                Grade(
-                                                    nameEn: snapshot
-                                                        .data.grade.nameEn,
-                                                    nameAr: snapshot
-                                                        .data.grade.nameAr),
-                                                snapshot.data.gender,
-                                                Size(code: sizeItem.code),
-                                                1));
+                                    child: StreamBuilder<String>(
+                                        stream: bloc.feedbackStream,
+                                        builder: (context, snapshotStatus) {
+                                          if (snapshotStatus.hasData &&
+                                              bloc.showFeedback == true) {
+                                            WidgetsBinding.instance
+                                                .addPostFrameCallback((_) {
+                                              showInSnackBar(
+                                                  snapshotStatus.data, context);
+                                              bloc.showFeedback = false;
+                                            });
+                                          } else if (snapshotStatus.hasError &&
+                                              bloc.showFeedback == true) {
+                                            WidgetsBinding.instance
+                                                .addPostFrameCallback((_) {
+                                              showInSnackBar(
+                                                  snapshotStatus.error,
+                                                  context);
+                                              bloc.showFeedback = false;
+                                            });
+                                          }
+
+                                          return MainButton(
+                                            onPressed: () {
+                                              if (sizeItem.id != null) {
+                                                bloc.f_addToCart(
+                                                    new ProductDetailsModel(
+                                                        bloc.f_getProductId(
+                                                            snapshot.data,
+                                                            sizeItem.id),
+                                                        Images(
+                                                            file: snapshot.data
+                                                                        .image ==
+                                                                    null
+                                                                ? ""
+                                                                : snapshot.data
+                                                                    .image.file),
+                                                        snapshot.data.nameEn,
+                                                        snapshot.data.nameAr,
+                                                        snapshot.data
+                                                            .getPrice(),
+                                                        Grade(
+                                                            nameEn: snapshot
+                                                                .data
+                                                                .grade
+                                                                .nameEn,
+                                                            nameAr: snapshot
+                                                                .data
+                                                                .grade
+                                                                .nameAr),
+                                                        snapshot.data.gender,
+                                                        Size(
+                                                            code:
+                                                                sizeItem.code),
+                                                        1));
+                                              } else {
+                                                print("No size detacted");
+                                                showInSnackBar(
+                                                    "No size detacted",
+                                                    context);
+                                              }
 //                                bloc.f_getProductId(snapshot.data ,sizeId);
-                                      },
-                                      text: "Add To Cart",
-                                      textColor: AlmasaoodColors.white,
-                                      color: AlmasaoodColors.primaryColor,
-                                    ),
+                                            },
+                                            text: "Add To Cart",
+                                            textColor: AlmasaoodColors.white,
+                                            color: AlmasaoodColors.primaryColor,
+                                          );
+                                        }),
                                   )
                                 ],
                               ),

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
+import 'States.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -19,10 +20,13 @@ class _CartState extends State<Cart> {
           iconTheme: IconThemeData(color: AlmasaoodColors.textDark),
           elevation: 0,
           backgroundColor: AlmasaoodColors.pink,
-          leading: InkWell(onTap: (){Navigator.of(context).pop();},
+          leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
             child: Image.asset(
               "assets/images/close.png",
-              scale: 4,
+              scale: 6,
             ),
           ),
         ),
@@ -40,7 +44,7 @@ class _CartState extends State<Cart> {
                     decoration: BoxDecoration(
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color: Colors.black45,
+                          color: Colors.black26,
                           blurRadius: 20,
                           offset: Offset(0, 11),
                         ),
@@ -273,7 +277,10 @@ class _CartState extends State<Cart> {
                                                           )
                                                         ],
                                                       ),
-                                                      index != snapshot.data.length-1
+                                                      index !=
+                                                              snapshot.data
+                                                                      .length -
+                                                                  1
                                                           ? Padding(
                                                               padding:
                                                                   const EdgeInsets
@@ -331,11 +338,13 @@ class _CartState extends State<Cart> {
                                               color: AlmasaoodColors.textDark),
                                         ),
                                         CupertinoSwitch(
-                                          onChanged: onChange,
-                                          value: true,
+                                          onChanged: (_val) {
+                                            onChange();
+                                          },
+                                          value: bloc.withDelivery,
                                           activeColor:
                                               AlmasaoodColors.primaryColor,
-                                        )
+                                        ),
                                       ],
                                     ),
                                     Padding(
@@ -400,27 +409,51 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0, bottom: 32),
-                  child: MainButton(
-                    text: "Submit",
-                    color: AlmasaoodColors.primaryColor,
-                    textColor: AlmasaoodColors.white,
-                    onPressed: () {
-//                      Navigator.push(
-//                        context,
-//                        MaterialPageRoute(builder: (context) => ProductDetails()),
-//                      );
-                    },
-                  ),
-                )
+                StreamBuilder<List<ProductDetailsModel>>(
+                    stream: bloc.cartStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && snapshot.data != null) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 16.0, bottom: 32),
+                          child: MainButton(
+                            text: "Submit",
+                            color: AlmasaoodColors.primaryColor,
+                            textColor: AlmasaoodColors.white,
+                            onPressed: () {
+//                            bloc.createOrder(snapshot.data);
+
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => States()));
+                            },
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    })
               ],
             ),
           ),
         ));
   }
 
-  void onChange(bool value) {
-    if(value == true ){value = false  ; } else{value = true; }
+  void onChange() {
+    setState(() {
+      if (bloc.withDelivery == true) {
+        bloc.withDelivery = false;
+        bloc.f_estimatedPrice(bloc.withDelivery);
+        print(bloc.withDelivery);
+      } else {
+        bloc.withDelivery = true;
+        bloc.f_estimatedPrice(bloc.withDelivery);
+        print(bloc.withDelivery);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    bloc.withDelivery = false;
+    bloc.f_estimatedPrice(bloc.withDelivery);
   }
 }

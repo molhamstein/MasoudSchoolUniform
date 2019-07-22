@@ -17,9 +17,12 @@ class PickUpLocation extends StatefulWidget {
 }
 
 class PickUpLocationState extends State<PickUpLocation> {
-  Completer<GoogleMapController> _controller = Completer();
-  GoogleMapController controller;
+  GoogleMapController _controller;
+//  GoogleMapController controller;
   final Set<Marker> _markers = {};
+
+
+
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(33.5074558, 36.2128544),
     zoom: 10,
@@ -39,12 +42,19 @@ class PickUpLocationState extends State<PickUpLocation> {
     _geolocator = Geolocator();
     checkPermission();
     getPermissions();
+
+
+
 //    updateLocation();
   }
 
   void checkPermission() {
+
+
+
+
     _geolocator.checkGeolocationPermissionStatus().then((status) {
-      print('status: $status');
+      print('status: $status') ;
     });
     _geolocator
         .checkGeolocationPermissionStatus(
@@ -143,7 +153,7 @@ class PickUpLocationState extends State<PickUpLocation> {
             markers: _markers,
             mapType: MapType.terrain,
             onTap: (lang) {
-//              print (lang.longitude +lang.latitude);
+              print (lang.longitude.toString() +"   "+lang.latitude.toString());
 
               setState(() {
                 _markers.add(Marker(
@@ -156,9 +166,7 @@ class PickUpLocationState extends State<PickUpLocation> {
               });
             },
             initialCameraPosition: _kGooglePlex,
-            onMapCreated: (controller) {
-              _controller.complete(controller);
-            },
+            onMapCreated: onMapCreated
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -205,8 +213,13 @@ class PickUpLocationState extends State<PickUpLocation> {
     double longitude,
     double latitude,
   ) async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: LatLng(latitude, longitude), zoom: 16)));
+  }
+
+  void onMapCreated(GoogleMapController controller) {
+    setState(() {
+      _controller = controller ;
+    });
   }
 }
