@@ -16,7 +16,7 @@ class CheckNumber extends StatefulWidget {
 }
 
 class _CheckNumberState extends State<CheckNumber>
-    with SingleTickerProviderStateMixin,UserFeedback
+    with SingleTickerProviderStateMixin,UserFeedback 
 {
   TextEditingController numberController = new TextEditingController();
 
