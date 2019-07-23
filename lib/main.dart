@@ -10,11 +10,7 @@
 //}
 
 import 'package:almasaood_app/ui/CheckNumber.dart';
-import 'package:almasaood_app/ui/Home.dart';
 import 'package:almasaood_app/ui/SplashScreen.dart';
-import 'package:almasaood_app/ui/States.dart';
-import 'package:almasaood_app/ui/VerificationCode.dart';
-import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -27,10 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -59,14 +51,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    dataStore.user ;
-
+    dataStore.user;
   }
 }
-
-
-
-
 
 //
 //class MyApp extends StatelessWidget {

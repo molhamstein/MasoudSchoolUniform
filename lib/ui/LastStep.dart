@@ -2,6 +2,7 @@ import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
+import 'Home.dart';
 
 class LastStep extends StatefulWidget {
   @override
@@ -11,48 +12,57 @@ class LastStep extends StatefulWidget {
 class _LastStepState extends State<LastStep> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: AlmasaoodColors.primaryColor,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: Image.asset(
-                  "assets/images/smile.png",
-                  height: 200,
-                  width: 200,
+    return WillPopScope(onWillPop: onWillPop,
+      child: Scaffold(
+        body: Container(
+          color: AlmasaoodColors.primaryColor,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: Image.asset(
+                    "assets/images/smile.png",
+                    height: 200,
+                    width: 200,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Your Order will be readt in 24 hours",
-                style: TextStyle(
-                    fontSize: 13,
-                    color: AlmasaoodColors.white,
-                    fontWeight: FontWeight.w700),
+              Padding(
+                padding: const EdgeInsets.all(64.0),
+                child: Text(
+                  "Your Order will be readt in 24 hours",textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: AlmasaoodColors.white,
+                      fontWeight: FontWeight.w700),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 32),
-              child: MainButton(
-                onPressed: () {},
-                text: "Back to home",
-                textColor: AlmasaoodColors.white,
-                color: AlmasaoodColors.primaryColor,
-                width: 200,
-                height: 40,
-              ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 64),
+                child: MainButton(
+                  onPressed: () {
+
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
+                  },
+                  text: "Back to home",
+                  textColor: AlmasaoodColors.white,
+                  color: AlmasaoodColors.primaryColor,
+
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<bool> onWillPop() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
+
   }
 }

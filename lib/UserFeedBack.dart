@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'AlmasaoodColors.dart';
-import 'local/AppLocal.dart';
 
 mixin UserFeedback {
   void showInSnackBar(String value, BuildContext context,
       {Color color = AlmasaoodColors.red}) {
-
     FocusScope.of(context).requestFocus(new FocusNode());
     Scaffold.of(context)?.removeCurrentSnackBar();
     Scaffold.of(context).reassemble();

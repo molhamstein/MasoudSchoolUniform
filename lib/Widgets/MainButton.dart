@@ -1,4 +1,5 @@
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashed_container/dashed_container.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,9 @@ class _MainButtonState extends State<MainButton> {
                 ),
                 height: widget.height,
                 width: widget.width,
-                child: RaisedButton(padding: EdgeInsets.only(left: 8 , right: 8 ,top: 0, bottom: 0),
+                child: RaisedButton(
+                  padding:
+                      EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
                   color: widget.color,
                   shape: new RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
@@ -72,13 +75,15 @@ class _MainButtonState extends State<MainButton> {
                       height: widget.height - 10,
                       width: widget.width,
                       child: Center(
-                        child: Text(
-                          widget.text,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: widget.textColor),
-                        ),
+                        child: AutoSizeText( widget.text,minFontSize: 12,maxFontSize: 18,style: TextStyle(color: widget.textColor,fontWeight: FontWeight.w700),)
+
+//                        Text(
+//                          widget.text,
+//                          style: TextStyle(
+//                              fontSize: 18,
+//                              fontWeight: FontWeight.w700,
+//                              color: widget.textColor),
+//                        ),
                       ),
                     ),
                   ),

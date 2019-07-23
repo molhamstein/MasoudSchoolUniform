@@ -1,11 +1,13 @@
+import 'dart:math';
+
 import 'package:almasaood_app/Widgets/AuthTextField.dart';
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:almasaood_app/models/SignModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../AlmasaoodColors.dart';
-import '../DataStore.dart';
 import '../UserFeedBack.dart';
 import '../Utils.dart';
 import 'VerificationCode.dart';
@@ -16,8 +18,7 @@ class CheckNumber extends StatefulWidget {
 }
 
 class _CheckNumberState extends State<CheckNumber>
-    with SingleTickerProviderStateMixin,UserFeedback 
-{
+    with TickerProviderStateMixin, UserFeedback {
   TextEditingController numberController = new TextEditingController();
 
   AnimationController animationController;
@@ -26,16 +27,30 @@ class _CheckNumberState extends State<CheckNumber>
 
   Animation logoAnimation;
   Animation logoAnimationFade;
-
   Animation textFieldAnimation;
-
   Animation buttonAnimation;
+
+  Animation needleAnimation;
+  Animation stringOneAnimation;
+  Animation stringTwoAnimation;
+  Animation needlesAnimationX;
+  Animation needlesAnimationY;
+
+  Animation secsAnimationX;
+  Animation secsAnimationY;
+
+  Animation firstSceAnimation;
+
+  Animation secondSceAnimation;
 
   @override
   void initState() {
-
     animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+        new AnimationController(vsync: this, duration: Duration(seconds: 5));
+
+    sce_Animationcontroller =
+        new AnimationController(vsync: this, duration: Duration(seconds: 2));
+
     logoAnimation = Tween(begin: -1.30, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.30, 1.0, curve: ElasticOutCurve(0.8))));
@@ -50,120 +65,249 @@ class _CheckNumberState extends State<CheckNumber>
         parent: animationController,
         curve: Interval(0.65, 1.0, curve: ElasticOutCurve(0.8))));
 
+    needleAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
+
+    stringOneAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
+
+    stringTwoAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
+
+    needlesAnimationX = Tween(begin: -1, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
+
+    needlesAnimationY = Tween(begin: 3 / 4, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
+
+    secsAnimationX = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
+    secsAnimationY = Tween(begin: 3 / 4, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
+
+    firstSceAnimation = Tween(begin: 0.0, end: pi/8).animate(
+        CurvedAnimation(parent: sce_Animationcontroller, curve: Curves.linear));
+    secondSceAnimation = Tween(begin: 0.0, end: -pi/8).animate(
+        CurvedAnimation(parent: sce_Animationcontroller, curve: Curves.linear));
+    
+    sce_Animationcontroller.addStatusListener((status){
+      if(status == AnimationStatus.completed){
+        sce_Animationcontroller.reverse();
+      }else if(status == AnimationStatus.dismissed){
+        sce_Animationcontroller.forward();
+
+      }
+    });
+    
+sce_Animationcontroller.forward();
     animationController.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-
-          return AnimatedBuilder(
-            animation: animationController,
-            builder: (context, child) {
-              return Scaffold(
-                body: StreamBuilder<SignInModel>(
-                  stream: bloc.signInStream,
-                  builder: (context, snapshot) {
-
-                    if(snapshot.hasError && bloc.showFeedback == true ){WidgetsBinding.instance.addPostFrameCallback((_) {
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: AnimatedBuilder(
+        animation: animationController,
+        builder: (context, child) {
+          return Scaffold(
+            body: StreamBuilder<SignInModel>(
+                stream: bloc.signInStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError && bloc.showFeedback == true) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
                       showInSnackBar("Some thing went wrong", context);
-                      bloc.showFeedback = false ;
+                      bloc.showFeedback = false;
+                    });
+                  } else if (snapshot.hasData && snapshot.data != null) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.of(context).pushReplacement(
+                          new MaterialPageRoute(
+                              builder: (context) => VerificationCode(
+                                  numberController.text,
+                                  snapshot.data.created)));
+                    });
+                  }
 
-                    });}else
-
-
-                    if (snapshot.hasData && snapshot.data != null) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                            builder: (context) => VerificationCode(
-                                numberController.text, snapshot.data.created)));
-                      });
-                    }
-
-                    return SingleChildScrollView(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AlmasaoodColors.primaryColor,
-                        ),
-                        height: MediaQuery.of(context).size.height,
-                        child: Stack(
-                          children: <Widget>[
-                            Container(
-                              height: MediaQuery.of(context).size.height,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: <Widget>[
-                                      Image.asset(
+                  return SingleChildScrollView(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AlmasaoodColors.primaryColor,
+                      ),
+                      height: MediaQuery.of(context).size.height,
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Transform(
+                                      transform: Matrix4.translationValues(
+                                          0.0,
+                                          needleAnimation.value *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                          0.0),
+                                      child: Image.asset(
                                         "assets/images/needle.png",
                                         height:
-                                            MediaQuery.of(context).size.height / 3,
+                                            MediaQuery.of(context).size.height /
+                                                3,
                                         width:
-                                            MediaQuery.of(context).size.width / 2,
+                                            MediaQuery.of(context).size.width /
+                                                2,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 130.0),
+                                    ),
+                                    Transform(
+                                      transform: Matrix4.translationValues(
+                                          stringOneAnimation.value *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                          0.0,
+                                          0.0),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 130.0),
                                         child: Image.asset(
                                           "assets/images/string1.png",
-                                          height:
-                                              MediaQuery.of(context).size.height /
-                                                  3,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              3,
 //                                    width:
 //                                        MediaQuery.of(context).size.width / 2,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Image.asset(
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Transform(
+                                      transform: Matrix4.translationValues(
+                                          stringTwoAnimation.value *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                          0.0,
+                                          0.0),
+                                      child: Image.asset(
                                         "assets/images/string2.png",
                                         height:
-                                            MediaQuery.of(context).size.width / 4,
+                                            MediaQuery.of(context).size.width /
+                                                4,
                                         width:
-                                            MediaQuery.of(context).size.width / 4,
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Image.asset(
+                                            MediaQuery.of(context).size.width /
+                                                4,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Transform(
+                                      transform: Matrix4.translationValues(
+                                          needlesAnimationX.value *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                          needlesAnimationY.value *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                          0.0),
+                                      child: Image.asset(
                                         "assets/images/needles.png",
 //                                    width:
 //                                        MediaQuery.of(context).size.width / 3,
                                         height:
-                                            MediaQuery.of(context).size.width / 3,
+                                            MediaQuery.of(context).size.width /
+                                                3,
                                       ),
-                                      Stack(children: <Widget>[
-                                        Image.asset(
-                                          "assets/images/sce_white.png",
-                                          height:
-                                              MediaQuery.of(context).size.width / 4,
-                                          width:
-                                              MediaQuery.of(context).size.width / 4,
+                                    ),
+                                    Transform(
+                                        transform: Matrix4.translationValues(
+                                            secsAnimationX.value *
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                            secsAnimationY.value *
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                            0.0),
+                                        child: Stack(children: <Widget>[
+                                          AnimatedBuilder(
+                                          animation: sce_Animationcontroller,
+                                          builder: (context, child) {
+
+                                            return Transform.rotate(
+                                                angle:firstSceAnimation.value,
+                                                child:child
+                                            );
+                                          },
+                                          child:  Image.asset(
+                                            "assets/images/sce_white.png",
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .width /
+                                                4,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width /
+                                                4,
+                                          ),
                                         ),
-                                        Image.asset(
-                                          "assets/images/sce_white_2.png",
-                                          height:
-                                              MediaQuery.of(context).size.width / 4,
-                                          width:
-                                              MediaQuery.of(context).size.width / 4,
-                                        )
-                                      ])
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                          AnimatedBuilder(
+                                            animation: sce_Animationcontroller,
+                                            builder: (context, child) {
+
+                                              return Transform.rotate(
+                                                angle: secondSceAnimation.value,
+                                                child:child
+                                              );
+                                            },
+                                            child:  Image.asset(
+                                              "assets/images/sce_white_2.png",
+                                              height: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                                  4,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                                  4,
+                                            ),
+                                          )
+                                        ]))
+                                  ],
+                                ),
+                              ],
                             ),
-                            Column(
+                          ),
+                          Visibility(
+                            visible: true,
+                            child: Column(
                               children: <Widget>[
                                 Transform(
                                   transform: Matrix4.translationValues(
@@ -205,7 +349,8 @@ class _CheckNumberState extends State<CheckNumber>
                                             ],
                                           ),
                                           child: AuthTextField(
-                                            textEditingController: numberController,
+                                            textEditingController:
+                                                numberController,
                                             hint: "Mobile Number",
                                           ))),
                                 ),
@@ -223,35 +368,41 @@ class _CheckNumberState extends State<CheckNumber>
                                           return MainButton(
                                             shouldRotate: snapshot.data,
                                             textColor: AlmasaoodColors.black,
-                                            dashColor: AlmasaoodColors.primaryColor,
+                                            dashColor:
+                                                AlmasaoodColors.primaryColor,
                                             onPressed: () {
                                               if (Utils.isValidNumber(
                                                   numberController.text)) {
-
-
-
                                                 String tempMobile;
-                                                if (numberController.text.startsWith("09")) {
-                                                  tempMobile = numberController.text.split("0")[1];
-                                                  numberController.text = "00971" + tempMobile;
+                                                if (numberController.text
+                                                    .startsWith("09")) {
+                                                  tempMobile = numberController
+                                                      .text
+                                                      .split("0")[1];
+                                                  numberController.text =
+                                                      "00971" + tempMobile;
                                                   print(tempMobile);
                                                   print(true);
 
-
                                                   bloc.f_SignIn(
                                                       numberController.text);
-                                                } else if (numberController.text.startsWith("00")) {
-                                                  numberController.text = numberController.text;
+                                                } else if (numberController.text
+                                                    .startsWith("00")) {
+                                                  numberController.text =
+                                                      numberController.text;
 
                                                   bloc.f_SignIn(
                                                       numberController.text);
                                                 } else {
                                                   print("Not valid");
-                                                  showInSnackBar("Please Enter valid number", context);
+                                                  showInSnackBar(
+                                                      "Please Enter valid number",
+                                                      context);
                                                 }
-
-                                              }
-                                              else {showInSnackBar("Please Enter valid number", context);
+                                              } else {
+                                                showInSnackBar(
+                                                    "Please Enter valid number",
+                                                    context);
                                               }
                                               ;
                                             },
@@ -262,15 +413,19 @@ class _CheckNumberState extends State<CheckNumber>
                                 ),
                               ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
-                  }
-                ),
-              );
-            },
+                    ),
+                  );
+                }),
           );
+        },
+      ),
+    );
+  }
 
+  Future<bool> onWillPop() {
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
   }
 }

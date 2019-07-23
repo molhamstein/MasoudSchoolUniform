@@ -1,3 +1,4 @@
+import 'package:almasaood_app/models/OrderModel.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/ProfileModel.dart';
 import 'package:almasaood_app/models/SignModel.dart';
@@ -20,9 +21,12 @@ class SingletonBloc {
   SingletonBloc._internal() {
     _shouldRotateController.sink.add(false);
 
-    withDelivery = false ;
+    withDelivery = false;
   }
 
+
+
+  double priceCost;
   final _signInController = BehaviorSubject<SignInModel>();
 
   get signInStream => _signInController.stream;
@@ -80,6 +84,9 @@ class SingletonBloc {
   final _statesController = BehaviorSubject<List<StatesModel>>();
 
   get statesStream => _statesController.stream;
+  final _orderController = PublishSubject<OrderModel>();
+
+  get orderStream => _orderController.stream;
 
 //
 //  final _feedbackController = PublishSubject<String>();
@@ -211,7 +218,10 @@ class SingletonBloc {
     }
   }
 
-  createOrder(List<ProductDetailsModel> data) {
+  createOrder(deliveryAddress, delieveryLat, delieveryLng,
+      List<ProductDetailsModel> data) {
+    _shouldRotateController.sink.add(true);
+
     List<Map<String, int>> productsMap = new List();
     for (int i = 0; i < data.length; i++) {
       Map<String, int> item = new Map();
@@ -220,10 +230,20 @@ class SingletonBloc {
       productsMap.add(item);
     }
     apiProvider
-        .createOrder("", "", "", productsMap)
-        .then((val) {})
-        .catchError((e) {
-      print(e);
+        .createOrder(deliveryAddress, delieveryLat, delieveryLng, productsMap)
+        .then((val) {
+      cartItems = [];
+      _cartController.sink.add(cartItems);
+      _shouldRotateController.sink.add(false);
+
+      _orderController.sink.add(val);
+    }).catchError((e) {
+      print("eeeeeeeeeeeeeeeeeeee" + e.toString());
+      _shouldRotateController.sink.add(false);
+
+      showFeedback = true;
+
+      _orderController.sink.addError(e);
     });
   }
 
@@ -247,6 +267,8 @@ class SingletonBloc {
         cartItems.add(orderData);
         _feedbackController.sink.add("Added Sucessfully");
         _cartController.sink.add(cartItems);
+        bloc.price.add(double.parse(
+            orderData.price));
         showFeedback = true;
       } else {
         print("Already exist");
@@ -256,6 +278,8 @@ class SingletonBloc {
     } else {
       cartItems.add(orderData);
       _cartController.sink.add(cartItems);
+      bloc.price.add(double.parse(
+          orderData.price));
       _feedbackController.sink.add("Added Sucessfully");
       showFeedback = true;
     }
@@ -263,15 +287,16 @@ class SingletonBloc {
   }
 
   f_removeItemFromCart(int count, int index) {
-    double price = double.parse(cartItems[index].price);
     if (count == 1) {
       cartItems.removeAt(index);
+      price.removeAt(index);
       _cartController.sink.add(cartItems);
+      withDelivery = false;
       pushEstimationCost();
     } else {
+
       cartItems[index].count -= 1;
-      price /= 2;
-      cartItems[index].price = price.toString();
+      cartItems[index].price =  (double.parse(cartItems[index].price)-price[index]  ) .toString();
       _cartController.sink.add(cartItems);
       pushEstimationCost();
 
@@ -279,11 +304,13 @@ class SingletonBloc {
     }
   }
 
+    List<double> price =List();
   f_IncreaseOrderCount(int index) {
-    double price = double.parse(cartItems[index].price);
+
+  print(price[index]);
+
     cartItems[index].count += 1;
-    price *= 2;
-    cartItems[index].price = price.toString();
+    cartItems[index].price =   (double.parse(cartItems[index].price)+price[index]  ) .toString();
     _cartController.sink.add(cartItems);
     pushEstimationCost();
   }
@@ -305,7 +332,7 @@ class SingletonBloc {
     }
 
     if (withDelivery == true) {
-      price +=10;
+      price += 10;
       _productsPriceController.sink.add(price);
     } else {
       _productsPriceController.sink.add(price);
@@ -314,21 +341,40 @@ class SingletonBloc {
     return price;
   }
 
+  List<StatesModel> states = new List();
+
   f_getStates() {
-    List<StatesModel> status = new List();
-    status = [];
+    states = [];
     apiProvider.getStates().then((onVal) {
       for (int i = 0; i < onVal.states.length; i++) {
-        status.add(onVal.states[i]);
-        _statesController.sink.add(status);
+        states.add(onVal.states[i]);
+        _statesController.sink.add(states);
       }
     }).catchError((e) {
       print(e);
     });
   }
+  List<Centers> centers = new List();
 
+  f_getMarkers(int id) {
+//    print(states.length);
+//    print(id);
+    centers = [];
+    for (int i = 0; i < states.length; i++) {
+      if (states[i].id == id) {
+        for (int j = 0; j < states[i].centers.length; j++) {
+//          print(states[i].centers[j].nameEn);
+          centers.add(states[i].centers[j]);
+        }
+      }
 
-  f_getMarkers(){}
+//        centers.add(states[i].centers[i]);
+//        print(centers[i].nameEn);
+
+//      }
+//    }
+    }
+  }
 }
 
 final bloc = SingletonBloc();

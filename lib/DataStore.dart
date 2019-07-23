@@ -4,7 +4,7 @@ import 'models/VerifyModel.dart';
 
 class DataStore {
 //  String _token;
-  VerifyModel _user ;
+  VerifyModel _user;
 
   factory DataStore() {
     return _DataStore;
@@ -30,7 +30,6 @@ class DataStore {
 //    return prefs.getString('Token') ?? '';
 //  }
 
-
   Future<bool> setUser(VerifyModel value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _user = value;
@@ -40,14 +39,13 @@ class DataStore {
 
   Future<VerifyModel> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-   var x = prefs.getString('User') ?? '';
+    var x = prefs.getString('User') ?? '';
 
-    var u = x != '' ?VerifyModelFromJson(x) : VerifyModel();
+    var u = x != '' ? VerifyModelFromJson(x) : VerifyModel();
 
     print("xxxxx" + x);
 //   var user=  ;
-   return  u;
-
+    return u;
   }
 
   VerifyModel get user => _user;
@@ -55,7 +53,6 @@ class DataStore {
   set user(VerifyModel value) {
     _user = value;
   }
-
 
 //
 //  String get token => _token;

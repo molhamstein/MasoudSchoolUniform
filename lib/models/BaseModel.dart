@@ -1,4 +1,3 @@
-class BaseModel{
-int id ;
-
+class BaseModel {
+  int id;
 }

@@ -13,31 +13,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
-    print(dataStore.user.token);
-    Timer(
-        Duration(seconds: 5),
-        () =>_NavigateTo());
+//    print(dataStore.user.token);
+    Timer(Duration(seconds: 5), () => _NavigateTo());
   }
 
-
-
-  _NavigateTo(){
-
-      if(dataStore.user.token == null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CheckNumber()),
-        );
-      }else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
-      }
-
+  _NavigateTo() {
+    if (dataStore.user.token == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CheckNumber()),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }
   }
 
   @override

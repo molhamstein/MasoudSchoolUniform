@@ -256,39 +256,33 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                           children: <Widget>[
 //                                  Image.network(""),
 
-                                            snapshot.data.image != null
-                                                ? Container(
-                                                    child: Image.network(
-                                                      snapshot.data.image.file,
-                                                      height: 200,
-                                                      width: 150,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      boxShadow: <BoxShadow>[
-                                                        BoxShadow(
-                                                          color: Colors.black12,
-                                                          blurRadius: 10,
-                                                          offset: Offset(0, 8),
+                                            Hero(
+                                                tag: "id" +
+                                                    snapshot.data.id.toString(),
+                                                child: Container(
+                                                  child: snapshot.data.image !=
+                                                          null
+                                                      ? Image.network(
+                                                          snapshot
+                                                              .data.image.file,
+                                                          height: 200,
+                                                          width: 150,
+                                                        )
+                                                      : Image.asset(
+                                                          "assets/images/child.png",
+                                                          height: 200,
+                                                          width: 150,
                                                         ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                : Container(
-                                                    child: Image.asset(
-                                                      "assets/images/child.png",
-                                                      height: 200,
-                                                      width: 150,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      boxShadow: <BoxShadow>[
-                                                        BoxShadow(
-                                                          color: Colors.black12,
-                                                          blurRadius: 10,
-                                                          offset: Offset(0, 8),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
+                                                  decoration: BoxDecoration(
+                                                    boxShadow: <BoxShadow>[
+                                                      BoxShadow(
+                                                        color: Colors.black12,
+                                                        blurRadius: 10,
+                                                        offset: Offset(0, 8),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ))
                                           ],
                                         ),
                                       )
@@ -503,7 +497,9 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                             WidgetsBinding.instance
                                                 .addPostFrameCallback((_) {
                                               showInSnackBar(
-                                                  snapshotStatus.data, context);
+                                                  snapshotStatus.data, context,
+                                                  color: AlmasaoodColors
+                                                      .primaryColor);
                                               bloc.showFeedback = false;
                                             });
                                           } else if (snapshotStatus.hasError &&

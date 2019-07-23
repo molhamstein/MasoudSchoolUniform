@@ -66,12 +66,11 @@ class _StatesState extends State<States> {
                                           children: <Widget>[
                                             InkWell(
                                               onTap: () {
+                                               bloc. f_getMarkers(snapshot.data[index].id);
                                                 Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             PickUpLocation()));
-
-//                                                f_getMarkers(){}
 
                                               },
                                               child: Row(

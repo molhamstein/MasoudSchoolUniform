@@ -1,7 +1,6 @@
 import 'ProductModel.dart';
 
 class ProductDetailsModel {
-
   int _id;
   Images _image;
   String _nameEn;
@@ -9,8 +8,9 @@ class ProductDetailsModel {
   String _price;
   Grade _grade;
   String _gender;
-  Size _size ;
-  int _count ;
+  Size _size;
+
+  int _count;
 
   ProductDetailsModel(this._id, this._image, this._nameEn, this._nameAr,
       this._price, this._grade, this._gender, this._size, this._count);
@@ -68,9 +68,4 @@ class ProductDetailsModel {
   set id(int value) {
     _id = value;
   }
-
-
-
-
-
 }

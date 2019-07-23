@@ -77,9 +77,9 @@ class ApiProvider {
     print(ordersURL);
 
     final body = json.encode({
-      "deliveryAddress": "mazzeh 1 ",
-      "delieveryLat": 20,
-      "delieveryLng": 30,
+
+      "delieveryLat": delieveryLat,
+      "delieveryLng": delieveryLng,
       "products": array
     });
     print(body);
@@ -145,9 +145,7 @@ class ApiProvider {
     }
   }
 
-
- Future<StatesList> getStates() async {
-//    _headers['Authorization'] = token;
+  Future<StatesList> getStates() async {
     print(statesURL);
     final response = await http.get(statesURL, headers: _headers);
     if (response.statusCode == 200) {
@@ -159,15 +157,6 @@ class ApiProvider {
       throw json.decode(response.body);
     }
   }
-
-
-
-
-
-
-
-
-
 }
 
 final apiProvider = ApiProvider();
