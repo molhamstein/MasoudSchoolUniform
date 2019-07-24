@@ -26,6 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(builder: (context) => CheckNumber()),
       );
+    } else if (dataStore.user.token != null &&
+        dataStore.user.user.firstName == "") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SignUp()),
+      );
     } else {
       Navigator.push(
         context,
@@ -36,7 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(  onWillPop: onWillPop,
+    return WillPopScope(
+      onWillPop: onWillPop,
       child: Scaffold(
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,6 +72,5 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<bool> onWillPop() {
     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-
   }
 }

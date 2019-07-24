@@ -1,4 +1,5 @@
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/StatesModel.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +29,7 @@ class _StatesState extends State<States> {
                   Padding(
                     padding: const EdgeInsets.only(left: 64.0, right: 64),
                     child: Text(
-                      "Choose Where do you want to pickup your items",
-                      style:
+                      AppLocalizations.of(context).trans('choose_where_do_you_want_to_pick_items_from'),                      style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                       textAlign: TextAlign.center,
                     ),
@@ -66,17 +66,17 @@ class _StatesState extends State<States> {
                                           children: <Widget>[
                                             InkWell(
                                               onTap: () {
-                                               bloc. f_getMarkers(snapshot.data[index].id);
+                                                bloc.f_getMarkers(
+                                                    snapshot.data[index].id);
                                                 Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             PickUpLocation()));
-
                                               },
                                               child: Row(
                                                 children: <Widget>[
                                                   Text(
-                                                    snapshot.data[index].nameEn,
+                                                    snapshot.data[index].name(AppLocalizations.of(context).locale),
                                                     style: TextStyle(
                                                         fontSize: 20,
                                                         fontWeight:

@@ -1,3 +1,4 @@
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/OrderModel.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/ProfileModel.dart';
@@ -150,7 +151,6 @@ class SingletonBloc {
     } else {
       for (int i = 0; i < pro.length; i++) {
         if (pro[i].grade.id == id) {
-          print(pro[i].nameEn);
           sortedItems.add(pro[i]);
 
           _productsController.sink.add(sortedItems);
@@ -171,32 +171,10 @@ class SingletonBloc {
     });
   }
 
-//  f_getProducts(id) {
-//    List<ProductsModel> pro = new List();
-//    pro = [];
-//    apiProvider.products().then((valPro) {
-//      if (id == -1) {
-//        for (int i = 0; i < valPro.products.length; i++) {
-//          pro.add(valPro.products[i]);
-//          _productsController.sink.add(pro);
-//        }
-//      } else {
-//        for (int i = 0; i < valPro.products.length; i++) {
-//          if (valPro.products[i].grade.id == id) {
-//            print(valPro.products[i].nameEn);
-//            pro.add(valPro.products[i]);
-//
-//            _productsController.sink.add(pro);
-//          }
-//        }
-//      }
-//    }).catchError((e) {
-//      _productsController.sink.addError(e);
-//    });
-//  }
 
   f_grades() {
-    GradesModel all = new GradesModel(id: -1, nameEn: "All");
+    GradesModel all = new GradesModel(id: -1, nameEn: "All" ,nameAr:  "الكل"
+    );
     List<GradesModel> list = [all];
     apiProvider.getGrades(dataStore.user.token).then((valGrad) {
       for (int i = 0; i < valGrad.grades.length; i++) {
@@ -249,7 +227,7 @@ class SingletonBloc {
 
   List<ProductDetailsModel> cartItems = new List();
 
-  f_addToCart(ProductDetailsModel orderData) {
+  f_addToCart(ProductDetailsModel orderData ,context) {
     print("order id out side " + orderData.id.toString());
     int count = 0;
 
@@ -265,14 +243,14 @@ class SingletonBloc {
       }
       if (count == 0) {
         cartItems.add(orderData);
-        _feedbackController.sink.add("Added Sucessfully");
+        _feedbackController.sink.add( AppLocalizations.of(context).trans('added_successfully'));
         _cartController.sink.add(cartItems);
         bloc.price.add(double.parse(
             orderData.price));
         showFeedback = true;
       } else {
         print("Already exist");
-        _feedbackController.sink.addError("Already exist");
+        _feedbackController.sink.addError(AppLocalizations.of(context).trans('already_exist'));
         showFeedback = true;
       }
     } else {
@@ -280,7 +258,7 @@ class SingletonBloc {
       _cartController.sink.add(cartItems);
       bloc.price.add(double.parse(
           orderData.price));
-      _feedbackController.sink.add("Added Sucessfully");
+      _feedbackController.sink.add( AppLocalizations.of(context).trans('added_successfully'));
       showFeedback = true;
     }
     print("list length" + cartItems.length.toString());
@@ -325,6 +303,17 @@ class SingletonBloc {
     }
   }
 
+  f_getProductPrice(ProductsModel product, int sizeId){
+    for (int i = 0; i < product.products.length; i++) {
+      if (product.products[i].size.id == sizeId) {
+        print(product.products[i].id);
+
+        return product.products[i].price.toString();
+      }
+    }
+  }
+
+
   double f_estimatedPrice(bool withDelivery) {
     double price = 0;
     for (int i = 0; i < cartItems.length; i++) {
@@ -363,16 +352,9 @@ class SingletonBloc {
     for (int i = 0; i < states.length; i++) {
       if (states[i].id == id) {
         for (int j = 0; j < states[i].centers.length; j++) {
-//          print(states[i].centers[j].nameEn);
           centers.add(states[i].centers[j]);
         }
       }
-
-//        centers.add(states[i].centers[i]);
-//        print(centers[i].nameEn);
-
-//      }
-//    }
     }
   }
 }

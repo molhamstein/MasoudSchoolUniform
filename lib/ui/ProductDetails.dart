@@ -1,5 +1,6 @@
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/productDetailsModel.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,7 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                               MainAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              snapshot.data.nameEn,
+                                              snapshot.data.name(AppLocalizations.of(context).locale),
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 22),
@@ -111,14 +112,15 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                       CrossAxisAlignment.end,
                                                   children: <Widget>[
                                                     Text(
-                                                      snapshot.data.getPrice(),
+//                                                      snapshot.data.getPrice(),
+                                            bloc.f_getProductPrice(snapshot.data,sizeItem.id) ??snapshot.data.getPrice(),
                                                       style: TextStyle(
                                                           fontSize: 30,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
                                                     Text(
-                                                      "AED",
+                                                      AppLocalizations.of(context).trans('AED'),
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w700,
@@ -137,7 +139,7 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                               padding: const EdgeInsets.only(
                                                   bottom: 8.0),
                                               child: Text(
-                                                "Type",
+                                                AppLocalizations.of(context).trans('type'),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w700,
                                                     fontSize: 16,
@@ -176,7 +178,7 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                                 bottom: 5),
                                                         child: Text(
                                                           snapshot.data.grade
-                                                              .nameEn,
+                                                              .name(AppLocalizations.of(context).locale),
                                                           style: TextStyle(
                                                               color:
                                                                   AlmasaoodColors
@@ -260,11 +262,11 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                 tag: "id" +
                                                     snapshot.data.id.toString(),
                                                 child: Container(
-                                                  child: snapshot.data.images.isNotEmpty
-
+                                                  child: snapshot.data.images
+                                                          .isNotEmpty
                                                       ? Image.network(
-                                                          snapshot
-                                                              .data.images[0].file,
+                                                          snapshot.data
+                                                              .images[0].file,
                                                           height: 200,
                                                           width: 150,
                                                         )
@@ -291,7 +293,7 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                   Container(
                                     width: MediaQuery.of(context).size.width,
                                     child: Text(
-                                      "Description",
+                                      AppLocalizations.of(context).trans('description'),
                                       style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.w700),
@@ -355,7 +357,7 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: Text(
-                                        "Choose Size",
+                                        AppLocalizations.of(context).trans('choose_size'),
                                         style: TextStyle(
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700),
@@ -522,11 +524,15 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                             snapshot.data,
                                                             sizeItem.id),
                                                         Images(
-                                                            file: snapshot.data
-                                                                        .images.isEmpty
+                                                            file: snapshot
+                                                                    .data
+                                                                    .images
+                                                                    .isEmpty
                                                                 ? ""
-                                                                : snapshot.data
-                                                                    .images[0].file),
+                                                                : snapshot
+                                                                    .data
+                                                                    .images[0]
+                                                                    .file),
                                                         snapshot.data.nameEn,
                                                         snapshot.data.nameAr,
                                                         snapshot.data
@@ -544,16 +550,16 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                         Size(
                                                             code:
                                                                 sizeItem.code),
-                                                        1));
+                                                        1),context);
                                               } else {
                                                 print("No size detacted");
                                                 showInSnackBar(
-                                                    "No size detacted",
+                                                    AppLocalizations.of(context).trans('no_size_detected'),
                                                     context);
                                               }
 //                                bloc.f_getProductId(snapshot.data ,sizeId);
                                             },
-                                            text: "Add To Cart",
+                                            text: AppLocalizations.of(context).trans('add_to_cart'),
                                             textColor: AlmasaoodColors.white,
                                             color: AlmasaoodColors.primaryColor,
                                           );

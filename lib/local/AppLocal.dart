@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../DataStore.dart';
+
 class AppLocalizations {
   AppLocalizations(this.locale);
 
@@ -45,6 +47,8 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
     await localizations.load();
 
     print("Load ${locale.languageCode}");
+
+    dataStore.setLang(locale.languageCode) ;
 
     return localizations;
   }

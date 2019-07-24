@@ -1,6 +1,7 @@
 import 'package:almasaood_app/Widgets/AuthTextField.dart';
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +22,18 @@ class VerificationCode extends StatefulWidget {
 }
 
 class _VerificationCodeState extends State<VerificationCode>
-    with SingleTickerProviderStateMixin, UserFeedback {
+    with TickerProviderStateMixin, UserFeedback {
   TextEditingController verificationCodeController =
       new TextEditingController();
 
   AnimationController animationController;
+  AnimationController hidingResendController;
   Animation logoAnimation;
   Animation logoAnimationFade;
 
   Animation didnotReciveAnimation;
+
+  Animation _hideResendCodeAnimation;
   Animation resebdAnimation;
   Animation textFieldAnimation;
 
@@ -39,10 +43,26 @@ class _VerificationCodeState extends State<VerificationCode>
 
   double relativeDuration = 0.40;
 
+  _hideResendCode() {
+    hidingResendController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 5));
+    _hideResendCodeAnimation = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+            parent: hidingResendController, curve: Interval(0.9, 1.0)));
+    hidingResendController.reverse();
+  }
+
   @override
   void initState() {
     animationController =
         new AnimationController(vsync: this, duration: Duration(seconds: 4));
+
+    hidingResendController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 5));
+    _hideResendCodeAnimation = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+            parent: hidingResendController, curve: Interval(0.9, 1.0)));
+
     logoAnimation = Tween(begin: -1.30, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.30, 1.0, curve: ElasticOutCurve(fade))));
@@ -65,6 +85,7 @@ class _VerificationCodeState extends State<VerificationCode>
         curve: Interval(0.50, relativeDuration + 0.50,
             curve: ElasticOutCurve(fade))));
     animationController.forward();
+    hidingResendController.forward();
   }
 
   @override
@@ -78,7 +99,7 @@ class _VerificationCodeState extends State<VerificationCode>
               builder: (context, snapshot) {
                 if (snapshot.hasError && bloc.showFeedback == true) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    showInSnackBar("Some thing went wrong", context);
+                    showInSnackBar( AppLocalizations.of(context).trans('something_went_wrong'), context);
                     bloc.showFeedback = false;
                   });
                 } else if (snapshot.hasData && snapshot.data != null) {
@@ -205,7 +226,7 @@ class _VerificationCodeState extends State<VerificationCode>
                                         child: AuthTextField(
                                           textEditingController:
                                               verificationCodeController,
-                                          hint: "Verification Code",
+                                          hint:  AppLocalizations.of(context).trans('verification_code'),
                                         ))),
                               ),
                               Transform(
@@ -223,13 +244,13 @@ class _VerificationCodeState extends State<VerificationCode>
                                       if (verificationCodeController
                                           .text.isEmpty) {
                                         showInSnackBar(
-                                            "Please enter valid code", context);
+                                            AppLocalizations.of(context).trans('please_enter_valid_code'), context);
                                       } else {
                                         bloc.f_Verify(widget.num,
                                             verificationCodeController.text);
                                       }
                                     },
-                                    text: "Submit",
+                                    text:  AppLocalizations.of(context).trans('Submit'),
                                   ),
                                 ),
                               ),
@@ -245,7 +266,7 @@ class _VerificationCodeState extends State<VerificationCode>
                                     width:
                                         MediaQuery.of(context).size.width - 32,
                                     child: Text(
-                                      "Didn't Recive the SMS ?",
+                                      AppLocalizations.of(context).trans('did_not_receive_the_sms'),
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
@@ -267,7 +288,7 @@ class _VerificationCodeState extends State<VerificationCode>
                                     width:
                                         MediaQuery.of(context).size.width - 32,
                                     child: Text(
-                                      "Resend Code",
+                                      AppLocalizations.of(context).trans('resend_code'),
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,

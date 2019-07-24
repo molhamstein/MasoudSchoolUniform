@@ -1,5 +1,6 @@
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/productDetailsModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class _CartState extends State<Cart> {
                                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                                     children: <Widget>[
                                                                                       Text(
-                                                                                        snapshot.data[index].nameEn,
+                                                                                        snapshot.data[index].name(AppLocalizations.of(context).locale),
                                                                                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: AlmasaoodColors.textDark),
                                                                                       ),
                                                                                     ],
@@ -129,7 +130,7 @@ class _CartState extends State<Cart> {
                                                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                                                     children: <Widget>[
                                                                                       Text(
-                                                                                        "AED",
+                                                                                        AppLocalizations.of(context).trans('AED'),
                                                                                         style: TextStyle(fontWeight: FontWeight.w700, color: AlmasaoodColors.text),
                                                                                       ),
                                                                                       Text(
@@ -156,7 +157,7 @@ class _CartState extends State<Cart> {
                                                                                             child: Padding(
                                                                                               padding: const EdgeInsets.only(left: 8.0, right: 8, top: 2, bottom: 2),
                                                                                               child: Text(
-                                                                                                snapshot.data[index].grade.nameEn,
+                                                                                                snapshot.data[index].grade.name(AppLocalizations.of(context).locale),
                                                                                                 style: TextStyle(color: AlmasaoodColors.white),
                                                                                               ),
                                                                                             ),
@@ -312,7 +313,7 @@ class _CartState extends State<Cart> {
                                                       .spaceBetween,
                                               children: <Widget>[
                                                 Text(
-                                                  "Delivery",
+                                                  AppLocalizations.of(context).trans('delivery'),
                                                   style: TextStyle(
                                                       fontSize: 22,
                                                       fontWeight:
@@ -339,7 +340,7 @@ class _CartState extends State<Cart> {
                                                         .spaceBetween,
                                                 children: <Widget>[
                                                   Text(
-                                                    "Total",
+                                                    AppLocalizations.of(context).trans('total'),
                                                     style: TextStyle(
                                                         fontSize: 24,
                                                         fontWeight:
@@ -350,7 +351,7 @@ class _CartState extends State<Cart> {
                                                   Row(
                                                     children: <Widget>[
                                                       Text(
-                                                        "AED",
+                                                        AppLocalizations.of(context).trans('AED'),
                                                         style: TextStyle(
                                                             color:
                                                                 AlmasaoodColors
@@ -408,7 +409,8 @@ class _CartState extends State<Cart> {
                                   padding: const EdgeInsets.only(
                                       top: 16.0, bottom: 32),
                                   child: MainButton(
-                                    text: "Submit",
+                                    text:   AppLocalizations.of(context).trans('Submit'),
+
                                     color: AlmasaoodColors.primaryColor,
                                     textColor: AlmasaoodColors.white,
                                     onPressed: () {
@@ -439,7 +441,11 @@ class _CartState extends State<Cart> {
                           ),
                         ],
                       ),
-                      child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: AlmasaoodColors.white,),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: AlmasaoodColors.white,
+                        ),
                         width: MediaQuery.of(context).size.width - 64,
                         height: MediaQuery.of(context).size.height / 1.5,
                         child: Center(
@@ -457,7 +463,10 @@ class _CartState extends State<Cart> {
                                 ),
                                 Text(
                                   "You haven't select items yet",
-                                  style: TextStyle(fontSize: 20, ),textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ],
                             ),

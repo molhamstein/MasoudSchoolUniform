@@ -36,11 +36,11 @@ class _MyAppState extends State<MyApp> {
     '/sign':(context)=>CheckNumber()},
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'ProximaNova'),
-      supportedLocales: [const Locale('ar'), const Locale('en', 'US')],
+      supportedLocales: [const Locale('en'), const Locale('en', 'US')],
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
-//        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate
       ],
       localeResolutionCallback:
           (Locale locale, Iterable<Locale> supportedLocales) {

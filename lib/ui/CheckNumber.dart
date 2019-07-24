@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:almasaood_app/Widgets/AuthTextField.dart';
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/SignModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -92,21 +93,20 @@ class _CheckNumberState extends State<CheckNumber>
         parent: animationController,
         curve: Interval(0.45, 1.0, curve: ElasticOutCurve(0.8))));
 
-    firstSceAnimation = Tween(begin: 0.0, end: pi/8).animate(
+    firstSceAnimation = Tween(begin: 0.0, end: pi / 8).animate(
         CurvedAnimation(parent: sce_Animationcontroller, curve: Curves.linear));
-    secondSceAnimation = Tween(begin: 0.0, end: -pi/8).animate(
+    secondSceAnimation = Tween(begin: 0.0, end: -pi / 8).animate(
         CurvedAnimation(parent: sce_Animationcontroller, curve: Curves.linear));
-    
-    sce_Animationcontroller.addStatusListener((status){
-      if(status == AnimationStatus.completed){
-        sce_Animationcontroller.reverse();
-      }else if(status == AnimationStatus.dismissed){
-        sce_Animationcontroller.forward();
 
+    sce_Animationcontroller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        sce_Animationcontroller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        sce_Animationcontroller.forward();
       }
     });
-    
-sce_Animationcontroller.forward();
+
+    sce_Animationcontroller.forward();
     animationController.forward();
   }
 
@@ -123,7 +123,7 @@ sce_Animationcontroller.forward();
                 builder: (context, snapshot) {
                   if (snapshot.hasError && bloc.showFeedback == true) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      showInSnackBar("Some thing went wrong", context);
+                      showInSnackBar(AppLocalizations.of(context).trans('something_went_wrong'), context);
                       bloc.showFeedback = false;
                     });
                   } else if (snapshot.hasData && snapshot.data != null) {
@@ -258,44 +258,42 @@ sce_Animationcontroller.forward();
                                             0.0),
                                         child: Stack(children: <Widget>[
                                           AnimatedBuilder(
-                                          animation: sce_Animationcontroller,
-                                          builder: (context, child) {
-
-                                            return Transform.rotate(
-                                                angle:firstSceAnimation.value,
-                                                child:child
-                                            );
-                                          },
-                                          child:  Image.asset(
-                                            "assets/images/sce_white.png",
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .width /
-                                                4,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width /
-                                                4,
+                                            animation: sce_Animationcontroller,
+                                            builder: (context, child) {
+                                              return Transform.rotate(
+                                                  angle:
+                                                      firstSceAnimation.value,
+                                                  child: child);
+                                            },
+                                            child: Image.asset(
+                                              "assets/images/sce_white.png",
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  4,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  4,
+                                            ),
                                           ),
-                                        ),
                                           AnimatedBuilder(
                                             animation: sce_Animationcontroller,
                                             builder: (context, child) {
-
                                               return Transform.rotate(
-                                                angle: secondSceAnimation.value,
-                                                child:child
-                                              );
+                                                  angle:
+                                                      secondSceAnimation.value,
+                                                  child: child);
                                             },
-                                            child:  Image.asset(
+                                            child: Image.asset(
                                               "assets/images/sce_white_2.png",
                                               height: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
+                                                      .size
+                                                      .width /
                                                   4,
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
+                                                      .size
+                                                      .width /
                                                   4,
                                             ),
                                           )
@@ -351,7 +349,7 @@ sce_Animationcontroller.forward();
                                           child: AuthTextField(
                                             textEditingController:
                                                 numberController,
-                                            hint: "Mobile Number",
+                                            hint: AppLocalizations.of(context).trans('mobile_number'),
                                           ))),
                                 ),
                                 Transform(
@@ -396,17 +394,17 @@ sce_Animationcontroller.forward();
                                                 } else {
                                                   print("Not valid");
                                                   showInSnackBar(
-                                                      "Please Enter valid number",
+                                                      AppLocalizations.of(context).trans('please_enter_valid_nam'),
                                                       context);
                                                 }
                                               } else {
                                                 showInSnackBar(
-                                                    "Please Enter valid number",
+                                                    AppLocalizations.of(context).trans('please_enter_valid_nam'),
                                                     context);
                                               }
                                               ;
                                             },
-                                            text: "Submit",
+                                            text: AppLocalizations.of(context).trans('Submit'),
                                           );
                                         }),
                                   ),

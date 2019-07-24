@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/OrderModel.dart';
 import 'package:almasaood_app/models/productDetailsModel.dart';
 import 'package:android_intent/android_intent.dart';
@@ -11,10 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import '../AlmasaoodColors.dart';
 import 'package:toast/toast.dart';
 
+import '../AlmasaoodColors.dart';
 import '../UserFeedBack.dart';
 import 'LastStep.dart';
 
@@ -52,7 +52,6 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
     for (int i = 0; i < bloc.centers.length; i++) {
       _markers.add(Marker(
           onTap: () {
-
             setState(() {
               print(bloc.centers[i].lng);
               print(bloc.centers[i].lat);
@@ -62,12 +61,11 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
               isLocationSelected = true;
               print("tapped");
             });
-
           },
           draggable: true,
           markerId: MarkerId(bloc.centers[i].lat.toString()),
           infoWindow: InfoWindow(
-            title: "${bloc.centers[i].nameEn}",
+            title: "${bloc.centers[i].name(AppLocalizations.of(context).locale)}",
 //            snippet: "${"name"}",
           ),
           position: LatLng(bloc.centers[i].lat, bloc.centers[i].lng)));
@@ -80,19 +78,21 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
     checkPermission();
     getPermissions();
 
-
     isLocationSelected = false;
 
 //    Timer(Duration(seconds: 5), () => _showFeedback());
 
-    if(!bloc.withDelivery){
+    if (!bloc.withDelivery) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Toast.show("Please select the center you want to pick the items from", context, duration: 6, gravity:  Toast.BOTTOM,backgroundColor: AlmasaoodColors.red);
-
+        Toast.show(
+            AppLocalizations.of(context).trans('please_select_the_center_you_want_to_pick_items_from'), context,
+            duration: 6,
+            gravity: Toast.BOTTOM,
+            backgroundColor: AlmasaoodColors.red);
       });
     }
 
-    print("bloc . with delivery "+bloc.withDelivery.toString());
+    print("bloc . with delivery " + bloc.withDelivery.toString());
 
     print(_markers.length);
 
@@ -194,17 +194,16 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
 
   @override
   Widget build(BuildContext context) {
-    if(bloc.withDelivery == false){
+    if (bloc.withDelivery == false) {
       if (bloc.centers.isNotEmpty) {
         addM();
-      }}
+      }
+    }
 
     return Scaffold(
       body: StreamBuilder<OrderModel>(
           stream: bloc.orderStream,
           builder: (context, orderSnapshot) {
-
-
             if (orderSnapshot.hasData && orderSnapshot.data != null) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 Navigator.of(context).pushReplacement(
@@ -216,7 +215,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
             } else if (orderSnapshot.hasError && bloc.showFeedback) {
               {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  showInSnackBar("Some thing went wrong", context,
+                  showInSnackBar(  AppLocalizations.of(context).trans('something_went_wrong'), context,
                       color: AlmasaoodColors.red);
                   bloc.showFeedback = false;
                 });
@@ -242,8 +241,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                           selectedLat = lang.latitude;
                           isLocationSelected = true;
                           _markers.add(Marker(
-                              onTap: () {
-                              },
+                              onTap: () {},
                               visible: true,
                               position: LatLng(lang.latitude, lang.longitude),
                               markerId: MarkerId(
@@ -272,7 +270,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                     opacity: isLocationSelected ? 1 : 0.5,
                                     child: MainButton(
                                       shouldRotate: bloc.showFeedback,
-                                      text: "Use Selected Location",
+                                      text: AppLocalizations.of(context).trans('use_selected_location'),
                                       onPressed: () {
                                         if (!isLocationSelected) {
                                         } else {
@@ -319,9 +317,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                       selectedLng = currentLocation.longitude;
                                       selectedLat = currentLocation.latitude;
                                       _markers.add(Marker(
-                                          onTap: () {
-
-                                          },
+                                          onTap: () {},
                                           visible: true,
                                           position: LatLng(
                                               currentLocation.latitude,
@@ -358,15 +354,12 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                     opacity: isLocationSelected ? 1 : 0.5,
                                     child: MainButton(
                                       shouldRotate: bloc.showFeedback,
-                                      text: "Use Selected Location",
+                                      text: AppLocalizations.of(context).trans('use_selected_location'),
                                       onPressed: () {
                                         if (!isLocationSelected) {
                                         } else {
-                                          bloc.createOrder(
-                                              "",
-                                              selectedLat,
-                                              selectedLng,
-                                              snapshot.data);
+                                          bloc.createOrder("", selectedLat,
+                                              selectedLng, snapshot.data);
                                         }
                                       },
                                       width: MediaQuery.of(context).size.width /
@@ -392,7 +385,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                               height: 50,
                                               child: Center(
                                                   child: Text(
-                                                "Skip",
+                                                    AppLocalizations.of(context).trans('skip'),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w700,
@@ -443,6 +436,4 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
       _controller = controller;
     });
   }
-
-
 }

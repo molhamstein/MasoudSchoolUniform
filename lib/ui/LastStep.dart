@@ -1,4 +1,5 @@
 import 'package:almasaood_app/Widgets/MainButton.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
@@ -12,7 +13,8 @@ class LastStep extends StatefulWidget {
 class _LastStepState extends State<LastStep> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(onWillPop: onWillPop,
+    return WillPopScope(
+      onWillPop: onWillPop,
       child: Scaffold(
         body: Container(
           color: AlmasaoodColors.primaryColor,
@@ -34,7 +36,8 @@ class _LastStepState extends State<LastStep> {
               Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: Text(
-                  "Your Order will be readt in 24 hours",textAlign: TextAlign.center,
+                  AppLocalizations.of(context).trans('Your_order_will_be_ready'),
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 16,
                       color: AlmasaoodColors.white,
@@ -45,13 +48,12 @@ class _LastStepState extends State<LastStep> {
                 padding: const EdgeInsets.only(top: 16.0, bottom: 64),
                 child: MainButton(
                   onPressed: () {
-
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Home()));
                   },
-                  text: "Back to home",
+                  text:  AppLocalizations.of(context).trans('back_to_home'),
                   textColor: AlmasaoodColors.white,
                   color: AlmasaoodColors.primaryColor,
-
                 ),
               )
             ],
@@ -62,7 +64,6 @@ class _LastStepState extends State<LastStep> {
   }
 
   Future<bool> onWillPop() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
-
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
   }
 }

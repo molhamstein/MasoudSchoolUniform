@@ -1,14 +1,11 @@
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../AlmasaoodColors.dart';
 import '../DataStore.dart';
-import '../main.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'CheckNumber.dart';
-import 'SplashScreen.dart';
-
 
 class Settings extends StatefulWidget {
   @override
@@ -16,8 +13,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +23,7 @@ class _SettingsState extends State<Settings> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color:  AlmasaoodColors.white,
+          color: AlmasaoodColors.white,
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -49,58 +44,86 @@ class _SettingsState extends State<Settings> {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 32.0, bottom: 64,left: 32,right: 32),
-                      child: Text("Some Slogan about the service",style: TextStyle(fontSize: 22),textAlign: TextAlign.center,),
+                      padding: const EdgeInsets.only(
+                          top: 32.0, bottom: 64, left: 32, right: 32),
+                      child: Text(
+                        "Some Slogan about the service",
+                        style: TextStyle(fontSize: 22),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 32.0, right: 32, bottom: 16),
                       child: Column(
                         children: <Widget>[
-                          InkWell(  onTap:(){_launchEmail();},
+                          InkWell(
+                            onTap: () {
+                              _launchEmail();
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text("Contact us",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18),),
+                                Text(
+                                  AppLocalizations.of(context).trans('contact_us'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18),
+                                ),
                                 Icon(Icons.arrow_forward_ios)
                               ],
                             ),
                           ),
-                          SizedBox(height: 10,),
-
+                          SizedBox(
+                            height: 10,
+                          ),
                           Divider()
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 32.0, right: 32,bottom: 16),
+                      padding: const EdgeInsets.only(
+                          left: 32.0, right: 32, bottom: 16),
                       child: Column(
                         children: <Widget>[
-                          InkWell(onTap:(){_lunchPrivacy();},
+                          InkWell(
+                            onTap: () {
+                              _lunchPrivacy();
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text("Terms of service",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18)),
+                                Text( AppLocalizations.of(context).trans('terms_of_service'),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 18)),
                                 Icon(Icons.arrow_forward_ios)
                               ],
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Divider()
                         ],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 64.0, bottom: 32),
-                      child: InkWell(onTap: (){
-                        dataStore.setUser(VerifyModel());
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CheckNumber()));
-                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>CheckNumber()), ModalRoute.withName('/sign'));
+                      child: InkWell(
+                        onTap: () {
+                          dataStore.setUser(VerifyModel());
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CheckNumber()));
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => CheckNumber()),
+                              ModalRoute.withName('/sign'));
 //                        Navigator.of(context)
 //                            .pushNamedAndRemoveUntil('/SplashScreen', (Route<dynamic> route) => false);
-                      },
+                        },
                         child: Text(
-                          "Log out",
+                          AppLocalizations.of(context).trans('log_out'),
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 16),
                         ),
@@ -117,19 +140,21 @@ class _SettingsState extends State<Settings> {
   }
 
   _launchEmail() async {
-    const url = "mailto:noreplay@almasaood.com?subject=From Almasaood tailoring app&body=Hi there";
+    const url =
+        "mailto:noreplay@almasaood.com?subject=From Almasaood tailoring app&body=Hi there";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
-    }}
-    _lunchPrivacy() async {
+    }
+  }
+
+  _lunchPrivacy() async {
     const url = "https://jawlatcom.com/privacy/";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
-    }}
-
-
+    }
+  }
 }

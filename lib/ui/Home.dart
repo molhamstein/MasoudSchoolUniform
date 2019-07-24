@@ -1,4 +1,5 @@
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
+import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/gradesModel.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -58,7 +59,6 @@ class _HomeState extends State<Home> {
                     elevation: 0,
                     leading: Container(),
                     actions: <Widget>[
-
                       InkWell(
                         onTap: () {
                           print("tapped");
@@ -127,7 +127,7 @@ class _HomeState extends State<Home> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        "Welcome",
+                                        AppLocalizations.of(context).trans('welcome'),
                                         style: TextStyle(
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700,
@@ -251,7 +251,7 @@ class _HomeState extends State<Home> {
                                                                       snapshot
                                                                           .data[
                                                                               index]
-                                                                          .nameEn,
+                                                                          .name(AppLocalizations.of(context).locale),
                                                                       style: TextStyle(
                                                                           color:
                                                                               AlmasaoodColors.white),
@@ -402,7 +402,7 @@ class _HomeState extends State<Home> {
                   ),
                   Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 15),
-                      child: Text(data.nameEn,
+                      child: Text(data.name(AppLocalizations.of(context).locale),
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: AlmasaoodColors.text))),
@@ -412,10 +412,9 @@ class _HomeState extends State<Home> {
                   Row(
                     children: <Widget>[
                       Container(
-                        width:
-
-                  MediaQuery.of(context).size.width > 330?
-                        MediaQuery.of(context).size.width / 4 : MediaQuery.of(context).size.width / 5,
+                        width: MediaQuery.of(context).size.width > 330
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 5,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -427,7 +426,13 @@ class _HomeState extends State<Home> {
                                   padding: const EdgeInsets.only(
                                       left: 8.0, right: 8, top: 2, bottom: 2),
                                   child: AutoSizeText(
-                                    data.grade.nameEn,maxLines: 1,maxFontSize:  MediaQuery.of(context).size.width > 330 ? 14 : 10,minFontSize: 8,
+                                    data.grade.name(AppLocalizations.of(context).locale),
+                                    maxLines: 1,
+                                    maxFontSize:
+                                        MediaQuery.of(context).size.width > 330
+                                            ? 14
+                                            : 10,
+                                    minFontSize: 8,
                                     style:
                                         TextStyle(color: AlmasaoodColors.white),
                                   ),
@@ -473,7 +478,7 @@ class _HomeState extends State<Home> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
                                   Text(
-                                    "AED",
+                                    AppLocalizations.of(context).trans('AED'),
                                     style: TextStyle(
                                         color: AlmasaoodColors.white,
                                         fontSize: 12),

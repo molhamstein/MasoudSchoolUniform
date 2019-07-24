@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 class GradesList {
   final List<GradesModel> grades;
 
@@ -48,5 +50,13 @@ class GradesModel {
     data['nameEn'] = this._nameEn;
     data['nameAr'] = this._nameAr;
     return data;
+  }
+
+
+  String name(Locale locale) {
+    if (locale.languageCode == 'en') {
+      return nameEn;
+    }
+    return nameAr;
   }
 }

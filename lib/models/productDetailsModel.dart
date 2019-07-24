@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'ProductModel.dart';
 
 class ProductDetailsModel {
@@ -67,5 +69,13 @@ class ProductDetailsModel {
 
   set id(int value) {
     _id = value;
+  }
+
+
+  String name(Locale locale) {
+    if (locale.languageCode == 'en') {
+      return nameEn;
+    }
+    return nameAr;
   }
 }

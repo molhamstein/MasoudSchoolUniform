@@ -84,12 +84,12 @@ class ProductsModel {
   }
 
 
-  String name(Locale locale) {
-    if (locale.languageCode == 'en') {
-      return nameEn;
+    String name(Locale locale) {
+      if (locale.languageCode == 'en') {
+        return nameEn;
+      }
+      return nameAr;
     }
-    return nameAr;
-  }
 
 
   String getPrice() {
@@ -170,6 +170,14 @@ class Size {
     data['createdAt'] = this.createdAt;
     return data;
   }
+
+
+  String name(Locale locale) {
+    if (locale.languageCode == 'en') {
+      return nameEn;
+    }
+    return nameAr;
+  }
 }
 
 class AbstractProduct {
@@ -226,6 +234,14 @@ class AbstractProduct {
     }
     return data;
   }
+
+
+  String name(Locale locale) {
+    if (locale.languageCode == 'en') {
+      return nameEn;
+    }
+    return nameAr;
+  }
 }
 
 class Images {
@@ -275,6 +291,14 @@ class Grade {
     data['nameAr'] = this.nameAr;
     data['createdAt'] = this.createdAt;
     return data;
+  }
+
+
+  String name(Locale locale) {
+    if (locale.languageCode == 'en') {
+      return nameEn;
+    }
+    return nameAr;
   }
 }
 
