@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'models/VerifyModel.dart';
 
 class DataStore {
-//  String _token;
+  String token;
   VerifyModel _user;
 
   factory DataStore() {

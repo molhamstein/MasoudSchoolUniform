@@ -1,6 +1,14 @@
+import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
+import '../DataStore.dart';
+import '../main.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'CheckNumber.dart';
+import 'SplashScreen.dart';
+
 
 class Settings extends StatefulWidget {
   @override
@@ -8,6 +16,8 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +28,7 @@ class _SettingsState extends State<Settings> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: AlmasaoodColors.textLight,
+          color:  AlmasaoodColors.white,
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -35,50 +45,65 @@ class _SettingsState extends State<Settings> {
                     ),
                   )),
               Container(
-                color: AlmasaoodColors.textLight,
+                color: AlmasaoodColors.white,
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 32.0, bottom: 64),
-                      child: Text("Some Slogan about the service"),
+                      padding: const EdgeInsets.only(top: 32.0, bottom: 64,left: 32,right: 32),
+                      child: Text("Some Slogan about the service",style: TextStyle(fontSize: 22),textAlign: TextAlign.center,),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 32.0, right: 32, bottom: 16),
                       child: Column(
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text("Contact us"),
-                              Icon(Icons.arrow_forward_ios)
-                            ],
+                          InkWell(  onTap:(){_launchEmail();},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text("Contact us",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18),),
+                                Icon(Icons.arrow_forward_ios)
+                              ],
+                            ),
                           ),
+                          SizedBox(height: 10,),
+
                           Divider()
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 32.0, right: 32),
+                      padding: const EdgeInsets.only(left: 32.0, right: 32,bottom: 16),
                       child: Column(
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text("Terms of service"),
-                              Icon(Icons.arrow_forward_ios)
-                            ],
+                          InkWell(onTap:(){_lunchPrivacy();},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text("Terms of service",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18)),
+                                Icon(Icons.arrow_forward_ios)
+                              ],
+                            ),
                           ),
+                          SizedBox(height: 10,),
                           Divider()
                         ],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 64.0, bottom: 32),
-                      child: Text(
-                        "Log out",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 16),
+                      child: InkWell(onTap: (){
+                        dataStore.setUser(VerifyModel());
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CheckNumber()));
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>CheckNumber()), ModalRoute.withName('/sign'));
+//                        Navigator.of(context)
+//                            .pushNamedAndRemoveUntil('/SplashScreen', (Route<dynamic> route) => false);
+                      },
+                        child: Text(
+                          "Log out",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 16),
+                        ),
                       ),
                     )
                   ],
@@ -90,4 +115,21 @@ class _SettingsState extends State<Settings> {
       ),
     );
   }
+
+  _launchEmail() async {
+    const url = "mailto:noreplay@almasaood.com?subject=From Almasaood tailoring app&body=Hi there";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }}
+    _lunchPrivacy() async {
+    const url = "https://jawlatcom.com/privacy/";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }}
+
+
 }

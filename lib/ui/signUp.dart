@@ -2,9 +2,11 @@ import 'package:almasaood_app/Widgets/AuthTextField.dart';
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:almasaood_app/models/ProfileModel.dart';
+import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:flutter/material.dart';
 
 import '../AlmasaoodColors.dart';
+import '../DataStore.dart';
 import '../UserFeedBack.dart';
 import 'Home.dart';
 
@@ -82,6 +84,8 @@ class _SignUpState extends State<SignUp>
                     bloc.showFeedback = false;
                   });
                 } else if (snapshot.hasData && snapshot.data != null) {
+                  dataStore.setUser(VerifyModel(token: dataStore.token,user: User(firstName: firstNameController.text, lastName: lastNameController.text)));
+
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.of(context).pushReplacement(
                         new MaterialPageRoute(builder: (context) => Home()));
@@ -257,20 +261,14 @@ class _SignUpState extends State<SignUp>
                                     color: AlmasaoodColors.primaryColor,
                                     textColor: AlmasaoodColors.white,
                                     onPressed: () {
-                                      if (firstNameController.text.isEmpty ||
-                                          lastNameController.text.isEmpty) {
+                                      if (firstNameController.text.isEmpty ) {
                                         showInSnackBar(
-                                            "Please enter first and last name",
+                                            "First name is required",
                                             context);
                                       } else
                                         bloc.f_signUp(firstNameController.text,
                                             lastNameController.text);
 
-//                            Navigator.push(
-//                              context,
-//                              MaterialPageRoute(
-//                                  builder: (context) => Home()),
-//                            );
                                     },
                                     text: "Submit",
                                   ),

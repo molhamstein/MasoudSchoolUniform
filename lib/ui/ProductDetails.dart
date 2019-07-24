@@ -260,11 +260,11 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                 tag: "id" +
                                                     snapshot.data.id.toString(),
                                                 child: Container(
-                                                  child: snapshot.data.image !=
-                                                          null
+                                                  child: snapshot.data.images.isNotEmpty
+
                                                       ? Image.network(
                                                           snapshot
-                                                              .data.image.file,
+                                                              .data.images[0].file,
                                                           height: 200,
                                                           width: 150,
                                                         )
@@ -523,11 +523,10 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                             sizeItem.id),
                                                         Images(
                                                             file: snapshot.data
-                                                                        .image ==
-                                                                    null
+                                                                        .images.isEmpty
                                                                 ? ""
                                                                 : snapshot.data
-                                                                    .image.file),
+                                                                    .images[0].file),
                                                         snapshot.data.nameEn,
                                                         snapshot.data.nameAr,
                                                         snapshot.data

@@ -13,6 +13,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../AlmasaoodColors.dart';
+import 'package:toast/toast.dart';
+
 import '../UserFeedBack.dart';
 import 'LastStep.dart';
 
@@ -80,6 +82,15 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
 
 
     isLocationSelected = false;
+
+//    Timer(Duration(seconds: 5), () => _showFeedback());
+
+    if(!bloc.withDelivery){
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Toast.show("Please select the center you want to pick the items from", context, duration: 6, gravity:  Toast.BOTTOM,backgroundColor: AlmasaoodColors.red);
+
+      });
+    }
 
     print("bloc . with delivery "+bloc.withDelivery.toString());
 
@@ -192,6 +203,8 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
       body: StreamBuilder<OrderModel>(
           stream: bloc.orderStream,
           builder: (context, orderSnapshot) {
+
+
             if (orderSnapshot.hasData && orderSnapshot.data != null) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 Navigator.of(context).pushReplacement(
@@ -430,4 +443,6 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
       _controller = controller;
     });
   }
+
+
 }

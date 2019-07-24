@@ -20,7 +20,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/launcher_icon"
-        android:label="almasaood_app">
+        android:label="School Uniform">
 
 
 

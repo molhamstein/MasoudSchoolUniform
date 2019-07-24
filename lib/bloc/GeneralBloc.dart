@@ -27,7 +27,7 @@ class SingletonBloc {
 
 
   double priceCost;
-  final _signInController = BehaviorSubject<SignInModel>();
+  final _signInController = PublishSubject<SignInModel>();
 
   get signInStream => _signInController.stream;
 

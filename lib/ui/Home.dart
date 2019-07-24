@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../AlmasaoodColors.dart';
-import '../ApiProvider.dart';
 import '../DataStore.dart';
 import 'Cart.dart';
 import 'ProductDetails.dart';
+import 'Settings.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 1000);
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -42,7 +43,8 @@ class _HomeState extends State<Home> {
       itemHeight = (size.height - kToolbarHeight) / 1.1;
     }
     final double itemWidth = size.width;
-    return WillPopScope(onWillPop: onWillPop,
+    return WillPopScope(
+      onWillPop: onWillPop,
       child: Scaffold(
           body: Container(
               decoration: BoxDecoration(
@@ -56,17 +58,34 @@ class _HomeState extends State<Home> {
                     elevation: 0,
                     leading: Container(),
                     actions: <Widget>[
+
                       InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Cart()),
-                          );
+                          print("tapped");
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Cart()));
                         },
-                        child: Image.asset(
-                          "assets/images/ic_cart.png",
-                          scale: 1.5,
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: AlmasaoodColors.textDark,
+                          size: 25,
                         ),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Settings()));
+                        },
+                        child: Icon(
+                          Icons.settings,
+                          color: AlmasaoodColors.textDark,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 8,
                       ),
                     ],
                   ),
@@ -95,14 +114,17 @@ class _HomeState extends State<Home> {
                     child: CustomScrollView(
                       slivers: <Widget>[
                         SliverList(
-                          delegate: SliverChildBuilderDelegate((context, index) {
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
                             return Column(children: <Widget>[
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         "Welcome",
@@ -156,14 +178,15 @@ class _HomeState extends State<Home> {
                                                     i < snapshot.data.length;
                                                     i++) checkedList.add(false);
                                                 return Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 8.0, right: 8),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8.0, right: 8),
                                                   child: Row(
                                                     children: <Widget>[
                                                       ClipRRect(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                5),
+                                                            BorderRadius
+                                                                .circular(5),
                                                         child: InkWell(
                                                           onTap: () {
                                                             setState(() {
@@ -176,11 +199,13 @@ class _HomeState extends State<Home> {
                                                                 checkedList[i] =
                                                                     (false);
                                                                 checkedList[
-                                                                    index] = true;
+                                                                        index] =
+                                                                    true;
                                                               }
                                                               bloc.f_sortProduct(
                                                                   snapshot
-                                                                      .data[index]
+                                                                      .data[
+                                                                          index]
                                                                       .id);
                                                             });
                                                           },
@@ -198,20 +223,27 @@ class _HomeState extends State<Home> {
                                                                 padding:
                                                                     const EdgeInsets
                                                                             .only(
-                                                                        left: 4.0,
-                                                                        right: 4),
+                                                                        left:
+                                                                            4.0,
+                                                                        right:
+                                                                            4),
                                                                 child:
                                                                     DashedContainer(
-                                                                  blankLength: 10,
+                                                                  blankLength:
+                                                                      10,
                                                                   dashColor:
                                                                       AlmasaoodColors
                                                                           .white,
-                                                                  borderRadius: 2,
-                                                                  child: Padding(
+                                                                  borderRadius:
+                                                                      2,
+                                                                  child:
+                                                                      Padding(
                                                                     padding: const EdgeInsets
                                                                             .only(
-                                                                        left: 8.0,
-                                                                        right: 8,
+                                                                        left:
+                                                                            8.0,
+                                                                        right:
+                                                                            8,
                                                                         top: 5,
                                                                         bottom:
                                                                             5),
@@ -221,8 +253,8 @@ class _HomeState extends State<Home> {
                                                                               index]
                                                                           .nameEn,
                                                                       style: TextStyle(
-                                                                          color: AlmasaoodColors
-                                                                              .white),
+                                                                          color:
+                                                                              AlmasaoodColors.white),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -260,8 +292,11 @@ class _HomeState extends State<Home> {
                                               Navigator.push(
                                                   context,
                                                   PageRouteBuilder(
-                                                      transitionDuration: Duration(seconds: 1),
-                                                      pageBuilder: (_, __, ___) => ProductDetails()));
+                                                      transitionDuration:
+                                                          Duration(seconds: 1),
+                                                      pageBuilder: (_, __,
+                                                              ___) =>
+                                                          ProductDetails()));
 //                                              Navigator.push(
 //                                                context,
 //                                                MaterialPageRoute(
@@ -349,11 +384,11 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Hero(
-                      tag:"id"+data.id.toString(),
+                      tag: "id" + data.id.toString(),
                       child: Container(
-                        child: data.image != null
+                        child: data.images.isNotEmpty
                             ? Image.network(
-                                data.image.file,
+                                data.images[0].file,
                                 height: 100,
                                 width: 100,
                               )
@@ -371,31 +406,38 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: AlmasaoodColors.text))),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: <Widget>[
-                        MediaQuery.of(context).size.width > 330
-                            ? SizedBox(
-                                width: 10,
-                              )
-                            : Container(),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(35),
-                          child: Container(
-                            color: AlmasaoodColors.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8, top: 2, bottom: 2),
-                              child: Text(
-                                "KG-1",
-                                style: TextStyle(color: AlmasaoodColors.white),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        width:
+
+                  MediaQuery.of(context).size.width > 330?
+                        MediaQuery.of(context).size.width / 4 : MediaQuery.of(context).size.width / 5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(35),
+                              child: Container(
+                                color: AlmasaoodColors.primaryColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8, top: 2, bottom: 2),
+                                  child: AutoSizeText(
+                                    data.grade.nameEn,maxLines: 1,maxFontSize:  MediaQuery.of(context).size.width > 330 ? 14 : 10,minFontSize: 8,
+                                    style:
+                                        TextStyle(color: AlmasaoodColors.white),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
                 ],
               ),
@@ -472,8 +514,6 @@ class _HomeState extends State<Home> {
   }
 
   Future<bool> onWillPop() {
-
     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-
   }
 }

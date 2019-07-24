@@ -10,8 +10,10 @@
 //}
 
 import 'package:almasaood_app/ui/CheckNumber.dart';
+import 'package:almasaood_app/ui/Settings.dart';
 import 'package:almasaood_app/ui/SplashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'DataStore.dart';
@@ -25,14 +27,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    return new MaterialApp(initialRoute: '/',routes: {'/': (context) => SplashScreen(),
+    '/sign':(context)=>CheckNumber()},
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'ProximaNova'),
       supportedLocales: [const Locale('ar'), const Locale('en', 'US')],
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+//        GlobalWidgetsLocalizations.delegate
       ],
       localeResolutionCallback:
           (Locale locale, Iterable<Locale> supportedLocales) {
@@ -45,7 +53,7 @@ class _MyAppState extends State<MyApp> {
 
         return supportedLocales.first;
       },
-      home: SplashScreen(),
+//      home: SplashScreen(),
     );
   }
 
@@ -54,13 +62,6 @@ class _MyAppState extends State<MyApp> {
     dataStore.user;
   }
 }
-
-//
-//class MyApp extends StatelessWidget {
-//
-//
-//
-//}
 
 class MyPage extends StatelessWidget {
   @override

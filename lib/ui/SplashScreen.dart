@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../DataStore.dart';
 import 'CheckNumber.dart';
@@ -35,28 +36,35 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset("assets/images/logo.png", height: 150, width: 150),
-          Center(
-              child: Image.asset(
-            "assets/images/splashArt.png",
-            width: MediaQuery.of(context).size.width - 150,
-          )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                "assets/images/splash_footer.png",
-                width: MediaQuery.of(context).size.width - 50,
-              ),
-            ],
-          )
-        ],
+    return WillPopScope(  onWillPop: onWillPop,
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Image.asset("assets/images/logo.png", height: 150, width: 150),
+            Center(
+                child: Image.asset(
+              "assets/images/splashArt.png",
+              width: MediaQuery.of(context).size.width - 150,
+            )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/splash_footer.png",
+                  width: MediaQuery.of(context).size.width - 50,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  Future<bool> onWillPop() {
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+
   }
 }
