@@ -65,7 +65,8 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
           draggable: true,
           markerId: MarkerId(bloc.centers[i].lat.toString()),
           infoWindow: InfoWindow(
-            title: "${bloc.centers[i].name(AppLocalizations.of(context).locale)}",
+            title:
+                "${bloc.centers[i].name(AppLocalizations.of(context).locale)}",
 //            snippet: "${"name"}",
           ),
           position: LatLng(bloc.centers[i].lat, bloc.centers[i].lng)));
@@ -85,7 +86,9 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
     if (!bloc.withDelivery) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Toast.show(
-            AppLocalizations.of(context).trans('please_select_the_center_you_want_to_pick_items_from'), context,
+            AppLocalizations.of(context)
+                .trans('please_select_the_center_you_want_to_pick_items_from'),
+            context,
             duration: 6,
             gravity: Toast.BOTTOM,
             backgroundColor: AlmasaoodColors.red);
@@ -215,7 +218,10 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
             } else if (orderSnapshot.hasError && bloc.showFeedback) {
               {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  showInSnackBar(  AppLocalizations.of(context).trans('something_went_wrong'), context,
+                  showInSnackBar(
+                      AppLocalizations.of(context)
+                          .trans('something_went_wrong'),
+                      context,
                       color: AlmasaoodColors.red);
                   bloc.showFeedback = false;
                 });
@@ -270,7 +276,8 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                     opacity: isLocationSelected ? 1 : 0.5,
                                     child: MainButton(
                                       shouldRotate: bloc.showFeedback,
-                                      text: AppLocalizations.of(context).trans('use_selected_location'),
+                                      text: AppLocalizations.of(context)
+                                          .trans('use_selected_location'),
                                       onPressed: () {
                                         if (!isLocationSelected) {
                                         } else {
@@ -354,7 +361,8 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                     opacity: isLocationSelected ? 1 : 0.5,
                                     child: MainButton(
                                       shouldRotate: bloc.showFeedback,
-                                      text: AppLocalizations.of(context).trans('use_selected_location'),
+                                      text: AppLocalizations.of(context)
+                                          .trans('use_selected_location'),
                                       onPressed: () {
                                         if (!isLocationSelected) {
                                         } else {
@@ -377,15 +385,102 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                         if (!rotateSnapshot.data) {
                                           return InkWell(
                                             onTap: () {
-                                              bloc.createOrder(
-                                                  "", "", "", snapshot.data);
+//                                              bloc.createOrder(
+//                                                  "", "", "", snapshot.data);
+
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Dialog(
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 30.0),
+                                                        child: Column(mainAxisSize: MainAxisSize.min,
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: Text(
+                                                                AppLocalizations.of(context)
+                                                                    .trans('get_address_skip'),
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),textAlign: TextAlign.center,
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding: const EdgeInsets
+                                                                      .only(
+                                                                  top: 16.0,
+                                                                  left: 10.0,
+                                                                  right: 8.0,
+                                                                  bottom:
+                                                                      8.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: <
+                                                                    Widget>[
+                                                                  new FlatButton(
+                                                                      child:
+                                                                          new Text(
+                                                                            AppLocalizations.of(context)
+                                                                                .trans('Cancel'),
+                                                                        style: TextStyle(
+                                                                            color: Colors.red,
+                                                                            fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      }),
+                                                                  new FlatButton(
+                                                                    child: new Text(
+                                                                        AppLocalizations.of(context)
+                                                                            .trans('ok'),
+                                                                        style:
+                                                                            TextStyle(fontWeight: FontWeight.bold)),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                      bloc.createOrder(
+                                                                          "",
+                                                                          "",
+                                                                          "",
+                                                                          snapshot.data);
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  });
                                             },
                                             child: SizedBox(
                                               width: 80,
                                               height: 50,
                                               child: Center(
                                                   child: Text(
-                                                    AppLocalizations.of(context).trans('skip'),
+                                                AppLocalizations.of(context)
+                                                    .trans('skip'),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w700,

@@ -27,12 +27,17 @@
   "terms_of_service": "Terms of service",
   "log_out": "Log out",
   "choose_where_do_you_want_to_pick_items_from": "choose where do want to pick items from",
+  "states_please_choose": "Please choose your state",
   "use_selected_location": "Use selected location",
   "please_select_the_center_you_want_to_pick_items_from": "Please select the center you want to pick items from",
   "Your_order_will_be_ready": "Your order will be ready in 24 hours",
   "back_to_home": "Back to home",
   "skip": "Skip",
   "already_exist": "Already exist",
-  "all": "All"
+  "all": "All",
+  "delivery_coast" : "Delivery Coast",
+  "get_address_skip" : "You will recive a call to get your exact address",
+  "Cancel": "Cancel",
+  "ok": "Ok"
 
 }

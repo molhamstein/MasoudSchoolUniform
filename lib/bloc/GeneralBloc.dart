@@ -88,6 +88,9 @@ class SingletonBloc {
   final _orderController = PublishSubject<OrderModel>();
 
   get orderStream => _orderController.stream;
+  final _cartCountController = PublishSubject<int>();
+
+  get cartCountStream => _cartCountController.stream;
 
 //
 //  final _feedbackController = PublishSubject<String>();
@@ -226,6 +229,20 @@ class SingletonBloc {
   }
 
   List<ProductDetailsModel> cartItems = new List();
+
+  f_getCartCount(){
+
+    int count =0 ;
+
+    for(int i = 0 ; i<cartItems.length ; i++){
+      count += cartItems[i].count ;
+      _cartCountController.sink.add(count);
+    }
+
+    return count  ;
+  }
+
+
 
   f_addToCart(ProductDetailsModel orderData ,context) {
     print("order id out side " + orderData.id.toString());

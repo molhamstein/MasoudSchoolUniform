@@ -17,6 +17,20 @@ class ProductDetailsModel {
   ProductDetailsModel(this._id, this._image, this._nameEn, this._nameAr,
       this._price, this._grade, this._gender, this._size, this._count);
 
+  String genderT(Locale local) {
+    if (local.languageCode == 'en') {
+      if (gender == 'male') {
+        return "male";
+      } else
+        return "female";
+    } else {
+      if (gender == 'male') {
+        return "ذكر";
+      } else
+        return "انثى";
+    }
+  }
+
   int get count => _count;
 
   set count(int value) {
@@ -70,7 +84,6 @@ class ProductDetailsModel {
   set id(int value) {
     _id = value;
   }
-
 
   String name(Locale locale) {
     if (locale.languageCode == 'en') {

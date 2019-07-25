@@ -23,8 +23,14 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    bloc.f_getCartCount();
     bloc.f_grades();
     bloc.f_getProducts();
+  }
+
+  @override
+  void didChangeDependencies() {
+    bloc.f_getCartCount();
   }
 
   @override
@@ -33,9 +39,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
-    /*24 is for notification bar on Android*/
-
     double itemHeight;
 
     if (size.height > 540) {
@@ -65,10 +68,65 @@ class _HomeState extends State<Home> {
                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => Cart()));
                         },
-                        child: Icon(
-                          Icons.shopping_cart,
-                          color: AlmasaoodColors.textDark,
-                          size: 25,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              width: 28,
+                              height: 28,
+                              child: Stack(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.shopping_cart,
+                                    color: AlmasaoodColors.textDark,
+                                    size: 25,
+                                  ),
+                                  StreamBuilder<int>(
+                                      stream: bloc.cartCountStream,
+                                      builder: (context, snapshot) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 17,
+                                                  height: 17,
+                                                  decoration: BoxDecoration(
+                                                      color: AlmasaoodColors
+                                                          .darkRed,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100),
+                                                      border: Border.all(
+                                                          color: AlmasaoodColors
+                                                              .white)),
+                                                  child: Center(
+                                                      child: Text(
+                                                    snapshot.data != null
+                                                        ? snapshot.data
+                                                            .toString()
+                                                        : "0",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  )),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -127,7 +185,8 @@ class _HomeState extends State<Home> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        AppLocalizations.of(context).trans('welcome'),
+                                        AppLocalizations.of(context)
+                                            .trans('welcome'),
                                         style: TextStyle(
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700,
@@ -251,7 +310,8 @@ class _HomeState extends State<Home> {
                                                                       snapshot
                                                                           .data[
                                                                               index]
-                                                                          .name(AppLocalizations.of(context).locale),
+                                                                          .name(
+                                                                              AppLocalizations.of(context).locale),
                                                                       style: TextStyle(
                                                                           color:
                                                                               AlmasaoodColors.white),
@@ -402,7 +462,8 @@ class _HomeState extends State<Home> {
                   ),
                   Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 15),
-                      child: Text(data.name(AppLocalizations.of(context).locale),
+                      child: Text(
+                          data.name(AppLocalizations.of(context).locale),
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: AlmasaoodColors.text))),
@@ -426,7 +487,8 @@ class _HomeState extends State<Home> {
                                   padding: const EdgeInsets.only(
                                       left: 8.0, right: 8, top: 2, bottom: 2),
                                   child: AutoSizeText(
-                                    data.grade.name(AppLocalizations.of(context).locale),
+                                    data.grade.name(
+                                        AppLocalizations.of(context).locale),
                                     maxLines: 1,
                                     maxFontSize:
                                         MediaQuery.of(context).size.width > 330

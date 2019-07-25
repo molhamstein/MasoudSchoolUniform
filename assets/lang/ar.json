@@ -27,13 +27,19 @@
   "terms_of_service": "شروط الخدمة",
   "log_out": "تسجيل الخروج",
   "choose_where_do_you_want_to_pick_items_from" : "اختر المكان الذي تريد اختيار العناصر منه",
+  "states_please_choose": "يرجى اختيار الإمارة",
   "use_selected_location" : "اختر المكان المحدد",
   "please_select_the_center_you_want_to_pick_items_from": "يرجى اختيار المركز الذي تريد الاختيار منه",
   "Your_order_will_be_ready" : "طلبك سيكون جاهزًً خلال 24 ساعة",
   "back_to_home":"العودة الى الرئيسية",
   "skip": "تخطي",
   "already_exist": "موجود مسبقاً",
-  "all": "الكل"
+  "all": "الكل",
+  "delivery_coast" : "تكلفة التوصيل",
+  "get_address_skip" : "ستصلك مكالمة للحصول على عنوانك المفصل",
+  "Cancel": "إلغاء",
+  "ok": "حسناً"
+
 
 
 }

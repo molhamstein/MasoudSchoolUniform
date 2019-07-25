@@ -84,6 +84,20 @@ class ProductsModel {
   }
 
 
+
+
+  String genderT(Locale local){
+    if(local.languageCode=='en'){
+      if(gender == 'male'){
+        return "male";
+      }else return "female";
+    }else {
+      if(gender == 'male'){
+        return "ذكر";
+      }else return "انثى";
+    }
+  }
+
     String name(Locale locale) {
       if (locale.languageCode == 'en') {
         return nameEn;

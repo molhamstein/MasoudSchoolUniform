@@ -123,7 +123,10 @@ class _CheckNumberState extends State<CheckNumber>
                 builder: (context, snapshot) {
                   if (snapshot.hasError && bloc.showFeedback == true) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      showInSnackBar(AppLocalizations.of(context).trans('something_went_wrong'), context);
+                      showInSnackBar(
+                          AppLocalizations.of(context)
+                              .trans('something_went_wrong'),
+                          context);
                       bloc.showFeedback = false;
                     });
                   } else if (snapshot.hasData && snapshot.data != null) {
@@ -349,7 +352,8 @@ class _CheckNumberState extends State<CheckNumber>
                                           child: AuthTextField(
                                             textEditingController:
                                                 numberController,
-                                            hint: AppLocalizations.of(context).trans('mobile_number'),
+                                            hint: AppLocalizations.of(context)
+                                                .trans('mobile_number'),
                                           ))),
                                 ),
                                 Transform(
@@ -372,39 +376,62 @@ class _CheckNumberState extends State<CheckNumber>
                                               if (Utils.isValidNumber(
                                                   numberController.text)) {
                                                 String tempMobile;
+//                                                if (numberController.text
+//                                                    .startsWith("09")) {
+//                                                  tempMobile = numberController
+//                                                      .text
+//                                                      .split("0")[1];
+//                                                  numberController.text =
+//                                                      "00971" + tempMobile;
+//                                                  print(tempMobile);
+//                                                  print(true);
+//
+//                                                  bloc.f_SignIn(
+//                                                      numberController.text);
+//                                                } else if (numberController.text
+//                                                    .startsWith("00")) {
+//                                                  numberController.text =
+//                                                      numberController.text;
+//
+//                                                  bloc.f_SignIn(
+//                                                      numberController.text);
+//                                                } else {
+
                                                 if (numberController.text
-                                                    .startsWith("09")) {
+                                                        .startsWith("00971") ||
+                                                    numberController.text
+                                                        .startsWith("+971")) {
+                                                  bloc.f_SignIn(
+                                                      numberController.text);
+                                                } else if (numberController.text
+                                                    .startsWith("0")) {
                                                   tempMobile = numberController
                                                       .text
                                                       .split("0")[1];
                                                   numberController.text =
                                                       "00971" + tempMobile;
-                                                  print(tempMobile);
-                                                  print(true);
-
-                                                  bloc.f_SignIn(
-                                                      numberController.text);
-                                                } else if (numberController.text
-                                                    .startsWith("00")) {
-                                                  numberController.text =
-                                                      numberController.text;
-
                                                   bloc.f_SignIn(
                                                       numberController.text);
                                                 } else {
                                                   print("Not valid");
                                                   showInSnackBar(
-                                                      AppLocalizations.of(context).trans('please_enter_valid_nam'),
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .trans(
+                                                              'please_enter_valid_nam'),
                                                       context);
                                                 }
                                               } else {
                                                 showInSnackBar(
-                                                    AppLocalizations.of(context).trans('please_enter_valid_nam'),
+                                                    AppLocalizations.of(context)
+                                                        .trans(
+                                                            'please_enter_valid_nam'),
                                                     context);
                                               }
                                               ;
                                             },
-                                            text: AppLocalizations.of(context).trans('Submit'),
+                                            text: AppLocalizations.of(context)
+                                                .trans('Submit'),
                                           );
                                         }),
                                   ),

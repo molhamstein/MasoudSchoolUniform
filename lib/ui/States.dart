@@ -29,7 +29,12 @@ class _StatesState extends State<States> {
                   Padding(
                     padding: const EdgeInsets.only(left: 64.0, right: 64),
                     child: Text(
-                      AppLocalizations.of(context).trans('choose_where_do_you_want_to_pick_items_from'),                      style:
+                      bloc.withDelivery
+                          ? AppLocalizations.of(context)
+                              .trans('states_please_choose')
+                          : AppLocalizations.of(context).trans(
+                              'choose_where_do_you_want_to_pick_items_from'),
+                      style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                       textAlign: TextAlign.center,
                     ),
@@ -76,7 +81,10 @@ class _StatesState extends State<States> {
                                               child: Row(
                                                 children: <Widget>[
                                                   Text(
-                                                    snapshot.data[index].name(AppLocalizations.of(context).locale),
+                                                    snapshot.data[index].name(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .locale),
                                                     style: TextStyle(
                                                         fontSize: 20,
                                                         fontWeight:

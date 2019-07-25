@@ -174,7 +174,7 @@ class _CartState extends State<Cart> {
                                                                                                   child: Padding(
                                                                                                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 2, bottom: 2),
                                                                                                     child: Text(
-                                                                                                      snapshot.data[index].gender,
+                                                                                                      snapshot.data[index].genderT(AppLocalizations.of(context).locale),
                                                                                                       style: TextStyle(color: AlmasaoodColors.black, fontWeight: FontWeight.w700),
                                                                                                     ),
                                                                                                   ),
@@ -313,7 +313,8 @@ class _CartState extends State<Cart> {
                                                       .spaceBetween,
                                               children: <Widget>[
                                                 Text(
-                                                  AppLocalizations.of(context).trans('delivery'),
+                                                  AppLocalizations.of(context)
+                                                      .trans('delivery'),
                                                   style: TextStyle(
                                                       fontSize: 22,
                                                       fontWeight:
@@ -331,16 +332,72 @@ class _CartState extends State<Cart> {
                                                 ),
                                               ],
                                             ),
+                                            Visibility(
+                                              visible: bloc.withDelivery,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .trans(
+                                                              'delivery_coast'),
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          color: AlmasaoodColors
+                                                              .text),
+                                                    ),
+                                                    Row(
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "AED",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  AlmasaoodColors
+                                                                      .text,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              fontSize: 18),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 4,
+                                                        ),
+                                                        Text(
+                                                          "10",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  AlmasaoodColors
+                                                                      .textDark,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              fontSize: 26),
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  top: 14.0, bottom: 16),
+                                                  top: 14.0, bottom: 8),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: <Widget>[
                                                   Text(
-                                                    AppLocalizations.of(context).trans('total'),
+                                                    AppLocalizations.of(context)
+                                                        .trans('total'),
                                                     style: TextStyle(
                                                         fontSize: 24,
                                                         fontWeight:
@@ -351,7 +408,9 @@ class _CartState extends State<Cart> {
                                                   Row(
                                                     children: <Widget>[
                                                       Text(
-                                                        AppLocalizations.of(context).trans('AED'),
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .trans('AED'),
                                                         style: TextStyle(
                                                             color:
                                                                 AlmasaoodColors
@@ -409,8 +468,8 @@ class _CartState extends State<Cart> {
                                   padding: const EdgeInsets.only(
                                       top: 16.0, bottom: 32),
                                   child: MainButton(
-                                    text:   AppLocalizations.of(context).trans('Submit'),
-
+                                    text: AppLocalizations.of(context)
+                                        .trans('Submit'),
                                     color: AlmasaoodColors.primaryColor,
                                     textColor: AlmasaoodColors.white,
                                     onPressed: () {

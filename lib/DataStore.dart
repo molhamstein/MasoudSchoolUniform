@@ -34,20 +34,24 @@ class DataStore {
     return prefs.getString('lang') ?? '';
   }
 
-  Future<bool> setUser(VerifyModel value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _user = value;
+    Future<bool> setUser(VerifyModel value) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      _user = value;
 
-    return prefs.setString('User', VerifyModelToJson(value));
-  }
+      return prefs.setString('User', VerifyModelToJson(value));
+    }
 
-  Future<VerifyModel> getUser() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var x = prefs.getString('User') ?? '';
-    var u = x != '' ? VerifyModelFromJson(x) : VerifyModel();
-    print("xxxxx" + x);
-    return u;
-  }
+    Future<VerifyModel> getUser() async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      var x = prefs.getString('User') ?? '';
+      var u = x != '' ? VerifyModelFromJson(x) : VerifyModel();
+      print("xxxxx" + x);
+      return u;
+    }
+
+
+
+
 
   VerifyModel get user => _user;
 

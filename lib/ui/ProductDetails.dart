@@ -231,7 +231,7 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                                 top: 5,
                                                                 bottom: 5),
                                                         child: Text(
-                                                          snapshot.data.gender,
+                                                          snapshot.data.genderT(AppLocalizations.of(context).locale),
                                                           style: TextStyle(
                                                               color:
                                                                   AlmasaoodColors
@@ -535,8 +535,7 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                                     .file),
                                                         snapshot.data.nameEn,
                                                         snapshot.data.nameAr,
-                                                        snapshot.data
-                                                            .getPrice(),
+                                                        bloc.f_getProductPrice(snapshot.data,sizeItem.id) ??snapshot.data.getPrice(),
                                                         Grade(
                                                             nameEn: snapshot
                                                                 .data
