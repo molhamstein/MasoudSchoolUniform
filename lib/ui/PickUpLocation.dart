@@ -403,13 +403,19 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                                             const EdgeInsets
                                                                     .only(
                                                                 top: 30.0),
-                                                        child: Column(mainAxisSize: MainAxisSize.min,
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
                                                           children: <Widget>[
                                                             Padding(
-                                                              padding: const EdgeInsets.all(8.0),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
                                                               child: Text(
-                                                                AppLocalizations.of(context)
-                                                                    .trans('get_address_skip'),
+                                                                AppLocalizations.of(
+                                                                        context)
+                                                                    .trans(
+                                                                        'get_address_skip'),
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         15,
@@ -417,17 +423,23 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                                                         .black,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold),textAlign: TextAlign.center,
+                                                                            .bold),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
                                                               ),
                                                             ),
                                                             Padding(
-                                                              padding: const EdgeInsets
-                                                                      .only(
-                                                                  top: 16.0,
-                                                                  left: 10.0,
-                                                                  right: 8.0,
-                                                                  bottom:
-                                                                      8.0),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top: 16.0,
+                                                                      left:
+                                                                          10.0,
+                                                                      right:
+                                                                          8.0,
+                                                                      bottom:
+                                                                          8.0),
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -437,10 +449,11 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                                                   new FlatButton(
                                                                       child:
                                                                           new Text(
-                                                                            AppLocalizations.of(context)
-                                                                                .trans('Cancel'),
+                                                                        AppLocalizations.of(context)
+                                                                            .trans('Cancel'),
                                                                         style: TextStyle(
-                                                                            color: Colors.red,
+                                                                            color:
+                                                                                Colors.red,
                                                                             fontWeight: FontWeight.bold),
                                                                       ),
                                                                       onPressed:
@@ -450,10 +463,11 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                                                       }),
                                                                   new FlatButton(
                                                                     child: new Text(
-                                                                        AppLocalizations.of(context)
-                                                                            .trans('ok'),
-                                                                        style:
-                                                                            TextStyle(fontWeight: FontWeight.bold)),
+                                                                        AppLocalizations.of(context).trans(
+                                                                            'ok'),
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold)),
                                                                     onPressed:
                                                                         () {
                                                                       Navigator.pop(
@@ -462,7 +476,8 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                                                           "",
                                                                           "",
                                                                           "",
-                                                                          snapshot.data);
+                                                                          snapshot
+                                                                              .data);
                                                                     },
                                                                   ),
                                                                 ],

@@ -65,7 +65,8 @@ class _SettingsState extends State<Settings> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  AppLocalizations.of(context).trans('contact_us'),
+                                  AppLocalizations.of(context)
+                                      .trans('contact_us'),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 18),
@@ -93,7 +94,9 @@ class _SettingsState extends State<Settings> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text( AppLocalizations.of(context).trans('terms_of_service'),
+                                Text(
+                                    AppLocalizations.of(context)
+                                        .trans('terms_of_service'),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 18)),

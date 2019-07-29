@@ -39,7 +39,8 @@ dependencies:
   dashed_container: ^1.0.1
   toast: ^0.1.5
   url_launcher: ^5.1.0
-  flutter_villains: ^1.2.1
+  shimmer: ^1.0.0
+
 
 
 

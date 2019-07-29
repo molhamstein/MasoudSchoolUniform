@@ -44,12 +44,19 @@ class _VerificationCodeState extends State<VerificationCode>
   double relativeDuration = 0.40;
 
   _hideResendCode() {
-    hidingResendController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 5));
+// if(hidingResendController.status ==AnimationStatus.completed){
+////   hidingResendController.repeat();
+//
+// }else
     _hideResendCodeAnimation = Tween(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: hidingResendController, curve: Interval(0.9, 1.0)));
-    hidingResendController.reverse();
+
+    if (hidingResendController.status == AnimationStatus.completed) {
+      hidingResendController.reverse();
+    } else if (hidingResendController.status == AnimationStatus.dismissed) {
+      hidingResendController.forward();
+    }
   }
 
   @override
@@ -59,7 +66,7 @@ class _VerificationCodeState extends State<VerificationCode>
 
     hidingResendController =
         new AnimationController(vsync: this, duration: Duration(seconds: 5));
-    _hideResendCodeAnimation = Tween(begin: 0.0, end: 1.0).animate(
+    _hideResendCodeAnimation = Tween(begin: 1.0, end: 1.0).animate(
         CurvedAnimation(
             parent: hidingResendController, curve: Interval(0.9, 1.0)));
 
@@ -90,6 +97,8 @@ class _VerificationCodeState extends State<VerificationCode>
 
   @override
   Widget build(BuildContext context) {
+    print(hidingResendController.status);
+
     return AnimatedBuilder(
       animation: animationController,
       builder: (context, child) {
@@ -99,24 +108,32 @@ class _VerificationCodeState extends State<VerificationCode>
               builder: (context, snapshot) {
                 if (snapshot.hasError && bloc.showFeedback == true) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    showInSnackBar( AppLocalizations.of(context).trans('something_went_wrong'), context);
+                    showInSnackBar(
+                        AppLocalizations.of(context)
+                            .trans('something_went_wrong'),
+                        context);
                     bloc.showFeedback = false;
                   });
-                } else if (snapshot.hasData && snapshot.data != null) {
+                } else if (snapshot.hasData && snapshot.data != null ) {
                   if (widget.created == true) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      dataStore.setUser(snapshot.data);
+                    dataStore.setUser(snapshot.data);
 
-                      Navigator.of(context).pushReplacement(
-                          new MaterialPageRoute(builder: (context) => Home()));
+                    animationController.reverse().then((e) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.of(context).pushReplacement(
+                            new MaterialPageRoute(
+                                builder: (context) => Home()));
+                      });
                     });
                   } else if (widget.created == false) {
                     dataStore.setUser(snapshot.data);
 
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.of(context).pushReplacement(
-                          new MaterialPageRoute(
-                              builder: (context) => SignUp()));
+                    animationController.reverse().then((e) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.of(context).pushReplacement(
+                            new MaterialPageRoute(
+                                builder: (context) => SignUp()));
+                      });
                     });
                   }
                 }
@@ -143,7 +160,7 @@ class _VerificationCodeState extends State<VerificationCode>
                                   mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
                                     Image.asset(
-                                      "assets/images/ic_needleGray.png  ",
+                                      "assets/images/ic_needleGray.png",
                                       height:
                                           MediaQuery.of(context).size.height /
                                               3,
@@ -226,7 +243,8 @@ class _VerificationCodeState extends State<VerificationCode>
                                         child: AuthTextField(
                                           textEditingController:
                                               verificationCodeController,
-                                          hint:  AppLocalizations.of(context).trans('verification_code'),
+                                          hint: AppLocalizations.of(context)
+                                              .trans('verification_code'),
                                         ))),
                               ),
                               Transform(
@@ -244,13 +262,16 @@ class _VerificationCodeState extends State<VerificationCode>
                                       if (verificationCodeController
                                           .text.isEmpty) {
                                         showInSnackBar(
-                                            AppLocalizations.of(context).trans('please_enter_valid_code'), context);
+                                            AppLocalizations.of(context).trans(
+                                                'please_enter_valid_code'),
+                                            context);
                                       } else {
                                         bloc.f_Verify(widget.num,
                                             verificationCodeController.text);
                                       }
                                     },
-                                    text:  AppLocalizations.of(context).trans('Submit'),
+                                    text: AppLocalizations.of(context)
+                                        .trans('Submit'),
                                   ),
                                 ),
                               ),
@@ -266,7 +287,8 @@ class _VerificationCodeState extends State<VerificationCode>
                                     width:
                                         MediaQuery.of(context).size.width - 32,
                                     child: Text(
-                                      AppLocalizations.of(context).trans('did_not_receive_the_sms'),
+                                      AppLocalizations.of(context)
+                                          .trans('did_not_receive_the_sms'),
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
@@ -284,15 +306,24 @@ class _VerificationCodeState extends State<VerificationCode>
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       top: 16.0, bottom: 32),
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width - 32,
-                                    child: Text(
-                                      AppLocalizations.of(context).trans('resend_code'),
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                          color: AlmasaoodColors.text),
+                                  child: InkWell(
+                                    onTap: () {
+                                      _hideResendCode();
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width -
+                                          32,
+                                      child: FadeTransition(
+                                        opacity: _hideResendCodeAnimation,
+                                        child: Text(
+                                          AppLocalizations.of(context)
+                                              .trans('resend_code'),
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w700,
+                                              color: AlmasaoodColors.text),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),

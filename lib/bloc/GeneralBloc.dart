@@ -175,6 +175,43 @@ class SingletonBloc {
   }
 
 
+
+//  f_getProducts() {
+//    pro = [];
+//    _productsController.sink.add(pro);
+//
+//    apiProvider.products().then((valPro) {
+//
+//
+//      print(pro.length);
+//      for (int i = 0; i < valPro.products.length; i++) {
+//        print("in");
+//        if(pro.length != 0){
+//          for(int j =0 ; j <pro.length ; j++){
+//            if(valPro.products[i].id != pro[j].id ){
+//              pro.add(valPro.products[i]);
+//            }
+//            _productsController.sink.add(pro);
+//
+//          }}else {
+//          pro.add(valPro.products[i]);
+//          _productsController.sink.add(pro);
+//        }
+//
+//      }
+//    }).catchError((e) {
+//      _productsController.sink.addError(e);
+//    });
+//  }
+
+
+
+
+
+
+
+
+
   f_grades() {
     GradesModel all = new GradesModel(id: -1, nameEn: "All" ,nameAr:  "الكل"
     );

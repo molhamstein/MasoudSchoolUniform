@@ -75,7 +75,14 @@ class _MainButtonState extends State<MainButton> {
                       height: widget.height - 10,
                       width: widget.width,
                       child: Center(
-                        child: AutoSizeText( widget.text,minFontSize: 12,maxFontSize: 18,style: TextStyle(color: widget.textColor,fontWeight: FontWeight.w700),)
+                          child: AutoSizeText(
+                        widget.text,
+                        minFontSize: 12,
+                        maxFontSize: 18,
+                        style: TextStyle(
+                            color: widget.textColor,
+                            fontWeight: FontWeight.w700),
+                      )
 
 //                        Text(
 //                          widget.text,
@@ -84,7 +91,7 @@ class _MainButtonState extends State<MainButton> {
 //                              fontWeight: FontWeight.w700,
 //                              color: widget.textColor),
 //                        ),
-                      ),
+                          ),
                     ),
                   ),
                 ));

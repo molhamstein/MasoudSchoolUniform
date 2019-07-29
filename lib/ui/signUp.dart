@@ -84,7 +84,10 @@ class _SignUpState extends State<SignUp>
                 builder: (context, snapshot) {
                   if (snapshot.hasError && bloc.showFeedback == true) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      showInSnackBar( AppLocalizations.of(context).trans('something_went_wrong'), context);
+                      showInSnackBar(
+                          AppLocalizations.of(context)
+                              .trans('something_went_wrong'),
+                          context);
                       bloc.showFeedback = false;
                     });
                   } else if (snapshot.hasData && snapshot.data != null) {
@@ -93,10 +96,12 @@ class _SignUpState extends State<SignUp>
                         user: User(
                             firstName: firstNameController.text,
                             lastName: lastNameController.text)));
-
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.of(context).pushReplacement(
-                          new MaterialPageRoute(builder: (context) => Home()));
+                    animationController.reverse().then((e) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.of(context).pushReplacement(
+                            new MaterialPageRoute(
+                                builder: (context) => Home()));
+                      });
                     });
                   }
 
@@ -209,7 +214,8 @@ class _SignUpState extends State<SignUp>
                                         padding: const EdgeInsets.only(
                                             top: 32.0, left: 16, right: 16),
                                         child: Text(
-                                          AppLocalizations.of(context).trans('are_you_new_here'),
+                                          AppLocalizations.of(context)
+                                              .trans('are_you_new_here'),
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               fontSize: 18,
@@ -244,8 +250,9 @@ class _SignUpState extends State<SignUp>
                                                 type: TextInputType.text,
                                                 textEditingController:
                                                     firstNameController,
-                                                hint:   AppLocalizations.of(context).trans('first_name'),
-
+                                                hint:
+                                                    AppLocalizations.of(context)
+                                                        .trans('first_name'),
                                               ))),
                                     ),
                                     Transform(
@@ -275,7 +282,9 @@ class _SignUpState extends State<SignUp>
                                                 type: TextInputType.text,
                                                 textEditingController:
                                                     lastNameController,
-                                                hint:  AppLocalizations.of(context).trans('last_name'),
+                                                hint:
+                                                    AppLocalizations.of(context)
+                                                        .trans('last_name'),
                                               ))),
                                     ),
                                     Transform(
@@ -296,15 +305,17 @@ class _SignUpState extends State<SignUp>
                                             if (firstNameController
                                                 .text.isEmpty) {
                                               showInSnackBar(
-                                                  AppLocalizations.of(context).trans('first_name_is_required'),
+                                                  AppLocalizations.of(context)
+                                                      .trans(
+                                                          'first_name_is_required'),
                                                   context);
                                             } else
                                               bloc.f_signUp(
                                                   firstNameController.text,
                                                   lastNameController.text);
                                           },
-                                          text:   AppLocalizations.of(context).trans('Submit'),
-
+                                          text: AppLocalizations.of(context)
+                                              .trans('Submit'),
                                         ),
                                       ),
                                     ),

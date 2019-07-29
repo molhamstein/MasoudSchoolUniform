@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dashed_container/dashed_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../AlmasaoodColors.dart';
 import '../DataStore.dart';
@@ -18,23 +19,65 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<bool> checkedList = [true];
+
+  AnimationController animationController;
+  AnimationController activeAnimationController;
+  AnimationController productsAnimationController;
+  AnimationController activeProductsAnimationController;
+
+  Animation logoAnimation;
+  Animation logoAnimationFade;
+
+  Animation nameAnimation;
+  Animation gradeAnimation;
+  Animation activeGradeAnimation;
+
+  Animation productsAnimation;
+  Animation activeProductsAnimation;
 
   @override
   void initState() {
+    animationController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+    activeAnimationController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+    productsAnimationController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 6));
+    activeProductsAnimationController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 6));
+    logoAnimation = Tween(begin: -1.0, end: 0.0).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.linear));
+    logoAnimationFade = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: animationController, curve: Interval(0.5, 1.0)));
+    nameAnimation = Tween(begin: -1.0, end: 0.0).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.linear));
+    gradeAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController, curve: ElasticInOutCurve(2)));
+    activeGradeAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController, curve: ElasticInOutCurve(2)));
+    productsAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Interval(0.1, 1.0, curve: ElasticOutCurve(0.8))));
+    activeProductsAnimation = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: Interval(0.1, 1.0, curve: ElasticOutCurve(0.8))));
+    activeAnimationController.forward();
+    activeProductsAnimationController.forward();
+    productsAnimationController.forward();
+    animationController.forward().then((_) {
+      bloc.f_grades();
+      bloc.f_getProducts();
+    });
     bloc.f_getCartCount();
-    bloc.f_grades();
-    bloc.f_getProducts();
   }
 
   @override
   void didChangeDependencies() {
     bloc.f_getCartCount();
   }
-
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 1000);
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +107,20 @@ class _HomeState extends State<Home> {
                     actions: <Widget>[
                       InkWell(
                         onTap: () {
-                          print("tapped");
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Cart()));
+                          activeAnimationController.reverse();
+                          productsAnimationController.reverse();
+                          activeProductsAnimationController.reverse();
+                          animationController.reverse().then((_) {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => Cart()))
+                                .then((val) {
+                              activeAnimationController.forward();
+                              animationController.forward();
+                              productsAnimationController.forward();
+                              activeProductsAnimationController.forward();
+                            });
+                          });
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -134,8 +188,20 @@ class _HomeState extends State<Home> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Settings()));
+                          activeAnimationController.reverse();
+                          productsAnimationController.reverse();
+                          activeProductsAnimationController.reverse();
+                          animationController.reverse().then((_) {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => Settings()))
+                                .then((val) {
+                              activeAnimationController.forward();
+                              animationController.forward();
+                              productsAnimationController.forward();
+                              activeProductsAnimationController.forward();
+                            });
+                          });
                         },
                         child: Icon(
                           Icons.settings,
@@ -179,41 +245,73 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        AppLocalizations.of(context)
-                                            .trans('welcome'),
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w700,
-                                            color: AlmasaoodColors.text),
-                                      ),
+                                  AnimatedBuilder(
+                                    animation: animationController,
+                                    builder: (context, child) {
+                                      return Transform(
+                                        child: child,
+                                        transform: Matrix4.translationValues(
+                                            nameAnimation.value *
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                            0.0,
+                                            0.0),
+                                      );
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          AppLocalizations.of(context)
+                                              .trans('welcome'),
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w700,
+                                              color: AlmasaoodColors.text),
+                                        ),
 //                              Text(
 //                                "Abdulrahman",
 //                                style: TextStyle(
 //                                    fontSize: 36, fontWeight: FontWeight.w700),
 //                              )
-                                      SizedBox(
-                                          width: 100,
-                                          child: AutoSizeText(
-                                            dataStore.user.user.firstName,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 32),
-                                            maxLines: 1,
-                                          ))
-                                    ],
+                                        SizedBox(
+                                            width: 100,
+                                            child: AutoSizeText(
+                                              dataStore.user.user.firstName,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 32),
+                                              maxLines: 1,
+                                            ))
+                                      ],
+                                    ),
                                   ),
                                   Column(
                                     children: <Widget>[
-                                      Image.asset(
-                                        "assets/images/logo.png",
-                                        width: 130,
-                                        height: 130,
+                                      AnimatedBuilder(
+                                        animation: animationController,
+                                        builder: (context, child) {
+                                          return Transform(
+                                            child: child,
+                                            transform:
+                                                Matrix4.translationValues(
+                                                    0.0,
+                                                    logoAnimation.value *
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .height,
+                                                    0.0),
+                                          );
+                                        },
+                                        child: Image.asset(
+                                          "assets/images/logo.png",
+                                          width: 130,
+                                          height: 130,
+                                        ),
                                       )
                                     ],
                                   )
@@ -229,92 +327,112 @@ class _HomeState extends State<Home> {
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData &&
                                             snapshot.data != null) {
-                                          return ListView.builder(
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: snapshot.data.length,
-                                              itemBuilder: (context, index) {
-                                                for (int i = 0;
-                                                    i < snapshot.data.length;
-                                                    i++) checkedList.add(false);
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8.0, right: 8),
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              for (int i = 0;
-                                                                  i <
-                                                                      snapshot
-                                                                          .data
-                                                                          .length;
-                                                                  i++) {
-                                                                checkedList[i] =
-                                                                    (false);
-                                                                checkedList[
-                                                                        index] =
-                                                                    true;
-                                                              }
-                                                              bloc.f_sortProduct(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .id);
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            height: 35,
-                                                            color: checkedList[
-                                                                        index] ==
-                                                                    false
-                                                                ? AlmasaoodColors
-                                                                    .primaryColor
-                                                                : AlmasaoodColors
-                                                                    .secondary,
-                                                            child: Center(
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            4.0,
-                                                                        right:
-                                                                            4),
-                                                                child:
-                                                                    DashedContainer(
-                                                                  blankLength:
-                                                                      10,
-                                                                  dashColor:
-                                                                      AlmasaoodColors
-                                                                          .white,
-                                                                  borderRadius:
-                                                                      2,
+                                          return AnimatedBuilder(
+                                            animation:
+                                                activeAnimationController,
+                                            builder: (context, child) {
+                                              return Transform(
+                                                transform:
+                                                    Matrix4.translationValues(
+                                                        activeGradeAnimation
+                                                                .value *
+                                                            MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width,
+                                                        0.0,
+                                                        0.0),
+                                                child: child,
+                                              );
+                                            },
+                                            child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: snapshot.data.length,
+                                                itemBuilder: (context, index) {
+                                                  for (int i = 0;
+                                                      i < snapshot.data.length;
+                                                      i++)
+                                                    checkedList.add(false);
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8.0,
+                                                            right: 8),
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                for (int i = 0;
+                                                                    i <
+                                                                        snapshot
+                                                                            .data
+                                                                            .length;
+                                                                    i++) {
+                                                                  checkedList[
+                                                                          i] =
+                                                                      (false);
+                                                                  checkedList[
+                                                                          index] =
+                                                                      true;
+                                                                }
+                                                                bloc.f_sortProduct(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .id);
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              height: 35,
+                                                              color: checkedList[
+                                                                          index] ==
+                                                                      false
+                                                                  ? AlmasaoodColors
+                                                                      .primaryColor
+                                                                  : AlmasaoodColors
+                                                                      .secondary,
+                                                              child: Center(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      left: 4.0,
+                                                                      right: 4),
                                                                   child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            8.0,
-                                                                        right:
-                                                                            8,
-                                                                        top: 5,
-                                                                        bottom:
-                                                                            5),
-                                                                    child: Text(
-                                                                      snapshot
-                                                                          .data[
-                                                                              index]
-                                                                          .name(
-                                                                              AppLocalizations.of(context).locale),
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                              AlmasaoodColors.white),
+                                                                      DashedContainer(
+                                                                    blankLength:
+                                                                        10,
+                                                                    dashColor:
+                                                                        AlmasaoodColors
+                                                                            .white,
+                                                                    borderRadius:
+                                                                        2,
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .only(
+                                                                          left:
+                                                                              8.0,
+                                                                          right:
+                                                                              8,
+                                                                          top:
+                                                                              5,
+                                                                          bottom:
+                                                                              5),
+                                                                      child:
+                                                                          Text(
+                                                                        snapshot
+                                                                            .data[index]
+                                                                            .name(AppLocalizations.of(context).locale),
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                AlmasaoodColors.white),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -322,13 +440,104 @@ class _HomeState extends State<Home> {
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              });
+                                                      ],
+                                                    ),
+                                                  );
+                                                }),
+                                          );
                                         } else {
-                                          return Container();
+                                          return AnimatedBuilder(
+                                            builder: (context, child) {
+                                              return Transform(
+                                                transform:
+                                                    Matrix4.translationValues(
+                                                        gradeAnimation.value *
+                                                            MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width,
+                                                        0.0,
+                                                        0.0),
+                                                child: child,
+                                              );
+                                            },
+                                            animation: animationController,
+                                            child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: 3,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8.0,
+                                                            right: 8),
+                                                    child: Shimmer.fromColors(
+                                                      direction:
+                                                          ShimmerDirection.ttb,
+                                                      period:
+                                                          Duration(seconds: 4),
+                                                      baseColor:
+                                                          AlmasaoodColors.text,
+                                                      highlightColor:
+                                                          AlmasaoodColors
+                                                              .textLight,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            child: Container(
+                                                              color: AlmasaoodColors
+                                                                  .primaryColor,
+                                                              width: 70,
+                                                              height: 35,
+                                                              child: Center(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      left: 4.0,
+                                                                      right: 4),
+                                                                  child:
+                                                                      DashedContainer(
+                                                                    blankLength:
+                                                                        10,
+                                                                    dashColor:
+                                                                        AlmasaoodColors
+                                                                            .white,
+                                                                    borderRadius:
+                                                                        2,
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .only(
+                                                                          left:
+                                                                              8.0,
+                                                                          right:
+                                                                              8,
+                                                                          top:
+                                                                              5,
+                                                                          bottom:
+                                                                              5),
+                                                                      child:
+                                                                          Text(
+                                                                        "",
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                          );
+                                          ;
                                         }
                                       }),
                                 ),
@@ -343,29 +552,48 @@ class _HomeState extends State<Home> {
                                 return SliverGrid(
                                     delegate: SliverChildBuilderDelegate(
                                         (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: InkWell(
-                                            onTap: () {
-                                              bloc.f_productDetails(
-                                                  snapshot.data[index]);
-                                              Navigator.push(
-                                                  context,
-                                                  PageRouteBuilder(
-                                                      transitionDuration:
-                                                          Duration(seconds: 1),
-                                                      pageBuilder: (_, __,
-                                                              ___) =>
-                                                          ProductDetails()));
+                                      return AnimatedBuilder(
+                                        animation:
+                                            activeProductsAnimationController,
+                                        builder: (context, child) {
+                                          return Transform(
+                                            transform:
+                                                Matrix4.translationValues(
+                                                    0.0,
+                                                    activeProductsAnimation
+                                                            .value *
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .height,
+                                                    0.0),
+                                            child: child,
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: InkWell(
+                                              onTap: () {
+                                                bloc.f_productDetails(
+                                                    snapshot.data[index]);
+                                                Navigator.push(
+                                                    context,
+                                                    PageRouteBuilder(
+                                                        transitionDuration:
+                                                            Duration(
+                                                                seconds: 1),
+                                                        pageBuilder: (_, __,
+                                                                ___) =>
+                                                            ProductDetails()));
 //                                              Navigator.push(
 //                                                context,
 //                                                MaterialPageRoute(
 //                                                    builder: (context) =>
 //                                                        ProductDetails()),
 //                                              );
-                                            },
-                                            child: ProductCard(
-                                                snapshot.data[index])),
+                                              },
+                                              child: ProductCard(
+                                                  snapshot.data[index])),
+                                        ),
                                       );
                                     }, childCount: snapshot.data.length),
                                     gridDelegate:
@@ -377,11 +605,36 @@ class _HomeState extends State<Home> {
                                 return SliverGrid(
                                     delegate: SliverChildBuilderDelegate(
                                         (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(),
+                                      return AnimatedBuilder(
+                                        animation: productsAnimationController,
+                                        builder: (context, child) {
+                                          return Transform(
+                                            transform:
+                                                Matrix4.translationValues(
+                                                    0.0,
+                                                    productsAnimation.value *
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .height,
+                                                    0.0),
+                                            child: child,
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Shimmer.fromColors(
+                                              direction: ShimmerDirection.ttb,
+                                              period: Duration(seconds: 4),
+                                              baseColor: AlmasaoodColors.text,
+                                              highlightColor:
+                                                  AlmasaoodColors.textLight,
+                                              child: Container(
+                                                color: AlmasaoodColors
+                                                    .primaryColor,
+                                              )),
+                                        ),
                                       );
-                                    }, childCount: 0),
+                                    }, childCount: 4),
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
                                             childAspectRatio:

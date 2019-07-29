@@ -15,8 +15,7 @@ class AlmasaoodColors {
   static const red = Color(0xFFf48498);
   static const redWithOp = Color(0x88f48498);
   static const darkBlue = Color(0x66727aec);
-  static const darkRed = Colors.red ;
-
+  static const darkRed = Colors.red;
 
   static const notSelected = Color(0x88b0c6cc);
 //to 0xFF61b5ca //primary

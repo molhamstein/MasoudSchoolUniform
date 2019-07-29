@@ -77,7 +77,6 @@ class ApiProvider {
     print(ordersURL);
 
     final body = json.encode({
-
       "delieveryLat": delieveryLat,
       "delieveryLng": delieveryLng,
       "products": array

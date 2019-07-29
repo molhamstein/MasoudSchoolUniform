@@ -48,7 +48,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
     print("Load ${locale.languageCode}");
 
-    dataStore.setLang(locale.languageCode) ;
+    dataStore.setLang(locale.languageCode);
 
     return localizations;
   }

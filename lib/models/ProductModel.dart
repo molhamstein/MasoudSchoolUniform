@@ -29,15 +29,15 @@ class ProductsModel {
 
   ProductsModel(
       {this.id,
-        this.products,
-        this.nameEn,
-        this.nameAr,
-        this.descriptionAr,
-        this.descriptionEn,
-        this.gender,
-        this.createdAt,
-        this.grade,
-        this.images});
+      this.products,
+      this.nameEn,
+      this.nameAr,
+      this.descriptionAr,
+      this.descriptionEn,
+      this.gender,
+      this.createdAt,
+      this.grade,
+      this.images});
 
   ProductsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -83,28 +83,26 @@ class ProductsModel {
     return data;
   }
 
-
-
-
-  String genderT(Locale local){
-    if(local.languageCode=='en'){
-      if(gender == 'male'){
+  String genderT(Locale local) {
+    if (local.languageCode == 'en') {
+      if (gender == 'male') {
         return "male";
-      }else return "female";
-    }else {
-      if(gender == 'male'){
+      } else
+        return "female";
+    } else {
+      if (gender == 'male') {
         return "ذكر";
-      }else return "انثى";
+      } else
+        return "انثى";
     }
   }
 
-    String name(Locale locale) {
-      if (locale.languageCode == 'en') {
-        return nameEn;
-      }
-      return nameAr;
+  String name(Locale locale) {
+    if (locale.languageCode == 'en') {
+      return nameEn;
     }
-
+    return nameAr;
+  }
 
   String getPrice() {
     if (products.isNotEmpty) {
@@ -125,11 +123,11 @@ class Products {
 
   Products(
       {this.id,
-        this.code,
-        this.status,
-        this.price,
-        this.size,
-        this.abstractProduct});
+      this.code,
+      this.status,
+      this.price,
+      this.size,
+      this.abstractProduct});
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -185,7 +183,6 @@ class Size {
     return data;
   }
 
-
   String name(Locale locale) {
     if (locale.languageCode == 'en') {
       return nameEn;
@@ -207,14 +204,14 @@ class AbstractProduct {
 
   AbstractProduct(
       {this.id,
-        this.nameEn,
-        this.nameAr,
-        this.descriptionAr,
-        this.descriptionEn,
-        this.gender,
-        this.createdAt,
-        this.grade,
-        this.images});
+      this.nameEn,
+      this.nameAr,
+      this.descriptionAr,
+      this.descriptionEn,
+      this.gender,
+      this.createdAt,
+      this.grade,
+      this.images});
 
   AbstractProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -248,7 +245,6 @@ class AbstractProduct {
     }
     return data;
   }
-
 
   String name(Locale locale) {
     if (locale.languageCode == 'en') {
@@ -307,7 +303,6 @@ class Grade {
     return data;
   }
 
-
   String name(Locale locale) {
     if (locale.languageCode == 'en') {
       return nameEn;
@@ -315,9 +310,3 @@ class Grade {
     return nameAr;
   }
 }
-
-
-
-
-
-

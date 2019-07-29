@@ -14,13 +14,24 @@ class ProductDetails extends StatefulWidget {
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
+class _ProductDetailsState extends State<ProductDetails> with UserFeedback  , TickerProviderStateMixin {
+
+
   Size sizeItem = new Size();
   int temp = 0;
 
   bool isFirst = true;
 
   List<bool> checkedList = [true];
+
+
+
+
+  @override
+  void initState() {
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +104,9 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                               MainAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              snapshot.data.name(AppLocalizations.of(context).locale),
+                                              snapshot.data.name(
+                                                  AppLocalizations.of(context)
+                                                      .locale),
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 22),
@@ -113,14 +126,20 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                   children: <Widget>[
                                                     Text(
 //                                                      snapshot.data.getPrice(),
-                                            bloc.f_getProductPrice(snapshot.data,sizeItem.id) ??snapshot.data.getPrice(),
+                                                      bloc.f_getProductPrice(
+                                                              snapshot.data,
+                                                              sizeItem.id) ??
+                                                          snapshot.data
+                                                              .getPrice(),
                                                       style: TextStyle(
                                                           fontSize: 30,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
                                                     Text(
-                                                      AppLocalizations.of(context).trans('AED'),
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .trans('AED'),
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w700,
@@ -139,7 +158,8 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                               padding: const EdgeInsets.only(
                                                   bottom: 8.0),
                                               child: Text(
-                                                AppLocalizations.of(context).trans('type'),
+                                                AppLocalizations.of(context)
+                                                    .trans('type'),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w700,
                                                     fontSize: 16,
@@ -177,8 +197,10 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                                 top: 5,
                                                                 bottom: 5),
                                                         child: Text(
-                                                          snapshot.data.grade
-                                                              .name(AppLocalizations.of(context).locale),
+                                                          snapshot.data.grade.name(
+                                                              AppLocalizations.of(
+                                                                      context)
+                                                                  .locale),
                                                           style: TextStyle(
                                                               color:
                                                                   AlmasaoodColors
@@ -231,7 +253,10 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                                 top: 5,
                                                                 bottom: 5),
                                                         child: Text(
-                                                          snapshot.data.genderT(AppLocalizations.of(context).locale),
+                                                          snapshot.data.genderT(
+                                                              AppLocalizations.of(
+                                                                      context)
+                                                                  .locale),
                                                           style: TextStyle(
                                                               color:
                                                                   AlmasaoodColors
@@ -293,7 +318,8 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                   Container(
                                     width: MediaQuery.of(context).size.width,
                                     child: Text(
-                                      AppLocalizations.of(context).trans('description'),
+                                      AppLocalizations.of(context)
+                                          .trans('description'),
                                       style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.w700),
@@ -357,7 +383,8 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: Text(
-                                        AppLocalizations.of(context).trans('choose_size'),
+                                        AppLocalizations.of(context)
+                                            .trans('choose_size'),
                                         style: TextStyle(
                                             fontSize: 22,
                                             fontWeight: FontWeight.w700),
@@ -535,7 +562,11 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                                     .file),
                                                         snapshot.data.nameEn,
                                                         snapshot.data.nameAr,
-                                                        bloc.f_getProductPrice(snapshot.data,sizeItem.id) ??snapshot.data.getPrice(),
+                                                        bloc.f_getProductPrice(
+                                                                snapshot.data,
+                                                                sizeItem.id) ??
+                                                            snapshot.data
+                                                                .getPrice(),
                                                         Grade(
                                                             nameEn: snapshot
                                                                 .data
@@ -549,16 +580,20 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback {
                                                         Size(
                                                             code:
                                                                 sizeItem.code),
-                                                        1),context);
+                                                        1),
+                                                    context);
                                               } else {
                                                 print("No size detacted");
                                                 showInSnackBar(
-                                                    AppLocalizations.of(context).trans('no_size_detected'),
+                                                    AppLocalizations.of(context)
+                                                        .trans(
+                                                            'no_size_detected'),
                                                     context);
                                               }
 //                                bloc.f_getProductId(snapshot.data ,sizeId);
                                             },
-                                            text: AppLocalizations.of(context).trans('add_to_cart'),
+                                            text: AppLocalizations.of(context)
+                                                .trans('add_to_cart'),
                                             textColor: AlmasaoodColors.white,
                                             color: AlmasaoodColors.primaryColor,
                                           );

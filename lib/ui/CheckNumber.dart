@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:almasaood_app/Widgets/AuthTextField.dart';
@@ -130,12 +131,14 @@ class _CheckNumberState extends State<CheckNumber>
                       bloc.showFeedback = false;
                     });
                   } else if (snapshot.hasData && snapshot.data != null) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.of(context).pushReplacement(
-                          new MaterialPageRoute(
-                              builder: (context) => VerificationCode(
-                                  numberController.text,
-                                  snapshot.data.created)));
+                    animationController.reverse().then((e) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.of(context).pushReplacement(
+                            new MaterialPageRoute(
+                                builder: (context) => VerificationCode(
+                                    numberController.text,
+                                    snapshot.data.created)));
+                      });
                     });
                   }
 

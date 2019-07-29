@@ -10,7 +10,6 @@
 //}
 
 import 'package:almasaood_app/ui/CheckNumber.dart';
-import 'package:almasaood_app/ui/Settings.dart';
 import 'package:almasaood_app/ui/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,13 +26,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return new MaterialApp(initialRoute: '/',routes: {'/': (context) => SplashScreen(),
-    '/sign':(context)=>CheckNumber()},
+    return new MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/sign': (context) => CheckNumber()
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'ProximaNova'),
       supportedLocales: [const Locale('en'), const Locale('en', 'US')],

@@ -52,7 +52,6 @@ class GradesModel {
     return data;
   }
 
-
   String name(Locale locale) {
     if (locale.languageCode == 'en') {
       return nameEn;

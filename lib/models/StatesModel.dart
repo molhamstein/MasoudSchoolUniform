@@ -15,7 +15,6 @@ class StatesList {
   }
 }
 
-
 class StatesModel {
   int _id;
   List<Centers> _centers;
@@ -30,12 +29,19 @@ class StatesModel {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   List<Centers> get centers => _centers;
+
   set centers(List<Centers> centers) => _centers = centers;
+
   String get nameEn => _nameEn;
+
   set nameEn(String nameEn) => _nameEn = nameEn;
+
   String get nameAr => _nameAr;
+
   set nameAr(String nameAr) => _nameAr = nameAr;
 
   StatesModel.fromJson(Map<String, dynamic> json) {
@@ -61,7 +67,6 @@ class StatesModel {
     return data;
   }
 
-
   String name(Locale locale) {
     if (locale.languageCode == 'en') {
       return nameEn;
@@ -80,11 +85,11 @@ class Centers {
 
   Centers(
       {int id,
-        List<int> statesId,
-        String nameEn,
-        String nameAr,
-        double lat,
-        double lng}) {
+      List<int> statesId,
+      String nameEn,
+      String nameAr,
+      double lat,
+      double lng}) {
     this._id = id;
     this._statesId = statesId;
     this._nameEn = nameEn;
@@ -94,16 +99,27 @@ class Centers {
   }
 
   int get id => _id;
+
   set id(int id) => _id = id;
+
   List<int> get statesId => _statesId;
+
   set statesId(List<int> statesId) => _statesId = statesId;
+
   String get nameEn => _nameEn;
+
   set nameEn(String nameEn) => _nameEn = nameEn;
+
   String get nameAr => _nameAr;
+
   set nameAr(String nameAr) => _nameAr = nameAr;
+
   double get lat => _lat;
+
   set lat(double lat) => _lat = lat;
+
   double get lng => _lng;
+
   set lng(double lng) => _lng = lng;
 
   Centers.fromJson(Map<String, dynamic> json) {
@@ -132,7 +148,4 @@ class Centers {
     }
     return nameAr;
   }
-
 }
-
-

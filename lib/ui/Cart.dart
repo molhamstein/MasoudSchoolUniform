@@ -23,7 +23,7 @@ class _CartState extends State<Cart> {
           backgroundColor: AlmasaoodColors.pink,
           leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
             child: Image.asset(
               "assets/images/close.png",
