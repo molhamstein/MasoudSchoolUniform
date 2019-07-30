@@ -79,14 +79,16 @@ class _StatesState extends State<States> with TickerProviderStateMixin {
                   Expanded(
                     child: AnimatedBuilder(
                       animation: animationController,
-                      builder: (context , child){
-                      return Transform( transform: Matrix4.translationValues(
-                          0.0,
-                          statesAnimation.value *
-                              MediaQuery.of(context).size.height,
-                          0.0),
-                        child: child,);
-                    },
+                      builder: (context, child) {
+                        return Transform(
+                          transform: Matrix4.translationValues(
+                              0.0,
+                              statesAnimation.value *
+                                  MediaQuery.of(context).size.height,
+                              0.0),
+                          child: child,
+                        );
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -141,7 +143,8 @@ class _StatesState extends State<States> with TickerProviderStateMixin {
                                                 padding: const EdgeInsets.only(
                                                     top: 8.0, bottom: 8),
                                                 child: Divider(
-                                                  color: AlmasaoodColors.textDark,
+                                                  color:
+                                                      AlmasaoodColors.textDark,
                                                   height: 20,
                                                 ),
                                               )
@@ -153,7 +156,8 @@ class _StatesState extends State<States> with TickerProviderStateMixin {
                                       child: CircularProgressIndicator(
                                           valueColor:
                                               new AlwaysStoppedAnimation<Color>(
-                                                  AlmasaoodColors.primaryColor)),
+                                                  AlmasaoodColors
+                                                      .primaryColor)),
                                     );
                                   }
                                 }),

@@ -57,7 +57,9 @@ class ApiProvider {
     }
   }
 
-  Future<ProductList> products() async {
+  Future<ProductList> products(token) async {
+    _headers['Authorization'] = "Bearer " + token;
+
     print(productsURL);
     final response = await http.get(productsURL, headers: _headers);
     if (response.statusCode == 200) {
@@ -70,17 +72,25 @@ class ApiProvider {
     }
   }
 
-  Future<OrderModel> createOrder(deliveryAddress, delieveryLat, delieveryLng,
-      List<Map<String, int>> array) async {
-    _headers['Authorization'] =
-        "Bearer 5d301f006c60ce9037f171765faa0c36102b77fe";
+  Future<OrderModel> createOrder(token, deliveryAddress, delieveryLat,
+      delieveryLng, List<Map<String, int>> array, centerId) async {
     print(ordersURL);
+    _headers['Authorization'] = "Bearer " + token;
 
-    final body = json.encode({
-      "delieveryLat": delieveryLat,
-      "delieveryLng": delieveryLng,
-      "products": array
-    });
+    var body;
+    if (centerId != null)
+      body = json.encode({
+        "deliveryLat": delieveryLat,
+        "devliveryLng": delieveryLng,
+        "products": array,
+        "centerId": centerId,
+      });
+    else
+      body = json.encode({
+        "deliveryLat": delieveryLat,
+        "devliveryLng": delieveryLng,
+        "products": array,
+      });
     print(body);
 
     final response = await http.post(ordersURL, body: body, headers: _headers);
@@ -94,9 +104,9 @@ class ApiProvider {
     }
   }
 
-  Future<ProfileModel> getProfile() async {
-    _headers['Authorization'] =
-        "Bearer 8398556d0d07527e60f9c18f0164e2656c74cf4b";
+  Future<ProfileModel> getProfile(token) async {
+    _headers['Authorization'] = "Bearer " + token;
+
     print(profileURL);
     final response = await http.get(profileURL, headers: _headers);
     if (response.statusCode == 200) {
@@ -131,7 +141,7 @@ class ApiProvider {
   }
 
   Future<GradesList> getGrades(token) async {
-    _headers['Authorization'] = token;
+    _headers['Authorization'] = "Bearer " + token;
     print(gradesURL);
     final response = await http.get(gradesURL, headers: _headers);
     if (response.statusCode == 200) {
@@ -144,7 +154,9 @@ class ApiProvider {
     }
   }
 
-  Future<StatesList> getStates() async {
+  Future<StatesList> getStates(token) async {
+    _headers['Authorization'] = "Bearer " + token;
+
     print(statesURL);
     final response = await http.get(statesURL, headers: _headers);
     if (response.statusCode == 200) {

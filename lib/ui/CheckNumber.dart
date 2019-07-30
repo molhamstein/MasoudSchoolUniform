@@ -401,18 +401,29 @@ class _CheckNumberState extends State<CheckNumber>
 //                                                } else {
 
                                                 if (numberController.text
-                                                        .startsWith("00971") ||
-                                                    numberController.text
-                                                        .startsWith("+971")) {
+                                                    .startsWith("+971")) {
+                                                  bloc.f_SignIn(
+                                                      numberController.text);
+                                                } else if (numberController.text
+                                                    .startsWith("00971")) {
+                                                  tempMobile = numberController
+                                                      .text
+                                                      .split("00")[1];
+                                                  numberController.text =
+                                                      "+" + tempMobile;
                                                   bloc.f_SignIn(
                                                       numberController.text);
                                                 } else if (numberController.text
                                                     .startsWith("0")) {
+                                                  print(numberController.text);
                                                   tempMobile = numberController
                                                       .text
-                                                      .split("0")[1];
+                                                      .replaceFirst(
+                                                          "0", "+971");
+
+                                                  print(tempMobile);
                                                   numberController.text =
-                                                      "00971" + tempMobile;
+                                                      tempMobile;
                                                   bloc.f_SignIn(
                                                       numberController.text);
                                                 } else {

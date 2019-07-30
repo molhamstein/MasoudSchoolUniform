@@ -114,7 +114,7 @@ class _VerificationCodeState extends State<VerificationCode>
                         context);
                     bloc.showFeedback = false;
                   });
-                } else if (snapshot.hasData && snapshot.data != null ) {
+                } else if (snapshot.hasData && snapshot.data != null) {
                   if (widget.created == true) {
                     dataStore.setUser(snapshot.data);
 

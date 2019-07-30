@@ -40,19 +40,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+        new AnimationController(vsync: this, duration: Duration(seconds: 2));
     activeAnimationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+        new AnimationController(vsync: this, duration: Duration(seconds: 2));
     productsAnimationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 6));
+        new AnimationController(vsync: this, duration: Duration(seconds: 4));
     activeProductsAnimationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 6));
-    logoAnimation = Tween(begin: -1.0, end: 0.0).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.linear));
+        new AnimationController(vsync: this, duration: Duration(seconds: 4));
+    logoAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController, curve: ElasticInOutCurve(2)));
     logoAnimationFade = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: animationController, curve: Interval(0.5, 1.0)));
-    nameAnimation = Tween(begin: -1.0, end: 0.0).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.linear));
+    nameAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController, curve: ElasticInOutCurve(2)));
     gradeAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController, curve: ElasticInOutCurve(2)));
     activeGradeAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
@@ -477,11 +477,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                           ShimmerDirection.ttb,
                                                       period:
                                                           Duration(seconds: 4),
-                                                      baseColor:
-                                                          AlmasaoodColors.text,
+                                                      baseColor: AlmasaoodColors
+                                                          .shimmerColor,
                                                       highlightColor:
                                                           AlmasaoodColors
-                                                              .textLight,
+                                                              .shimmerColorLight,
                                                       child: Row(
                                                         children: <Widget>[
                                                           ClipRRect(
@@ -625,9 +625,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                           child: Shimmer.fromColors(
                                               direction: ShimmerDirection.ttb,
                                               period: Duration(seconds: 4),
-                                              baseColor: AlmasaoodColors.text,
-                                              highlightColor:
-                                                  AlmasaoodColors.textLight,
+                                              baseColor:
+                                                  AlmasaoodColors.shimmerColor,
+                                              highlightColor: AlmasaoodColors
+                                                  .shimmerColorLight,
                                               child: Container(
                                                 color: AlmasaoodColors
                                                     .primaryColor,

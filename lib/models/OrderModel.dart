@@ -4,7 +4,8 @@ class OrderModel {
   String _deliveryAddress;
   double _deliveryLat;
   double _devliveryLng;
-  String _center;
+  int _center;
+  bool _isDelivery;
 
   OrderModel(
       {int id,
@@ -12,13 +13,21 @@ class OrderModel {
       String deliveryAddress,
       double deliveryLat,
       double devliveryLng,
-      String center}) {
+      int center,
+      bool isDelivery}) {
     this._id = id;
     this._products = products;
     this._deliveryAddress = deliveryAddress;
     this._deliveryLat = deliveryLat;
     this._devliveryLng = devliveryLng;
     this._center = center;
+    this._isDelivery = isDelivery;
+  }
+
+  bool get isDelivery => _isDelivery;
+
+  set isDelivery(bool value) {
+    _isDelivery = value;
   }
 
   int get id => _id;
@@ -42,9 +51,9 @@ class OrderModel {
 
   set devliveryLng(double devliveryLng) => _devliveryLng = devliveryLng;
 
-  String get center => _center;
+  int get center => _center;
 
-  set center(String center) => _center = center;
+  set center(int center) => _center = center;
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -58,6 +67,7 @@ class OrderModel {
     _deliveryLat = json['deliveryLat'];
     _devliveryLng = json['devliveryLng'];
     _center = json['center'];
+    _isDelivery = json['isDelivery'];
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +80,7 @@ class OrderModel {
     data['deliveryLat'] = this._deliveryLat;
     data['devliveryLng'] = this._devliveryLng;
     data['center'] = this._center;
+    data['isDelivery'] = this._isDelivery;
     return data;
   }
 }

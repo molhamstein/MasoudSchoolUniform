@@ -14,9 +14,8 @@ class ProductDetails extends StatefulWidget {
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> with UserFeedback  , TickerProviderStateMixin {
-
-
+class _ProductDetailsState extends State<ProductDetails>
+    with UserFeedback, TickerProviderStateMixin {
   Size sizeItem = new Size();
   int temp = 0;
 
@@ -24,14 +23,8 @@ class _ProductDetailsState extends State<ProductDetails> with UserFeedback  , Ti
 
   List<bool> checkedList = [true];
 
-
-
-
   @override
-  void initState() {
-
-
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {

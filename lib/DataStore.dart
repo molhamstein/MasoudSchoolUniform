@@ -60,13 +60,6 @@ class DataStore {
   set langCode(String value) {
     _langCode = value;
   }
-
-//
-//  String get token => _token;
-//
-//  set token(String value) {
-//    _token = value;
-//  }
 }
 
 final dataStore = DataStore();

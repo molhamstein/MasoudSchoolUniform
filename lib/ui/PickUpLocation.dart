@@ -29,6 +29,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
 //  GoogleMapController controller;
   Set<Marker> _markers = {};
   bool isLocationSelected;
+  int centerId;
 
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(23.581179, 54.046655),
@@ -60,6 +61,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
               selectedLng = bloc.centers[i].lng;
               isLocationSelected = true;
               print("tapped");
+              centerId = bloc.centers[i].id;
             });
           },
           draggable: true,
@@ -281,8 +283,14 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                       onPressed: () {
                                         if (!isLocationSelected) {
                                         } else {
-                                          bloc.createOrder("", selectedLng,
-                                              selectedLat, snapshot.data);
+//                                          bloc.createOrder("", selectedLng,
+//                                              selectedLat, snapshot.data,centerId);
+                                          bloc.createOrder(
+                                              deliveryAddress: "",
+                                              delieveryLng: selectedLng,
+                                              delieveryLat: selectedLat,
+                                              data: snapshot.data,
+                                              centerId: centerId);
                                         }
                                       },
                                       width: MediaQuery.of(context).size.width /
@@ -366,8 +374,15 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                       onPressed: () {
                                         if (!isLocationSelected) {
                                         } else {
-                                          bloc.createOrder("", selectedLat,
-                                              selectedLng, snapshot.data);
+//                                          bloc.createOrder("", selectedLat,
+//                                              selectedLng, snapshot.data , null);
+//
+
+                                          bloc.createOrder(
+                                              deliveryAddress: "",
+                                              delieveryLng: selectedLng,
+                                              delieveryLat: selectedLat,
+                                              data: snapshot.data);
                                         }
                                       },
                                       width: MediaQuery.of(context).size.width /
@@ -472,12 +487,22 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                                                         () {
                                                                       Navigator.pop(
                                                                           context);
+//                                                                      bloc.createOrder(
+//                                                                          "",
+//                                                                          "",
+//                                                                          "",
+//                                                                          snapshot
+//                                                                              .data , null);
+
                                                                       bloc.createOrder(
-                                                                          "",
-                                                                          "",
-                                                                          "",
-                                                                          snapshot
-                                                                              .data);
+                                                                          deliveryAddress:
+                                                                              "",
+                                                                          delieveryLng:
+                                                                              "",
+                                                                          delieveryLat:
+                                                                              "",
+                                                                          data:
+                                                                              snapshot.data);
                                                                     },
                                                                   ),
                                                                 ],
@@ -511,12 +536,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
                                             ),
                                           );
                                         } else {
-                                          return CircularProgressIndicator(
-                                              valueColor:
-                                                  new AlwaysStoppedAnimation<
-                                                          Color>(
-                                                      AlmasaoodColors
-                                                          .primaryColor));
+                                          return Container();
                                         }
                                         ;
                                       })

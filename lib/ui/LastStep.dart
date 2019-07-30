@@ -36,7 +36,8 @@ class _LastStepState extends State<LastStep> {
               Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: Text(
-                  AppLocalizations.of(context).trans('Your_order_will_be_ready'),
+                  AppLocalizations.of(context)
+                      .trans('Your_order_will_be_ready'),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 16,
@@ -51,7 +52,7 @@ class _LastStepState extends State<LastStep> {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) => Home()));
                   },
-                  text:  AppLocalizations.of(context).trans('back_to_home'),
+                  text: AppLocalizations.of(context).trans('back_to_home'),
                   textColor: AlmasaoodColors.white,
                   color: AlmasaoodColors.primaryColor,
                 ),

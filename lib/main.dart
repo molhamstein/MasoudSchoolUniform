@@ -1,14 +1,3 @@
-//import 'package:flutter/material.dart';
-//
-//void main() => runApp(MyApp());
-//
-//class MyApp extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(home: Container());
-//  }
-//}
-
 import 'package:almasaood_app/ui/CheckNumber.dart';
 import 'package:almasaood_app/ui/SplashScreen.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +27,7 @@ class _MyAppState extends State<MyApp> {
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'ProximaNova'),
-      supportedLocales: [const Locale('en'), const Locale('en', 'US')],
+      supportedLocales: [const Locale('ar'), const Locale('en')],
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -55,24 +44,12 @@ class _MyAppState extends State<MyApp> {
 
         return supportedLocales.first;
       },
-//      home: SplashScreen(),
     );
   }
 
   @override
   void initState() {
     dataStore.user;
-  }
-}
-
-class MyPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Center(
-        child: new Text(AppLocalizations.of(context).trans('hello_world')),
-      ),
-    );
   }
 }
 
