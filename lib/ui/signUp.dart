@@ -5,6 +5,7 @@ import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/ProfileModel.dart';
 import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../AlmasaoodColors.dart';
 import '../DataStore.dart';
@@ -117,66 +118,73 @@ class _SignUpState extends State<SignUp>
                           children: <Widget>[
                             Stack(
                               children: <Widget>[
-                                Container(
-                                  height: MediaQuery.of(context).size.height,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          Image.asset(
-                                            "assets/images/ic_needleGray.png",
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                3,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          Stack(children: <Widget>[
+                                Localizations(
+                                  delegates: [
+                                    GlobalMaterialLocalizations.delegate,
+                                    GlobalWidgetsLocalizations.delegate,
+                                  ],
+                                  locale: Locale('en', ''),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: <Widget>[
                                             Image.asset(
-                                              "assets/images/sce_gary.png",
+                                              "assets/images/ic_needleGray.png",
                                               height: MediaQuery.of(context)
                                                       .size
-                                                      .width /
-                                                  4,
+                                                      .height /
+                                                  3,
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width /
-                                                  4,
+                                                  2,
                                             ),
-                                            Image.asset(
-                                              "assets/images/sce_gray2.png",
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  4,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  4,
-                                            )
-                                          ])
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            Stack(children: <Widget>[
+                                              Image.asset(
+                                                "assets/images/sce_gary.png",
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                              ),
+                                              Image.asset(
+                                                "assets/images/sce_gray2.png",
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                              )
+                                            ])
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Column(
@@ -246,7 +254,10 @@ class _SignUpState extends State<SignUp>
                                                   ),
                                                 ],
                                               ),
-                                              child: AuthTextField(
+                                              child: AuthTextField(image: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Icon(Icons.person,size: 35,),
+                                              ) ,
                                                 type: TextInputType.text,
                                                 textEditingController:
                                                     firstNameController,
@@ -278,7 +289,10 @@ class _SignUpState extends State<SignUp>
                                                   ),
                                                 ],
                                               ),
-                                              child: AuthTextField(
+                                              child: AuthTextField(image: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Icon(Icons.person,size: 35,),
+                                              ),
                                                 type: TextInputType.text,
                                                 textEditingController:
                                                     lastNameController,

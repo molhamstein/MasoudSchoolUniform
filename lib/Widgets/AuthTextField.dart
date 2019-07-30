@@ -7,12 +7,13 @@ class AuthTextField extends StatefulWidget {
   final Function onChange;
   final String hint;
   final TextInputType type;
-
+  final Widget image ;
   AuthTextField(
       {@required this.textEditingController,
       this.onChange,
       this.hint,
-      this.type = TextInputType.number});
+      this.type = TextInputType.number , this
+      .image});
 
   @override
   _AuthTextFieldState createState() => _AuthTextFieldState();
@@ -30,13 +31,10 @@ class _AuthTextFieldState extends State<AuthTextField> {
       keyboardType: widget.type,
       controller: widget.textEditingController,
       decoration: InputDecoration(
-        border: InputBorder.none,
+        border: InputBorder.none,focusColor: AlmasaoodColors.primaryColor,
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8),
-          child: Image.asset(
-            "assets/images/phoneIcon.png",
-            scale: 1.5,
-          ),
+          child: widget.image,
         ),
         filled: true,
         fillColor: AlmasaoodColors.white,

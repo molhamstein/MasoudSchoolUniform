@@ -91,9 +91,14 @@ class SingletonBloc {
   get cartCountStream => _cartCountController.stream;
 
 ////////////////////////////////
-  f_SignIn(String mobileNumber) {
+  f_SignIn({String mobileNumber , bool fromVerification}) {
     print(mobileNumber);
+    print(fromVerification);
+    showFeedback = true;
+
+    if(!fromVerification){
     _shouldRotateController.sink.add(true);
+    }
 
     apiProvider.signIn(mobileNumber).then((val) {
       _shouldRotateController.sink.add(false);

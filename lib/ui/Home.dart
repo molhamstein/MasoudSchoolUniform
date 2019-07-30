@@ -140,7 +140,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       builder: (context, snapshot) {
                                         return Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.end,
+                                              CrossAxisAlignment.center,
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
                                           children: <Widget>[
@@ -148,11 +148,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Container(
                                                   width: 17,
                                                   height: 17,
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data != null
+                                                          ? snapshot.data
+                                                              .toString()
+                                                          : "0",
+                                                      style:
+                                                          TextStyle(fontSize: 12),
+                                                    ),
+                                                  ),
                                                   decoration: BoxDecoration(
                                                       color: AlmasaoodColors
                                                           .darkRed,
@@ -162,15 +172,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                       border: Border.all(
                                                           color: AlmasaoodColors
                                                               .white)),
-                                                  child: Center(
-                                                      child: Text(
-                                                    snapshot.data != null
-                                                        ? snapshot.data
-                                                            .toString()
-                                                        : "0",
-                                                    style:
-                                                        TextStyle(fontSize: 12),
-                                                  )),
                                                 ),
                                               ],
                                             ),
@@ -389,7 +390,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                               });
                                                             },
                                                             child: Container(
-                                                              height: 35,
+                                                              height: 37,
                                                               color: checkedList[
                                                                           index] ==
                                                                       false
@@ -402,7 +403,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                   padding: const EdgeInsets
                                                                           .only(
                                                                       left: 4.0,
-                                                                      right: 4),
+                                                                      right: 4,
+                                                                      bottom: 2,
+                                                                      top: 2),
                                                                   child:
                                                                       DashedContainer(
                                                                     blankLength:
@@ -431,7 +434,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                             .name(AppLocalizations.of(context).locale),
                                                                         style: TextStyle(
                                                                             color:
-                                                                                AlmasaoodColors.white),
+                                                                                AlmasaoodColors.white,
+                                                                            fontSize: 12),
                                                                       ),
                                                                     ),
                                                                   ),

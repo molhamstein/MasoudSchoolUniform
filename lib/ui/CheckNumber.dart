@@ -8,6 +8,7 @@ import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/SignModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../AlmasaoodColors.dart';
 import '../UserFeedBack.dart';
@@ -150,163 +151,169 @@ class _CheckNumberState extends State<CheckNumber>
                       height: MediaQuery.of(context).size.height,
                       child: Stack(
                         children: <Widget>[
-                          Container(
-                            height: MediaQuery.of(context).size.height,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    Transform(
-                                      transform: Matrix4.translationValues(
-                                          0.0,
-                                          needleAnimation.value *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                          0.0),
-                                      child: Image.asset(
-                                        "assets/images/needle.png",
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                3,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                      ),
-                                    ),
-                                    Transform(
-                                      transform: Matrix4.translationValues(
-                                          stringOneAnimation.value *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                          0.0,
-                                          0.0),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 130.0),
-                                        child: Image.asset(
-                                          "assets/images/string1.png",
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              3,
-//                                    width:
-//                                        MediaQuery.of(context).size.width / 2,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Transform(
-                                      transform: Matrix4.translationValues(
-                                          stringTwoAnimation.value *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                          0.0,
-                                          0.0),
-                                      child: Image.asset(
-                                        "assets/images/string2.png",
-                                        height:
-                                            MediaQuery.of(context).size.width /
-                                                4,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                4,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    Transform(
-                                      transform: Matrix4.translationValues(
-                                          needlesAnimationX.value *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                          needlesAnimationY.value *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                          0.0),
-                                      child: Image.asset(
-                                        "assets/images/needles.png",
-//                                    width:
-//                                        MediaQuery.of(context).size.width / 3,
-                                        height:
-                                            MediaQuery.of(context).size.width /
-                                                3,
-                                      ),
-                                    ),
-                                    Transform(
+                          Localizations(delegates: [
+                            GlobalMaterialLocalizations.delegate,
+                            GlobalWidgetsLocalizations.delegate,
+                          ],
+                            locale: Locale('en', ''),
+                            child: Container(
+                              height: MediaQuery.of(context).size.height,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Transform(
                                         transform: Matrix4.translationValues(
-                                            secsAnimationX.value *
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .height,
-                                            secsAnimationY.value *
+                                            0.0,
+                                            needleAnimation.value *
                                                 MediaQuery.of(context)
                                                     .size
                                                     .height,
                                             0.0),
-                                        child: Stack(children: <Widget>[
-                                          AnimatedBuilder(
-                                            animation: sce_Animationcontroller,
-                                            builder: (context, child) {
-                                              return Transform.rotate(
-                                                  angle:
-                                                      firstSceAnimation.value,
-                                                  child: child);
-                                            },
-                                            child: Image.asset(
-                                              "assets/images/sce_white.png",
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  4,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  4,
-                                            ),
+                                        child: Image.asset(
+                                          "assets/images/needle.png",
+                                          height:
+                                              MediaQuery.of(context).size.height /
+                                                  3,
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  2,
+                                        ),
+                                      ),
+                                      Transform(
+                                        transform: Matrix4.translationValues(
+                                            stringOneAnimation.value *
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                            0.0,
+                                            0.0),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 130.0),
+                                          child: Image.asset(
+                                            "assets/images/string1.png",
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                3,
+//                                    width:
+//                                        MediaQuery.of(context).size.width / 2,
                                           ),
-                                          AnimatedBuilder(
-                                            animation: sce_Animationcontroller,
-                                            builder: (context, child) {
-                                              return Transform.rotate(
-                                                  angle:
-                                                      secondSceAnimation.value,
-                                                  child: child);
-                                            },
-                                            child: Image.asset(
-                                              "assets/images/sce_white_2.png",
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Transform(
+                                        transform: Matrix4.translationValues(
+                                            stringTwoAnimation.value *
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                            0.0,
+                                            0.0),
+                                        child: Image.asset(
+                                          "assets/images/string2.png",
+                                          height:
+                                              MediaQuery.of(context).size.width /
                                                   4,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
+                                          width:
+                                              MediaQuery.of(context).size.width /
                                                   4,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Transform(
+                                        transform: Matrix4.translationValues(
+                                            needlesAnimationX.value *
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                            needlesAnimationY.value *
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                            0.0),
+                                        child: Image.asset(
+                                          "assets/images/needles.png",
+//                                    width:
+//                                        MediaQuery.of(context).size.width / 3,
+                                          height:
+                                              MediaQuery.of(context).size.width /
+                                                  3,
+                                        ),
+                                      ),
+                                      Transform(
+                                          transform: Matrix4.translationValues(
+                                              secsAnimationX.value *
+                                                  MediaQuery.of(context)
+                                                      .size
+                                                      .height,
+                                              secsAnimationY.value *
+                                                  MediaQuery.of(context)
+                                                      .size
+                                                      .height,
+                                              0.0),
+                                          child: Stack(children: <Widget>[
+                                            AnimatedBuilder(
+                                              animation: sce_Animationcontroller,
+                                              builder: (context, child) {
+                                                return Transform.rotate(
+                                                    angle:
+                                                        firstSceAnimation.value,
+                                                    child: child);
+                                              },
+                                              child: Image.asset(
+                                                "assets/images/sce_white.png",
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                              ),
                                             ),
-                                          )
-                                        ]))
-                                  ],
-                                ),
-                              ],
+                                            AnimatedBuilder(
+                                              animation: sce_Animationcontroller,
+                                              builder: (context, child) {
+                                                return Transform.rotate(
+                                                    angle:
+                                                        secondSceAnimation.value,
+                                                    child: child);
+                                              },
+                                              child: Image.asset(
+                                                "assets/images/sce_white_2.png",
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                              ),
+                                            )
+                                          ]))
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           Visibility(
@@ -352,11 +359,17 @@ class _CheckNumberState extends State<CheckNumber>
                                               ),
                                             ],
                                           ),
-                                          child: AuthTextField(
-                                            textEditingController:
-                                                numberController,
-                                            hint: AppLocalizations.of(context)
-                                                .trans('mobile_number'),
+                                          child: Localizations(delegates: [
+                                            GlobalMaterialLocalizations.delegate,
+                                            GlobalWidgetsLocalizations.delegate,
+                                          ],
+                                            locale: Locale('en', ''),
+                                            child: AuthTextField(
+                                              textEditingController:
+                                                  numberController,image: Image.asset("assets/images/phoneIcon.png",scale: 1.5,),
+                                              hint: AppLocalizations.of(context)
+                                                  .trans('mobile_number'),
+                                            ),
                                           ))),
                                 ),
                                 Transform(
@@ -403,7 +416,7 @@ class _CheckNumberState extends State<CheckNumber>
                                                 if (numberController.text
                                                     .startsWith("+971")) {
                                                   bloc.f_SignIn(
-                                                      numberController.text);
+                                                      mobileNumber: numberController.text,fromVerification: false);
                                                 } else if (numberController.text
                                                     .startsWith("00971")) {
                                                   tempMobile = numberController
@@ -412,7 +425,7 @@ class _CheckNumberState extends State<CheckNumber>
                                                   numberController.text =
                                                       "+" + tempMobile;
                                                   bloc.f_SignIn(
-                                                      numberController.text);
+                                                     mobileNumber:  numberController.text,fromVerification: false);
                                                 } else if (numberController.text
                                                     .startsWith("0")) {
                                                   print(numberController.text);
@@ -425,7 +438,7 @@ class _CheckNumberState extends State<CheckNumber>
                                                   numberController.text =
                                                       tempMobile;
                                                   bloc.f_SignIn(
-                                                      numberController.text);
+                                                     mobileNumber:  numberController.text,fromVerification: false);
                                                 } else {
                                                   print("Not valid");
                                                   showInSnackBar(

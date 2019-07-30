@@ -357,7 +357,9 @@ class _CartState extends State<Cart> {
                                                     Row(
                                                       children: <Widget>[
                                                         Text(
-                                                          "AED",
+                                                          AppLocalizations.of(
+                                                              context)
+                                                              .trans('AED'),
                                                           style: TextStyle(
                                                               color:
                                                                   AlmasaoodColors
@@ -521,7 +523,9 @@ class _CartState extends State<Cart> {
                                   height: 60,
                                 ),
                                 Text(
-                                  "You haven't select items yet",
+                                  AppLocalizations.of(
+                                      context)
+                                      .trans('you_have_not_selected_items'),
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),

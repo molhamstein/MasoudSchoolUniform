@@ -4,6 +4,7 @@ import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/productDetailsModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../AlmasaoodColors.dart';
@@ -41,35 +42,41 @@ class _ProductDetailsState extends State<ProductDetails>
             child: Container(
               child: Stack(
                 children: <Widget>[
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Stack(children: <Widget>[
-                              Transform.rotate(
-                                angle: 5.8,
-                                child: Image.asset(
-                                  "assets/images/sce_gary.png",
+                  Localizations(delegates: [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                    locale: Locale('en', ''),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Stack(children: <Widget>[
+                                Transform.rotate(
+                                  angle: 5.8,
+                                  child: Image.asset(
+                                    "assets/images/sce_gary.png",
+                                    height: MediaQuery.of(context).size.width / 4,
+                                    width: MediaQuery.of(context).size.width / 4,
+                                  ),
+                                ),
+                                Image.asset(
+                                  "assets/images/sce_gray2.png",
                                   height: MediaQuery.of(context).size.width / 4,
                                   width: MediaQuery.of(context).size.width / 4,
-                                ),
-                              ),
-                              Image.asset(
-                                "assets/images/sce_gray2.png",
-                                height: MediaQuery.of(context).size.width / 4,
-                                width: MediaQuery.of(context).size.width / 4,
-                              )
-                            ])
-                          ],
-                        ),
-                      ],
+                                )
+                              ])
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   StreamBuilder<ProductsModel>(

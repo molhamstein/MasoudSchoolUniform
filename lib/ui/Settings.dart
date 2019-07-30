@@ -2,7 +2,6 @@ import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../AlmasaoodColors.dart';
 import '../DataStore.dart';
 import 'CheckNumber.dart';
@@ -47,7 +46,7 @@ class _SettingsState extends State<Settings> {
                       padding: const EdgeInsets.only(
                           top: 32.0, bottom: 64, left: 32, right: 32),
                       child: Text(
-                        "Some Slogan about the service",
+                        "ALMASAOOD TAILORING",
                         style: TextStyle(fontSize: 22),
                         textAlign: TextAlign.center,
                       ),
@@ -112,7 +111,7 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 64.0, bottom: 32),
+                      padding: const EdgeInsets.only(top: 64.0, bottom: 0),
                       child: InkWell(
                         onTap: () {
                           dataStore.setUser(VerifyModel());
@@ -122,8 +121,6 @@ class _SettingsState extends State<Settings> {
                               MaterialPageRoute(
                                   builder: (context) => CheckNumber()),
                               ModalRoute.withName('/sign'));
-//                        Navigator.of(context)
-//                            .pushNamedAndRemoveUntil('/SplashScreen', (Route<dynamic> route) => false);
                         },
                         child: Text(
                           AppLocalizations.of(context).trans('log_out'),
@@ -131,6 +128,17 @@ class _SettingsState extends State<Settings> {
                               fontWeight: FontWeight.w700, fontSize: 16),
                         ),
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                            AppLocalizations.of(context).trans('developed_by'),style: TextStyle(fontSize: 12),),
+                        Image.asset(
+                          "assets/images/logoC.jpg",
+                          height: 75,width: 75,
+                        )
+                      ],
                     )
                   ],
                 ),

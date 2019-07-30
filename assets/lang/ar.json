@@ -20,7 +20,7 @@
   "no_size_detected" : "لم يتم اختيار المقاس",
   "added_successfully" : "تمت الإضافة بنجاح",
   "AED": "درهم",
-  "you_have_not selected_items": "لم تقم باختيار عناصر بعد",
+  "you_have_not_selected_items": "لم تقم باختيار عناصر بعد",
   "delivery" : "توصيل",
   "total" : "المجموع الكلي",
   "contact_us": "تواصل معنا",
@@ -38,7 +38,10 @@
   "delivery_coast" : "تكلفة التوصيل",
   "get_address_skip" : "ستصلك مكالمة للحصول على عنوانك المفصل",
   "Cancel": "إلغاء",
-  "ok": "حسناً"
+  "ok": "حسناً",
+  "sent_successfully": "تم الإرسال بنجاح",
+  "developed_by": "مطور من قبل"
+
 
 
 

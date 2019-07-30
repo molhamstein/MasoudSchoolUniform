@@ -20,7 +20,7 @@
   "no_size_detected": "No size detected",
   "added_successfully": "Added successfully",
   "AED": "AED",
-  "you_have_not selected_items": "You haven't selected items yet",
+  "you_have_not_selected_items": "You haven't selected items yet",
   "delivery": "Delivery",
   "total": "Total",
   "contact_us": "Contact us",
@@ -38,6 +38,10 @@
   "delivery_coast" : "Delivery Coast",
   "get_address_skip" : "You will recive a call to get your exact address",
   "Cancel": "Cancel",
-  "ok": "Ok"
+  "ok": "Ok",
+  "sent_successfully": "Sent successfully",
+  "developed_by": "Developed by"
+
+
 
 }

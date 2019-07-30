@@ -2,9 +2,11 @@ import 'package:almasaood_app/Widgets/AuthTextField.dart';
 import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:almasaood_app/local/AppLocal.dart';
+import 'package:almasaood_app/models/SignModel.dart';
 import 'package:almasaood_app/models/VerifyModel.dart';
 import 'package:almasaood_app/ui/signUp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../AlmasaoodColors.dart';
 import '../DataStore.dart';
@@ -44,19 +46,21 @@ class _VerificationCodeState extends State<VerificationCode>
   double relativeDuration = 0.40;
 
   _hideResendCode() {
-// if(hidingResendController.status ==AnimationStatus.completed){
-////   hidingResendController.repeat();
-//
-// }else
-    _hideResendCodeAnimation = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-            parent: hidingResendController, curve: Interval(0.9, 1.0)));
 
-    if (hidingResendController.status == AnimationStatus.completed) {
-      hidingResendController.reverse();
-    } else if (hidingResendController.status == AnimationStatus.dismissed) {
-      hidingResendController.forward();
-    }
+    bloc.f_SignIn(mobileNumber: widget.num  ,fromVerification: true);
+//// if(hidingResendController.status ==AnimationStatus.completed){
+//////   hidingResendController.repeat();
+////
+//// }else
+//    _hideResendCodeAnimation = Tween(begin: 0.0, end: 1.0).animate(
+//        CurvedAnimation(
+//            parent: hidingResendController, curve: Interval(0.9, 1.0)));
+//
+//    if (hidingResendController.status == AnimationStatus.completed) {
+//      hidingResendController.reverse();
+//    } else if (hidingResendController.status == AnimationStatus.dismissed) {
+//      hidingResendController.forward();
+//    }
   }
 
   @override
@@ -147,56 +151,63 @@ class _VerificationCodeState extends State<VerificationCode>
                       ),
                       child: Stack(
                         children: <Widget>[
-                          Container(
-                            height: MediaQuery.of(context).size.height,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    Image.asset(
-                                      "assets/images/ic_needleGray.png",
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              3,
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    Stack(children: <Widget>[
+                          Localizations(
+                            delegates: [
+                              GlobalMaterialLocalizations.delegate,
+                              GlobalWidgetsLocalizations.delegate,
+                            ],
+                            locale: Locale('en', ''),
+                            child: Container(
+                              height: MediaQuery.of(context).size.height,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
                                       Image.asset(
-                                        "assets/images/sce_gary.png",
+                                        "assets/images/ic_needleGray.png",
                                         height:
-                                            MediaQuery.of(context).size.width /
-                                                4,
+                                            MediaQuery.of(context).size.height /
+                                                3,
                                         width:
-                                            MediaQuery.of(context).size.width /
-                                                4,
+                                            MediaQuery.of(context).size.width / 2,
                                       ),
-                                      Image.asset(
-                                        "assets/images/sce_gray2.png",
-                                        height:
-                                            MediaQuery.of(context).size.width /
-                                                4,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                4,
-                                      )
-                                    ])
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Stack(children: <Widget>[
+                                        Image.asset(
+                                          "assets/images/sce_gary.png",
+                                          height:
+                                              MediaQuery.of(context).size.width /
+                                                  4,
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  4,
+                                        ),
+                                        Image.asset(
+                                          "assets/images/sce_gray2.png",
+                                          height:
+                                              MediaQuery.of(context).size.width /
+                                                  4,
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  4,
+                                        )
+                                      ])
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           Column(
@@ -240,11 +251,21 @@ class _VerificationCodeState extends State<VerificationCode>
                                             ),
                                           ],
                                         ),
-                                        child: AuthTextField(
-                                          textEditingController:
-                                              verificationCodeController,
-                                          hint: AppLocalizations.of(context)
-                                              .trans('verification_code'),
+                                        child: Localizations(
+                                          delegates: [
+                                            GlobalMaterialLocalizations.delegate,
+                                            GlobalWidgetsLocalizations.delegate,
+                                          ],
+                                          locale: Locale('en', ''),
+                                          child: AuthTextField(image: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(Icons.verified_user,size: 35,),
+                                          ),
+                                            textEditingController:
+                                                verificationCodeController,
+                                            hint: AppLocalizations.of(context)
+                                                .trans('verification_code'),
+                                          ),
                                         ))),
                               ),
                               Transform(
@@ -261,6 +282,8 @@ class _VerificationCodeState extends State<VerificationCode>
                                     onPressed: () {
                                       if (verificationCodeController
                                           .text.isEmpty) {
+
+
                                         showInSnackBar(
                                             AppLocalizations.of(context).trans(
                                                 'please_enter_valid_code'),
@@ -306,25 +329,43 @@ class _VerificationCodeState extends State<VerificationCode>
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       top: 16.0, bottom: 32),
-                                  child: InkWell(
-                                    onTap: () {
-                                      _hideResendCode();
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width -
-                                          32,
-                                      child: FadeTransition(
-                                        opacity: _hideResendCodeAnimation,
-                                        child: Text(
-                                          AppLocalizations.of(context)
-                                              .trans('resend_code'),
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w700,
-                                              color: AlmasaoodColors.text),
+                                  child: StreamBuilder<SignInModel>(
+                                    stream: bloc.signInStream,
+                                    builder: (context, snapshot) {
+                                      if(snapshot.hasData && bloc.showFeedback){
+
+                                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                                          showInSnackBar(
+                                              AppLocalizations.of(context)
+                                                  .trans('sent_successfully'),
+                                              context,color: AlmasaoodColors.primaryColor);
+                                        });
+
+
+                                        bloc.showFeedback = false ;
+                                      }
+
+                                      return InkWell(
+                                        onTap: () {
+                                          _hideResendCode();
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width -
+                                              32,
+                                          child: FadeTransition(
+                                            opacity: _hideResendCodeAnimation,
+                                            child: Text(
+                                              AppLocalizations.of(context)
+                                                  .trans('resend_code'),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: AlmasaoodColors.text),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    }
                                   ),
                                 ),
                               ),
