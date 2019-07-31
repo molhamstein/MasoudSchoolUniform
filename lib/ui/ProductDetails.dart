@@ -3,6 +3,7 @@ import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
 import 'package:almasaood_app/models/productDetailsModel.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -486,16 +487,15 @@ class _ProductDetailsState extends State<ProductDetails>
                                                                 : AlmasaoodColors
                                                                     .primaryColor,
                                                             child: Center(
-                                                              child: Text(
+                                                              child: AutoSizeText(
                                                                 snapshot
                                                                     .data[index]
-                                                                    .code,
+                                                                    .code,minFontSize: 16,maxFontSize: 20,maxLines: 1,
                                                                 style: TextStyle(
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                    fontSize:
-                                                                        20,
+
                                                                     color: checkedList[index] ==
                                                                             false
                                                                         ? AlmasaoodColors
