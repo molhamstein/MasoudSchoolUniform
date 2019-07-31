@@ -27,7 +27,11 @@ class _MyAppState extends State<MyApp> {
         '/sign': (context) => CheckNumber()
       },
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'ProximaNova' ,cursorColor: AlmasaoodColors.primaryColor ,primaryColor: AlmasaoodColors.primaryColor, ),
+      theme: ThemeData(
+        fontFamily: 'ProximaNova',
+        cursorColor: AlmasaoodColors.primaryColor,
+        primaryColor: AlmasaoodColors.primaryColor,
+      ),
       supportedLocales: [const Locale('ar'), const Locale('en')],
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
@@ -51,7 +55,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     dataStore.user;
-
   }
 }
 

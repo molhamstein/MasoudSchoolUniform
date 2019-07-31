@@ -12,7 +12,8 @@ import 'models/VerifyModel.dart';
 import 'models/gradesModel.dart';
 
 class ApiProvider {
-  static String baseURL = "http://104.217.253.15:3434/api/v1/";
+//  static String baseURL = "http://104.217.253.15:3434/api/v1/";
+  static String baseURL = "http://174.138.28.26:3434/api/v1/";
   static String signInURL = baseURL + "mobile-auth/login/";
   static String verifyURL = baseURL + "mobile-auth/verify/";
   static String productsURL = baseURL + "abstract-products/";
@@ -34,7 +35,7 @@ class ApiProvider {
     if (response.statusCode == 200) {
       print(response.body);
 
-      return SignInModel.fromJson(json.decode(response.body));
+      return SignInModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
       throw json.decode(response.body);
@@ -50,10 +51,10 @@ class ApiProvider {
     if (response.statusCode == 200) {
       print(response.body);
 
-      return VerifyModel.fromJson(json.decode(response.body));
+      return VerifyModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
-      throw json.decode(response.body);
+      throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
 
@@ -65,10 +66,10 @@ class ApiProvider {
     if (response.statusCode == 200) {
       print(response.body);
 
-      return ProductList.fromJson(json.decode(response.body));
+      return ProductList.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
-      throw json.decode(response.body);
+      throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
 
@@ -97,10 +98,10 @@ class ApiProvider {
     if (response.statusCode < 400) {
       print(response.body);
 
-      return OrderModel.fromJson(json.decode(response.body));
+      return OrderModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
-      throw json.decode(response.body);
+      throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
 
@@ -112,10 +113,10 @@ class ApiProvider {
     if (response.statusCode == 200) {
       print(response.body);
 
-      return ProfileModel.fromJson(json.decode(response.body));
+      return ProfileModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
-      throw json.decode(response.body);
+      throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
 
@@ -133,10 +134,10 @@ class ApiProvider {
     if (response.statusCode == 200) {
       print(response.body);
 
-      return ProfileModel.fromJson(json.decode(response.body));
+      return ProfileModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
-      throw json.decode(response.body);
+      throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
 
@@ -147,10 +148,10 @@ class ApiProvider {
     if (response.statusCode == 200) {
       print(response.body);
 
-      return GradesList.fromJson(json.decode(response.body));
+      return GradesList.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
-      throw json.decode(response.body);
+      throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
 
@@ -162,10 +163,10 @@ class ApiProvider {
     if (response.statusCode == 200) {
       print(response.body);
 
-      return StatesList.fromJson(json.decode(response.body));
+      return StatesList.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
       print(response.body);
-      throw json.decode(response.body);
+      throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
 }

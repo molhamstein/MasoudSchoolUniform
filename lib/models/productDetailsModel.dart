@@ -91,4 +91,10 @@ class ProductDetailsModel {
     }
     return nameAr;
   }
-}
+
+
+  String getPrice() {
+      double p =num.parse( price) ;
+      return p.toStringAsFixed(1);
+
+}}

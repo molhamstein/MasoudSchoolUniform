@@ -2,6 +2,7 @@ import 'package:almasaood_app/Widgets/MainButton.dart';
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/productDetailsModel.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -99,14 +100,16 @@ class _CartState extends State<Cart> {
                                                                               .network(
                                                                               snapshot.data[index].image.file,
                                                                               height: 90,
-                                                                              width: 80,
+                                                                              width:80,
                                                                             )
                                                                           : Image
                                                                               .asset(
                                                                               "assets/images/child.png",
                                                                               height: 90,
-                                                                              width: 80,
+                                                                              width:80,
                                                                             ),
+
+                                                                      SizedBox(width: 8,),
                                                                       Expanded(
                                                                         child:
                                                                             Container(
@@ -117,15 +120,14 @@ class _CartState extends State<Cart> {
                                                                               Row(
                                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                 children: <Widget>[
-                                                                                  Column(
-                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                    children: <Widget>[
-                                                                                      Text(
-                                                                                        snapshot.data[index].name(AppLocalizations.of(context).locale),
-                                                                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: AlmasaoodColors.textDark),
-                                                                                      ),
-                                                                                    ],
+                                                                                  Container(width:
+                                                                                    MediaQuery.of(context).size.width/2.4,
+                                                                                    child: AutoSizeText(
+                                                                                      snapshot.data[index].name(AppLocalizations.of(context).locale),
+                                                                                      style: TextStyle( fontWeight: FontWeight.w700, color: AlmasaoodColors.textDark),minFontSize: 12,maxLines: 2,maxFontSize: 14,
+                                                                                    ),
                                                                                   ),
+                                                                                  SizedBox(width: 8,),
                                                                                   Row(
                                                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                                                     children: <Widget>[
@@ -133,9 +135,9 @@ class _CartState extends State<Cart> {
                                                                                         AppLocalizations.of(context).trans('AED'),
                                                                                         style: TextStyle(fontWeight: FontWeight.w700, color: AlmasaoodColors.text),
                                                                                       ),
-                                                                                      Text(
-                                                                                        snapshot.data[index].price,
-                                                                                        style: TextStyle(fontWeight: FontWeight.w700, color: AlmasaoodColors.textDark, fontSize: 26),
+                                                                                      AutoSizeText(
+                                                                                        snapshot.data[index].getPrice(),
+                                                                                        style: TextStyle(fontWeight: FontWeight.w700, color: AlmasaoodColors.textDark),maxFontSize: 22,minFontSize: 16,
                                                                                       ),
                                                                                     ],
                                                                                   )

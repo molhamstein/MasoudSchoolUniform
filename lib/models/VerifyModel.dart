@@ -6,7 +6,7 @@ import 'dart:convert';
 
 //
 VerifyModel VerifyModelFromJson(String str) =>
-    VerifyModel.fromJson(json.decode(str));
+VerifyModel.fromJson(json.decode(str));
 
 String VerifyModelToJson(VerifyModel data) => json.encode(data.toJson());
 
