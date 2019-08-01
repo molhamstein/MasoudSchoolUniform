@@ -1,4 +1,4 @@
-package www.almasaoodoilgas.com.almasaood_app
+package com.almasaood.tailoring
 
 import android.os.Bundle
 

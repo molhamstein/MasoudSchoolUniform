@@ -32,11 +32,18 @@ class ApiProvider {
     final body = json.encode({"mobile": mobileNumber});
     print(body);
     final response = await http.post(signInURL, body: body, headers: _headers);
+
+    print(response.statusCode) ;
     if (response.statusCode == 200) {
       print(response.body);
 
       return SignInModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-    } else {
+    }
+    else if(response.statusCode == ErrorCodes.SERVICE_UNAVAILABLE){
+      throw "SERVICE_UNAVAILABLE" ;
+    }
+
+    else {
       print(response.body);
       throw json.decode(response.body);
     }
@@ -48,11 +55,17 @@ class ApiProvider {
     print(body);
 
     final response = await http.post(verifyURL, body: body, headers: _headers);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       print(response.body);
 
       return VerifyModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-    } else {
+    }
+
+    else if(response.statusCode == ErrorCodes.MOBILE_VERIFICATION_ERROR){
+      throw "MOBILE_VERIFICATION_ERROR" ;
+    }
+    else {
       print(response.body);
       throw jsonDecode(utf8.decode(response.bodyBytes));
     }
@@ -169,6 +182,26 @@ class ApiProvider {
       throw jsonDecode(utf8.decode(response.bodyBytes));
     }
   }
+
+//
+//
+//  f(url) async{
+//    _headers['Authorization'] = "Bearer " + token;
+//    final response = await http.get(statesURL, headers: _headers);
+//    if (response.statusCode == 200) {
+//      return jsonDecode(utf8.decode(response.bodyBytes));
+//    }
+//    throw jsonDecode(utf8.decode(response.bodyBytes));
+//
+//  }
+
+
 }
 
 final apiProvider = ApiProvider();
+
+
+mixin ErrorCodes {
+  static const int MOBILE_VERIFICATION_ERROR = 441;
+  static const int SERVICE_UNAVAILABLE = 440;
+}

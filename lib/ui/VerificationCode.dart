@@ -112,6 +112,18 @@ class _VerificationCodeState extends State<VerificationCode>
               builder: (context, snapshot) {
                 if (snapshot.hasError && bloc.showFeedback == true) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
+
+                    if(snapshot.error.toString() == "SERVICE_UNAVAILABLE"){
+                      showInSnackBar(
+                          AppLocalizations.of(context)
+                              .trans('service_unavailable'),
+                          context);
+                    }else if(snapshot.error.toString() == "MOBILE_VERIFICATION_ERROR"){
+                      showInSnackBar(
+                          AppLocalizations.of(context)
+                              .trans('MOBILE_VERIFICATION_ERROR'),
+                          context);
+                    }else
                     showInSnackBar(
                         AppLocalizations.of(context)
                             .trans('something_went_wrong'),

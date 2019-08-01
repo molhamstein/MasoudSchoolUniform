@@ -40,9 +40,8 @@
   "Cancel": "إلغاء",
   "ok": "حسناً",
   "sent_successfully": "تم الإرسال بنجاح",
-  "developed_by": "مطور من قبل"
-
-
-
+  "developed_by": "مطور من قبل",
+  "service_unavailable" : "الخدمة غير متوفرة" ,
+  "MOBILE_VERIFICATION_ERROR": "رمز التحقق خاطئ"
 
 }

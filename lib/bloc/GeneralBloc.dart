@@ -105,6 +105,7 @@ class SingletonBloc {
       print(val.message);
       _signInController.sink.add(val);
     }).catchError((e) {
+
       showFeedback = true;
       _shouldRotateController.sink.add(false);
 

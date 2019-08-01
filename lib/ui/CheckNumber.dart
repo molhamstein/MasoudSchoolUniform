@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../AlmasaoodColors.dart';
+import '../ApiProvider.dart';
 import '../UserFeedBack.dart';
 import '../Utils.dart';
 import 'VerificationCode.dart';
@@ -21,7 +22,7 @@ class CheckNumber extends StatefulWidget {
 }
 
 class _CheckNumberState extends State<CheckNumber>
-    with TickerProviderStateMixin, UserFeedback {
+    with TickerProviderStateMixin, UserFeedback,ErrorCodes {
   TextEditingController numberController = new TextEditingController();
 
   AnimationController animationController;
@@ -125,6 +126,17 @@ class _CheckNumberState extends State<CheckNumber>
                 builder: (context, snapshot) {
                   if (snapshot.hasError && bloc.showFeedback == true) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
+//                      if(snapshot.error == ErrorCodes.SERVICE_UNAVAILABLE)
+                        print(
+                        snapshot.error
+                      );
+//else
+                      if(snapshot.error.toString() == "SERVICE_UNAVAILABLE"){
+                        showInSnackBar(
+                            AppLocalizations.of(context)
+                                .trans('service_unavailable'),
+                            context);
+                      }else
                       showInSnackBar(
                           AppLocalizations.of(context)
                               .trans('something_went_wrong'),

@@ -40,8 +40,8 @@
   "Cancel": "Cancel",
   "ok": "Ok",
   "sent_successfully": "Sent successfully",
-  "developed_by": "Developed by"
-
-
+  "developed_by": "Developed by",
+  "service_unavailable" : "Service unavailable",
+  "MOBILE_VERIFICATION_ERROR": "Wrong verification code"
 
 }
