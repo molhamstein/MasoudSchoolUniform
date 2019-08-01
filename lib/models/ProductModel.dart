@@ -313,6 +313,7 @@
 
 
 
+import 'dart:convert';
 import 'dart:ui';
 
 class ProductList {
@@ -328,13 +329,24 @@ class ProductList {
 
     return new ProductList(products: products);
   }
-
-
-
-
 }
 
 
+
+
+//List<ProductsModel> ProductsFromJson(String str) {
+//  final jsonData = json.decode(str);
+//  return new List<ProductsModel>.from(jsonData.map((x) => ProductsModel.fromJson(x)));
+//}
+
+List<ProductsModel> ProductsFromJson(String str) =>
+    new List<ProductsModel>.from(json.decode(str).map((x) => ProductsModel.fromJson(x)));
+
+
+String ProductsToJson(List<ProductsModel> data) {
+  final dyn = new List<dynamic>.from(data.map((x) => x.toJson()));
+  return json.encode(dyn);
+}
 
 class ProductsModel {
   int _id;

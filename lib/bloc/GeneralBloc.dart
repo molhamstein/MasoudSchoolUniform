@@ -173,7 +173,32 @@ class SingletonBloc {
 //    });
 //  }
 
+
+
+
+
+  f_grades() {
+
+    _gradesController.sink.add(dataStore.grades ?? null);
+    GradesModel all = new GradesModel(id: -1, nameEn: "All", nameAr: "الكل");
+    List<GradesModel> list = [all];
+    apiProvider.getGrades(dataStore.user.token).then((valGrad) {
+      for (int i = 0; i < valGrad.grades.length; i++) {
+        list.add(valGrad.grades[i]);
+        _gradesController.sink.add(list);
+      }
+      dataStore.setGrades(list);
+    }).catchError((e) {
+
+      _gradesController.sink.addError(e);
+
+      _gradesController.sink.add(dataStore.grades ?? null);
+
+    });
+  }
   f_getProducts() {
+    _productsController.sink.add(dataStore.products ?? null) ;
+
     pro = [];
     apiProvider.products(dataStore.user.token).then((valPro) {
       print(pro.length);
@@ -197,23 +222,15 @@ class SingletonBloc {
           _productsController.sink.add(pro);
         }
       }
+      dataStore.setProducts(pro);
+      print(pro.length.toString() +"prooooo lenght ouuuuuuuut");
+
     }).catchError((e) {
       _productsController.sink.addError(e);
+      _productsController.sink.add(dataStore.products??null);
     });
   }
 
-  f_grades() {
-    GradesModel all = new GradesModel(id: -1, nameEn: "All", nameAr: "الكل");
-    List<GradesModel> list = [all];
-    apiProvider.getGrades(dataStore.user.token).then((valGrad) {
-      for (int i = 0; i < valGrad.grades.length; i++) {
-        list.add(valGrad.grades[i]);
-        _gradesController.sink.add(list);
-      }
-    }).catchError((e) {
-      _gradesController.sink.addError(e);
-    });
-  }
 
   f_productDetails(ProductsModel productItem) {
     _productInfoController.sink.add(productItem);

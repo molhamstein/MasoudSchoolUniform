@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 class GradesList {
@@ -14,6 +15,17 @@ class GradesList {
     return new GradesList(grades: grades);
   }
 }
+
+
+List<GradesModel> GradesFromJson(String str) =>
+    new List<GradesModel>.from(json.decode(str).map((x) => GradesModel.fromJson(x)));
+
+
+String GradesToJson(List<GradesModel> data) {
+  final dyn = new List<dynamic>.from(data.map((x) => x.toJson()));
+  return json.encode(dyn);
+}
+
 
 class GradesModel {
   int _id;
