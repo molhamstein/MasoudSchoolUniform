@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:almasaood_app/bloc/GeneralBloc.dart';
 import 'package:almasaood_app/local/AppLocal.dart';
 import 'package:almasaood_app/models/ProductModel.dart';
@@ -65,13 +67,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         CurvedAnimation(
             parent: animationController,
             curve: Interval(0.1, 1.0, curve: ElasticOutCurve(0.8))));
-    activeAnimationController.forward();
-    activeProductsAnimationController.forward();
-    productsAnimationController.forward();
-    animationController.forward().then((_) {
-      bloc.f_grades();
-      bloc.f_getProducts();
+
+    Timer(Duration(seconds: 1,milliseconds: 500), () {
+      activeAnimationController.forward();
+      activeProductsAnimationController.forward();
+      productsAnimationController.forward();
+      animationController.forward().then((_) {
+        bloc.f_grades();
+        bloc.f_getProducts();
+      });
     });
+
+
+
     bloc.f_getCartCount();
   }
 
