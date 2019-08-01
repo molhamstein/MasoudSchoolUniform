@@ -16,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 5), () => _NavigateTo());
+    Timer(Duration(seconds: 2), () => _NavigateTo());
   }
 
   _NavigateTo() {

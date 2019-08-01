@@ -41,13 +41,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
 
     animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 2));
+        new AnimationController(vsync: this, duration: Duration(seconds: 1,milliseconds: 500));
     activeAnimationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 2));
+        new AnimationController(vsync: this, duration: Duration(seconds: 1,milliseconds: 500));
     productsAnimationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 4));
+        new AnimationController(vsync: this, duration: Duration(seconds: 3));
     activeProductsAnimationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 4));
+        new AnimationController(vsync: this, duration: Duration(seconds: 3));
     logoAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController, curve: ElasticInOutCurve(2)));
     logoAnimationFade = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(

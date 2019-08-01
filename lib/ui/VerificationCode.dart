@@ -66,7 +66,7 @@ class _VerificationCodeState extends State<VerificationCode>
   @override
   void initState() {
     animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 4));
+        new AnimationController(vsync: this, duration: Duration(seconds: 3));
 
     hidingResendController =
         new AnimationController(vsync: this, duration: Duration(seconds: 5));

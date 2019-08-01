@@ -42,7 +42,7 @@ class _SignUpState extends State<SignUp>
   @override
   void initState() {
     animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 4));
+        new AnimationController(vsync: this, duration: Duration(seconds: 3));
     logoAnimation = Tween(begin: -1.30, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.30, relativeDuration + 0.30,

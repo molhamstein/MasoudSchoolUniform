@@ -50,7 +50,7 @@ class _CheckNumberState extends State<CheckNumber>
   @override
   void initState() {
     animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 5));
+        new AnimationController(vsync: this, duration: Duration(seconds: 3,milliseconds: 500));
 
     sce_Animationcontroller =
         new AnimationController(vsync: this, duration: Duration(seconds: 2));
