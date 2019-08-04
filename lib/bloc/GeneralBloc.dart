@@ -280,12 +280,13 @@ class SingletonBloc {
   }
 
   f_getCartCount() {
+    print("in" + cartItems.length.toString());
     int count = 0;
 
     for (int i = 0; i < cartItems.length; i++) {
       count += cartItems[i].count;
-      _cartCountController.sink.add(count);
     }
+    _cartCountController.sink.add(count);
 
     return count;
   }

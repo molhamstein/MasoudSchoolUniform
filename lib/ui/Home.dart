@@ -80,11 +80,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
 
 //    bloc.f_loadCartData();
-    Timer(Duration(seconds: 1), (){
       bloc.f_getCartCount();
 
-    }
-    );
 
   }
 
@@ -129,6 +126,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             productsAnimationController.reverse();
                             activeProductsAnimationController.reverse();
                             animationController.reverse().then((_) {
+                              bloc.f_getCartCount();
                               Navigator.of(context)
                                   .push(MaterialPageRoute(
                                       builder: (context) => Cart()))
