@@ -8,6 +8,7 @@ import 'models/productDetailsModel.dart';
 class DataStore {
   VerifyModel _user;
   String _langCode;
+  List<String> _price =[];
 
   List<ProductsModel> _products;
   List<ProductDetailsModel> _cartList;
@@ -38,6 +39,18 @@ class DataStore {
     getGrades().then((val) {
       _grades = val;
     });
+  }
+
+  Future<bool> setPrice(List<String> value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _price = value;
+
+    return prefs.setStringList('price', _price);
+  }
+
+  Future<double> getPrice() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble('price') ?? '';
   }
 
   Future<bool> setLang(String value) async {
@@ -82,8 +95,6 @@ class DataStore {
     return t;
   }
 
-
-
   Future<bool> setCart(List<ProductDetailsModel> cartList) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _cartList = cartList;
@@ -95,12 +106,10 @@ class DataStore {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var cartList = prefs.getString("cart");
     List<ProductDetailsModel> t =
-    cartList != null ? ProductDetailsFromJson(cartList) : [];
+        cartList != null ? ProductDetailsFromJson(cartList) : [];
     print("cart is " + t.toString());
     return t;
   }
-
-
 
   Future<bool> setGrades(List<GradesModel> list) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -111,12 +120,10 @@ class DataStore {
   Future<List<GradesModel>> getGrades() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var gradesList = prefs.getString("grades");
-    List<GradesModel> t =
-    gradesList != null ? GradesFromJson(gradesList) : [];
+    List<GradesModel> t = gradesList != null ? GradesFromJson(gradesList) : [];
     print("t" + t.toString());
     return t;
   }
-
 
   List<GradesModel> get grades => _grades;
 
@@ -146,6 +153,12 @@ class DataStore {
 
   set cartList(List<ProductDetailsModel> value) {
     _cartList = value;
+  }
+
+  List<String> get price => _price;
+
+  set price(List<String> value) {
+    _price = value;
   }
 
 

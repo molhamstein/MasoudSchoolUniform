@@ -272,6 +272,7 @@ class SingletonBloc {
   List<ProductDetailsModel> cartItems = new List();
 
   f_loadCartData(){
+    print(dataStore.price.length);
     cartItems = dataStore.cartList ?? null ;
     _cartController.sink.add(cartItems);
 
@@ -328,6 +329,7 @@ class SingletonBloc {
       showFeedback = true;
     }
     dataStore.setCart(cartItems);
+    dataStore.setPrice(["500"]);
     print(dataStore.cartList[0].price);
 
 

@@ -79,7 +79,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     });
 
 
-    bloc.f_loadCartData();
+//    bloc.f_loadCartData();
     Timer(Duration(seconds: 1), (){
       bloc.f_getCartCount();
 
