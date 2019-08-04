@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       localeResolutionCallback:
           (Locale locale, Iterable<Locale> supportedLocales) {
         for (Locale supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale.languageCode ||
+       if(locale != null)   if (supportedLocale.languageCode == locale.languageCode ||
               supportedLocale.countryCode == locale.countryCode) {
             return supportedLocale;
           }
