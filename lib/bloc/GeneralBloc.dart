@@ -21,6 +21,8 @@ class SingletonBloc {
 
   SingletonBloc._internal() {
     _shouldRotateController.sink.add(false);
+    _cartController.sink.add(dataStore.cartList ?? null);
+
 
     withDelivery = false;
   }
@@ -91,13 +93,13 @@ class SingletonBloc {
   get cartCountStream => _cartCountController.stream;
 
 ////////////////////////////////
-  f_SignIn({String mobileNumber , bool fromVerification}) {
+  f_SignIn({String mobileNumber, bool fromVerification}) {
     print(mobileNumber);
     print(fromVerification);
     showFeedback = true;
 
-    if(!fromVerification){
-    _shouldRotateController.sink.add(true);
+    if (!fromVerification) {
+      _shouldRotateController.sink.add(true);
     }
 
     apiProvider.signIn(mobileNumber).then((val) {
@@ -105,7 +107,6 @@ class SingletonBloc {
       print(val.message);
       _signInController.sink.add(val);
     }).catchError((e) {
-
       showFeedback = true;
       _shouldRotateController.sink.add(false);
 
@@ -173,12 +174,7 @@ class SingletonBloc {
 //    });
 //  }
 
-
-
-
-
   f_grades() {
-
     _gradesController.sink.add(dataStore.grades ?? null);
     GradesModel all = new GradesModel(id: -1, nameEn: "All", nameAr: "الكل");
     List<GradesModel> list = [all];
@@ -189,15 +185,14 @@ class SingletonBloc {
       }
       dataStore.setGrades(list);
     }).catchError((e) {
-
       _gradesController.sink.addError(e);
 
       _gradesController.sink.add(dataStore.grades ?? null);
-
     });
   }
+
   f_getProducts() {
-    _productsController.sink.add(dataStore.products ?? null) ;
+    _productsController.sink.add(dataStore.products ?? null);
 
     pro = [];
     apiProvider.products(dataStore.user.token).then((valPro) {
@@ -223,14 +218,12 @@ class SingletonBloc {
         }
       }
       dataStore.setProducts(pro);
-      print(pro.length.toString() +"prooooo lenght ouuuuuuuut");
-
+      print(pro.length.toString() + "prooooo lenght ouuuuuuuut");
     }).catchError((e) {
       _productsController.sink.addError(e);
-      _productsController.sink.add(dataStore.products??null);
+      _productsController.sink.add(dataStore.products ?? null);
     });
   }
-
 
   f_productDetails(ProductsModel productItem) {
     _productInfoController.sink.add(productItem);
@@ -278,6 +271,13 @@ class SingletonBloc {
 
   List<ProductDetailsModel> cartItems = new List();
 
+  f_loadCartData(){
+    cartItems = dataStore.cartList ?? null ;
+    _cartController.sink.add(cartItems);
+
+
+  }
+
   f_getCartCount() {
     int count = 0;
 
@@ -290,6 +290,8 @@ class SingletonBloc {
   }
 
   f_addToCart(ProductDetailsModel orderData, context) {
+
+
     print("order id out side " + orderData.id.toString());
     int count = 0;
 
@@ -316,6 +318,7 @@ class SingletonBloc {
             .addError(AppLocalizations.of(context).trans('already_exist'));
         showFeedback = true;
       }
+
     } else {
       cartItems.add(orderData);
       _cartController.sink.add(cartItems);
@@ -324,6 +327,10 @@ class SingletonBloc {
           .add(AppLocalizations.of(context).trans('added_successfully'));
       showFeedback = true;
     }
+    dataStore.setCart(cartItems);
+    print(dataStore.cartList[0].price);
+
+
     print("list length" + cartItems.length.toString());
   }
 

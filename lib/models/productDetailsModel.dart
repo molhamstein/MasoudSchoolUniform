@@ -1,6 +1,18 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'ProductModel.dart';
+
+
+List<ProductDetailsModel> ProductDetailsFromJson(String str) =>
+    new List<ProductDetailsModel>.from(json.decode(str).map((x) => ProductDetailsModel.fromJson(x)));
+
+
+String ProductDetailsToJson(List<ProductDetailsModel> data) {
+  final dyn = new List<dynamic>.from(data.map((x) => x.toJson()));
+  return json.encode(dyn);
+}
+
 
 class ProductDetailsModel {
   int _id;
@@ -8,14 +20,46 @@ class ProductDetailsModel {
   String _nameEn;
   String _nameAr;
   String _price;
-  Grade _grade;
   String _gender;
+  Grade _grade;
   Size _size;
 
   int _count;
 
   ProductDetailsModel(this._id, this._image, this._nameEn, this._nameAr,
       this._price, this._grade, this._gender, this._size, this._count);
+
+  ProductDetailsModel.fromJson(Map<String, dynamic> json) {
+    _id = json['id'];
+    _image = json['image'] != null ? new Images.fromJson(json['image']) : null;
+    _nameEn = json['nameEn'];
+    _nameAr = json['nameAr'];
+    _price = json['price'];
+    _gender = json['gender'];
+    _count= json['count'];
+    _grade = json['grade'] != null ? new Grade.fromJson(json['grade']) : null;
+    _size = json['size'] != null ? new Size.fromJson(json['size']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this._id;
+    data['nameEn'] = this.nameEn;
+    data['nameAr'] = this.nameAr;
+    data['price'] = this.price;
+    data['gender'] = this.gender;
+    data['count']= this._count;
+    if (this._grade != null) {
+      data['grade'] = this._grade.toJson();
+    }
+    if (this._image != null) {
+      data['image'] = this._image.toJson();
+    }
+    if (this._size != null) {
+      data['size'] = this._size.toJson();
+    }
+    return data;
+  }
 
   String genderT(Locale local) {
     if (local.languageCode == 'en') {
@@ -92,9 +136,8 @@ class ProductDetailsModel {
     return nameAr;
   }
 
-
   String getPrice() {
-      double p =num.parse( price) ;
-      return p.toStringAsFixed(1);
-
-}}
+    double p = num.parse(price);
+    return p.toStringAsFixed(1);
+  }
+}

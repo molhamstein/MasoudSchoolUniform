@@ -3,12 +3,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'models/ProductModel.dart';
 import 'models/VerifyModel.dart';
 import 'models/gradesModel.dart';
+import 'models/productDetailsModel.dart';
 
 class DataStore {
   VerifyModel _user;
   String _langCode;
 
   List<ProductsModel> _products;
+  List<ProductDetailsModel> _cartList;
 
   List<GradesModel> _grades;
 
@@ -29,6 +31,9 @@ class DataStore {
 
     getProducts().then((val) {
       _products = val;
+    });
+    getCart().then((val) {
+      _cartList = val;
     });
     getGrades().then((val) {
       _grades = val;
@@ -79,6 +84,24 @@ class DataStore {
 
 
 
+  Future<bool> setCart(List<ProductDetailsModel> cartList) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _cartList = cartList;
+    print("cart saved");
+    return prefs.setString("cart", ProductDetailsToJson(cartList));
+  }
+
+  Future<List<ProductDetailsModel>> getCart() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var cartList = prefs.getString("cart");
+    List<ProductDetailsModel> t =
+    cartList != null ? ProductDetailsFromJson(cartList) : [];
+    print("cart is " + t.toString());
+    return t;
+  }
+
+
+
   Future<bool> setGrades(List<GradesModel> list) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _grades = list;
@@ -118,6 +141,14 @@ class DataStore {
   set products(List<ProductsModel> value) {
     _products = value;
   }
+
+  List<ProductDetailsModel> get cartList => _cartList;
+
+  set cartList(List<ProductDetailsModel> value) {
+    _cartList = value;
+  }
+
+
 }
 
 final dataStore = DataStore();
