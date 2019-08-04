@@ -113,14 +113,20 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
     _geolocator
         .checkGeolocationPermissionStatus(
             locationPermission: GeolocationPermission.locationAlways)
-        .then((status) {
+        ..then((status) {
       print('always status: $status');
     });
     _geolocator.checkGeolocationPermissionStatus(
+        locationPermission: GeolocationPermission.location)
+      ..then((status) {
+        print('location: $status');
+      });    _geolocator.checkGeolocationPermissionStatus(
         locationPermission: GeolocationPermission.locationWhenInUse)
       ..then((status) {
         print('whenInUse status: $status');
       });
+
+
   }
 
   getPermissions() async {
