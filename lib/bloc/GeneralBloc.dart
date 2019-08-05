@@ -22,6 +22,9 @@ class SingletonBloc {
   SingletonBloc._internal() {
     _shouldRotateController.sink.add(false);
     _cartController.sink.add(dataStore.cartList ?? null);
+    for(int i =0 ; i<dataStore.price.length ;i++ ){
+      price.add(double.parse( dataStore.price[i]));
+    }
 
 
     withDelivery = false;
@@ -192,10 +195,15 @@ class SingletonBloc {
   }
 
   f_getProducts() {
-    _productsController.sink.add(dataStore.products ?? null);
 
-    pro = [];
+    f_loadCartData();
+
+    _productsController.sink.add(dataStore.products ?? null);
+    pro = dataStore.products ?? [];
+//    pro = [];
     apiProvider.products(dataStore.user.token).then((valPro) {
+
+
       print(pro.length);
       for (int i = 0; i < valPro.products.length; i++) {
         print("in");
@@ -255,6 +263,8 @@ class SingletonBloc {
             delieveryLng, productsMap, centerId)
         .then((val) {
       cartItems = [];
+      dataStore.setPrice([]);
+      dataStore.setCart([]);
       _cartController.sink.add(cartItems);
       _shouldRotateController.sink.add(false);
 
@@ -271,32 +281,36 @@ class SingletonBloc {
 
   List<ProductDetailsModel> cartItems = new List();
 
-  f_loadCartData(){
-    print(dataStore.price.length);
-    cartItems = dataStore.cartList ?? null ;
+  f_loadCartData() {
+    print("loadCartData price" + dataStore.price.length.toString() ??"0");
+    print("loadCartData cartList" + dataStore.cartList.length.toString());
+
+    for(int i =0 ; i<dataStore.price.length ;i++ ){
+      price.add(double.parse( dataStore.price[i]));
+    }
+    cartItems = dataStore.cartList ?? null;
+
+
     _cartController.sink.add(cartItems);
-
-
   }
 
   f_getCartCount() {
+
     print("in" + cartItems.length.toString());
     int count = 0;
 
     for (int i = 0; i < cartItems.length; i++) {
       count += cartItems[i].count;
     }
+    print("f_getCartCount  " + dataStore.price.length.toString() ??"0");
     _cartCountController.sink.add(count);
 
     return count;
   }
 
   f_addToCart(ProductDetailsModel orderData, context) {
-
-
     print("order id out side " + orderData.id.toString());
     int count = 0;
-
     if (cartItems.isNotEmpty) {
       for (int i = 0; i < cartItems.length; i++) {
         print("im in the list ");
@@ -320,7 +334,6 @@ class SingletonBloc {
             .addError(AppLocalizations.of(context).trans('already_exist'));
         showFeedback = true;
       }
-
     } else {
       cartItems.add(orderData);
       _cartController.sink.add(cartItems);
@@ -330,18 +343,30 @@ class SingletonBloc {
       showFeedback = true;
     }
     dataStore.setCart(cartItems);
-    dataStore.setPrice(["500"]);
-    print(dataStore.cartList[0].price);
 
+    List<String> tempPrice = [];
+    for (int i = 0; i < price.length; i++) {
+//      dataStore.setPrice();
+      tempPrice.add(price[i].toString());
+    }
+          dataStore.setPrice(tempPrice);
+
+
+    print(dataStore.cartList[0].price);
 
     print("list length" + cartItems.length.toString());
   }
 
   f_removeItemFromCart(int count, int index) {
+
+
+
     if (count == 1) {
       cartItems.removeAt(index);
       price.removeAt(index);
       _cartController.sink.add(cartItems);
+      dataStore.setCart(null);
+      dataStore.setCart(cartItems);
       withDelivery = false;
       pushEstimationCost();
     } else {
@@ -349,6 +374,8 @@ class SingletonBloc {
       cartItems[index].price =
           (double.parse(cartItems[index].price) - price[index]).toString();
       _cartController.sink.add(cartItems);
+      dataStore.setCart(null);
+      dataStore.setCart(cartItems);
       pushEstimationCost();
 
       print(cartItems[index].count);
@@ -364,6 +391,8 @@ class SingletonBloc {
     cartItems[index].price =
         (double.parse(cartItems[index].price) + price[index]).toString();
     _cartController.sink.add(cartItems);
+    dataStore.setCart(null);
+    dataStore.setCart(cartItems);
     pushEstimationCost();
   }
 
@@ -382,7 +411,10 @@ class SingletonBloc {
       if (product.products[i].size.id == sizeId) {
         print(product.products[i].id);
 
-        return product.products[i].price.toString();
+        double p = num.parse(product.products[0].price);
+        return p.toStringAsFixed(1);
+
+//        return product.products[i].price;
       }
     }
   }

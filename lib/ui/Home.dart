@@ -95,6 +95,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     var size = MediaQuery.of(context).size;
     double itemHeight;
 
@@ -154,6 +155,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     StreamBuilder<int>(
                                         stream: bloc.cartCountStream,
                                         builder: (context, snapshot) {
+                                          int count =0 ;
+                                          print("couuuuuunt is : " + snapshot.data.toString());
+                                          for(int i =0 ; i<dataStore.cartList.length ; i++){
+                                            count += dataStore.cartList[i].count ;
+                                          }
+
+
+
                                           return Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
@@ -174,7 +183,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                         snapshot.data != null
                                                             ? snapshot.data
                                                                 .toString()
-                                                            : "0",
+                                                            : count.toString(),
                                                         style: TextStyle(
                                                             fontSize: 12),
                                                       ),
@@ -745,41 +754,39 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: AlmasaoodColors.text))),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                  ),
+
                   Row(
                     children: <Widget>[
-                      Container(
+                      SizedBox(width: MediaQuery.of(context).size.width > 330  ?6 : 2,),
+                      Container(height: 22,
                         width: MediaQuery.of(context).size.width > 330
-                            ? MediaQuery.of(context).size.width / 4
+                            ? MediaQuery.of(context).size.width / 5.4
                             : MediaQuery.of(context).size.width / 5,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(35),
-                              child: Container(
-                                color: AlmasaoodColors.primaryColor,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8, top: 2, bottom: 2),
-                                  child: AutoSizeText(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(35),
+                          child: Container(
+                            color: AlmasaoodColors.primaryColor,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, right: 8, top: 2, bottom: 2),
+                              child: Column(crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  AutoSizeText(
                                     data.grade.name(
                                         AppLocalizations.of(context).locale),
-                                    maxLines: 1,
+                                    maxLines: 1,textAlign: TextAlign.center,
                                     maxFontSize:
                                         MediaQuery.of(context).size.width > 330
-                                            ? 14
+                                            ? 16
                                             : 10,
                                     minFontSize: 8,
                                     style:
                                         TextStyle(color: AlmasaoodColors.white),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ],
@@ -821,7 +828,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     AppLocalizations.of(context).trans('AED'),
                                     style: TextStyle(
                                         color: AlmasaoodColors.white,
-                                        fontSize: 12),
+                                        fontSize:
+                                        MediaQuery.of(context).size.width >
+                                            330
+                                            ?
+                                        12:8),
                                   ),
                                   SizedBox(
                                     width: 3,
@@ -837,7 +848,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
                                               color: AlmasaoodColors.white,
-                                              fontSize: 32),
+                                              fontSize:
+                                              MediaQuery.of(context).size.width >
+                                                  330
+                                                  ?32:25),
                                           maxLines: 1,
                                         ),
                                       )),

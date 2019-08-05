@@ -39,18 +39,26 @@ class DataStore {
     getGrades().then((val) {
       _grades = val;
     });
+    getPrice().then((val) {
+print(val);
+      _price = val;
+    });
+
+
   }
 
   Future<bool> setPrice(List<String> value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _price = value;
+    print("price saved");
+    print(_price);
 
     return prefs.setStringList('price', _price);
   }
 
-  Future<double> getPrice() async {
+   getPrice() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble('price') ?? '';
+    return prefs.getStringList('price') ?? '';
   }
 
   Future<bool> setLang(String value) async {
