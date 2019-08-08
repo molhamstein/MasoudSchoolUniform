@@ -139,7 +139,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
       if (androidInfo.version.sdkInt >= 23) {
         Map<PermissionGroup, PermissionStatus> permissions =
             await PermissionHandler()
-                .requestPermissions([PermissionGroup.location]);
+                .requestPermissions([PermissionGroup.locationWhenInUse]);
         ServiceStatus serviceStatus = await PermissionHandler()
             .checkServiceStatus(PermissionGroup.location);
 
@@ -147,7 +147,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
         print(
             "PERSMMISION: ${serviceStatus.value} __ ${permissions.values.toList()[0]}");
         await PermissionHandler()
-            .shouldShowRequestPermissionRationale(PermissionGroup.location);
+            .shouldShowRequestPermissionRationale(PermissionGroup.locationWhenInUse);
         if (permissions.values.toList()[0].toString() !=
             "PermissionStatus.denied") {
           getLocation();
@@ -164,7 +164,7 @@ class PickUpLocationState extends State<PickUpLocation> with UserFeedback {
 
   void openLocationSetting() async {
     final PermissionStatus permission = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.location);
+        .checkPermissionStatus(PermissionGroup.locationWhenInUse);
     final AndroidIntent intent = new AndroidIntent(
       action: 'android.settings.LOCATION_SOURCE_SETTINGS',
     );
