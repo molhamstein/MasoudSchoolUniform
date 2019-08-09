@@ -15,17 +15,29 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app needs to access your music for a better experince while shopping</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This app needs to access your calendar to schedule the delivery of the goods</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app needs to access your contact for the goods delivery</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs to always keep accessing your location  for the  goods delivery.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs to always keep accessing your location  for the  goods delivery.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location when open for goods delivery.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This app needs access to location when open for goods delivery.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This app needs to access your motion to track the goods delivery</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app needs to utilize speech recognition for voice comands to be enabled</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -47,15 +59,5 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-    <key>NSContactsUsageDescription</key>
-    <string>contacts</string>
-    <key>NSCalendarsUsageDescription</key>
-    <string>Calendars</string>
-    <key>NSAppleMusicUsageDescription</key>
-    <string>Music!</string>
-    <key>NSMotionUsageDescription</key>
-    <string>motion</string>
-    <key>NSSpeechRecognitionUsageDescription</key>
-    <string>speech</string>
 </dict>
 </plist>
