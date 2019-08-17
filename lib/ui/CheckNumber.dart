@@ -145,12 +145,14 @@ class _CheckNumberState extends State<CheckNumber>
                     });
                   } else if (snapshot.hasData && snapshot.data != null) {
                     animationController.reverse().then((e) {
+
+
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         Navigator.of(context).pushReplacement(
                             new MaterialPageRoute(
                                 builder: (context) => VerificationCode(
                                     numberController.text,
-                                    snapshot.data.created)));
+                                    snapshot.data.created , snapshot.data.code)));
                       });
                     });
                   }

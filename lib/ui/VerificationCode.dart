@@ -16,8 +16,9 @@ import 'Home.dart';
 class VerificationCode extends StatefulWidget {
   bool created;
   String num;
+  String code;
 
-  VerificationCode(this.num, this.created);
+  VerificationCode(this.num, this.created, this.code);
 
   @override
   _VerificationCodeState createState() => _VerificationCodeState();
@@ -46,8 +47,7 @@ class _VerificationCodeState extends State<VerificationCode>
   double relativeDuration = 0.40;
 
   _hideResendCode() {
-
-    bloc.f_SignIn(mobileNumber: widget.num  ,fromVerification: true);
+    bloc.f_SignIn(mobileNumber: widget.num, fromVerification: true);
 //// if(hidingResendController.status ==AnimationStatus.completed){
 //////   hidingResendController.repeat();
 ////
@@ -65,6 +65,9 @@ class _VerificationCodeState extends State<VerificationCode>
 
   @override
   void initState() {
+    if (widget.code != null) {
+      verificationCodeController.text = widget.code;
+    }
     animationController =
         new AnimationController(vsync: this, duration: Duration(seconds: 3));
 
@@ -112,22 +115,22 @@ class _VerificationCodeState extends State<VerificationCode>
               builder: (context, snapshot) {
                 if (snapshot.hasError && bloc.showFeedback == true) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-
-                    if(snapshot.error.toString() == "SERVICE_UNAVAILABLE"){
+                    if (snapshot.error.toString() == "SERVICE_UNAVAILABLE") {
                       showInSnackBar(
                           AppLocalizations.of(context)
                               .trans('service_unavailable'),
                           context);
-                    }else if(snapshot.error.toString() == "MOBILE_VERIFICATION_ERROR"){
+                    } else if (snapshot.error.toString() ==
+                        "MOBILE_VERIFICATION_ERROR") {
                       showInSnackBar(
                           AppLocalizations.of(context)
                               .trans('MOBILE_VERIFICATION_ERROR'),
                           context);
-                    }else
-                    showInSnackBar(
-                        AppLocalizations.of(context)
-                            .trans('something_went_wrong'),
-                        context);
+                    } else
+                      showInSnackBar(
+                          AppLocalizations.of(context)
+                              .trans('something_went_wrong'),
+                          context);
                     bloc.showFeedback = false;
                   });
                 } else if (snapshot.hasData && snapshot.data != null) {
@@ -172,13 +175,15 @@ class _VerificationCodeState extends State<VerificationCode>
                             child: Container(
                               height: MediaQuery.of(context).size.height,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       Image.asset(
@@ -187,7 +192,8 @@ class _VerificationCodeState extends State<VerificationCode>
                                             MediaQuery.of(context).size.height /
                                                 3,
                                         width:
-                                            MediaQuery.of(context).size.width / 2,
+                                            MediaQuery.of(context).size.width /
+                                                2,
                                       ),
                                     ],
                                   ),
@@ -199,21 +205,25 @@ class _VerificationCodeState extends State<VerificationCode>
                                       Stack(children: <Widget>[
                                         Image.asset(
                                           "assets/images/sce_gary.png",
-                                          height:
-                                              MediaQuery.of(context).size.width /
-                                                  4,
-                                          width:
-                                              MediaQuery.of(context).size.width /
-                                                  4,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
                                         ),
                                         Image.asset(
                                           "assets/images/sce_gray2.png",
-                                          height:
-                                              MediaQuery.of(context).size.width /
-                                                  4,
-                                          width:
-                                              MediaQuery.of(context).size.width /
-                                                  4,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
                                         )
                                       ])
                                     ],
@@ -242,6 +252,28 @@ class _VerificationCodeState extends State<VerificationCode>
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              widget.code != null
+                                  ? Transform(
+                                      transform: Matrix4.translationValues(
+                                          0.0,
+                                          textFieldAnimation.value *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height,
+                                          0.0),
+                                      child: Text(
+                                        "Your verification code is",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: AlmasaoodColors.textDark),
+                                      ))
+                                  : SizedBox(
+                                      height: 16,
+                                    ),
                               Transform(
                                 transform: Matrix4.translationValues(
                                     0.0,
@@ -250,7 +282,7 @@ class _VerificationCodeState extends State<VerificationCode>
                                     0.0),
                                 child: Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 32.0, left: 16, right: 16),
+                                        top: 16.0, left: 16, right: 16),
                                     child: Container(
                                         decoration: new BoxDecoration(
                                           borderRadius: BorderRadius.all(
@@ -265,14 +297,20 @@ class _VerificationCodeState extends State<VerificationCode>
                                         ),
                                         child: Localizations(
                                           delegates: [
-                                            GlobalMaterialLocalizations.delegate,
+                                            GlobalMaterialLocalizations
+                                                .delegate,
                                             GlobalWidgetsLocalizations.delegate,
                                           ],
                                           locale: Locale('en', ''),
-                                          child: AuthTextField(image: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(Icons.verified_user,size: 35,),
-                                          ),
+                                          child: AuthTextField(
+                                            image: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Icon(
+                                                Icons.verified_user,
+                                                size: 35,
+                                              ),
+                                            ),
                                             textEditingController:
                                                 verificationCodeController,
                                             hint: AppLocalizations.of(context)
@@ -294,8 +332,6 @@ class _VerificationCodeState extends State<VerificationCode>
                                     onPressed: () {
                                       if (verificationCodeController
                                           .text.isEmpty) {
-
-
                                         showInSnackBar(
                                             AppLocalizations.of(context).trans(
                                                 'please_enter_valid_code'),
@@ -342,43 +378,70 @@ class _VerificationCodeState extends State<VerificationCode>
                                   padding: const EdgeInsets.only(
                                       top: 16.0, bottom: 32),
                                   child: StreamBuilder<SignInModel>(
-                                    stream: bloc.signInStream,
-                                    builder: (context, snapshot) {
-                                      if(snapshot.hasData && bloc.showFeedback){
+                                      stream: bloc.signInStream,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData &&
+                                            bloc.showFeedback) {
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            showInSnackBar(
+                                                AppLocalizations.of(context)
+                                                    .trans('sent_successfully'),
+                                                context,
+                                                color: AlmasaoodColors
+                                                    .primaryColor);
+                                          });
 
-                                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                                          showInSnackBar(
-                                              AppLocalizations.of(context)
-                                                  .trans('sent_successfully'),
-                                              context,color: AlmasaoodColors.primaryColor);
-                                        });
+                                          bloc.showFeedback = false;
+                                        }
+
+                                        
+                                        return Row(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:0.0,right: 8),
+                                              child: MaterialButton(onPressed: (){
+                                                _hideResendCode();
+                                              }
+                                              ,child:
 
 
-                                        bloc.showFeedback = false ;
-                                      }
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .trans('resend_code'),
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: AlmasaoodColors.text),
+                                              )
+                                                ,height: 0,
+                                                splashColor: AlmasaoodColors.text,
 
-                                      return InkWell(
-                                        onTap: () {
-                                          _hideResendCode();
-                                        },
-                                        child: Container(
-                                          width: MediaQuery.of(context).size.width -
-                                              32,
-                                          child: FadeTransition(
-                                            opacity: _hideResendCodeAnimation,
-                                            child: Text(
-                                              AppLocalizations.of(context)
-                                                  .trans('resend_code'),
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: AlmasaoodColors.text),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  ),
+                                          ],
+                                        );
+                                        
+//                                        return InkWell(
+//                                          onTap: () {
+//                                            _hideResendCode();
+//                                          },
+//                                          child: Container(
+//                                            width: MediaQuery.of(context)
+//                                                    .size
+//                                                    .width -
+//                                                32,
+//                                            child: Text(
+//                                              AppLocalizations.of(context)
+//                                                  .trans('resend_code'),
+//                                              style: TextStyle(
+//                                                  fontSize: 20,
+//                                                  fontWeight: FontWeight.w700,
+//                                                  color: AlmasaoodColors.text),
+//                                            ),
+//                                          ),
+//                                        );
+                                      }),
                                 ),
                               ),
                             ],
