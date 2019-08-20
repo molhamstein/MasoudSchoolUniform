@@ -44,50 +44,28 @@ class _SplashScreenState extends State<SplashScreen> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Image.asset("assets/images/logo.png", height: 150, width: 150),
-              Center(
-                  child: Image.asset(
-                "assets/images/splashArt.png",
-                width: MediaQuery.of(context).size.width - 150,
-              )),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-
-              Container(
-              width: MediaQuery.of(context).size.width-50,
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Column(
               children: <Widget>[
-                Image.asset("assets/images/splashLogo1.JPG",
-                    width: MediaQuery.of(context).size.width/1.8, height: 120),
-                Image.asset(
-                  "assets/images/SplashLogo2.png",
-                  width: MediaQuery.of(context).size.width/4,
-                  height: 100,
-                ),
-              ]),
-      ),
-                      Container(width: MediaQuery.of(context).size.width-16,
-                        child: Image.asset(
-                          "assets/images/splash_footer.png",
-                          width: MediaQuery.of(context).size.width,
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
+                SizedBox(height: 50,),
+                Image.asset("assets/images/logo.png", height: MediaQuery.of(context).size.height/6, width: 150),
+              ],
+            ),
+            Center(
+                child: Image.asset(
+              "assets/images/splashArt.png",
+              width: MediaQuery.of(context).size.width - 150,height: MediaQuery.of(context).size.height/2.5
+            )),
+            Container(width: MediaQuery.of(context).size.width-16,
+              child: Image.asset(
+                "assets/images/splash_footer.png",
+                width: MediaQuery.of(context).size.width,
+              ),
+            )
+          ],
         ),
       ),
     );

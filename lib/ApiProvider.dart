@@ -15,6 +15,9 @@ class ApiProvider {
 //  static String baseURL = "http://104.217.253.15:3434/api/v1/";
   static String baseURL = "http://174.138.28.26:3434/api/v1/";
   static String signInURL = baseURL + "mobile-auth/login/";
+
+
+
   static String verifyURL = baseURL + "mobile-auth/verify/";
   static String productsURL = baseURL + "abstract-products/";
   static String ordersURL = baseURL + "me/orders/";
