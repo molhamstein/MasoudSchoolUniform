@@ -49,7 +49,6 @@ class _SignUpState extends State<SignUp>
             curve: ElasticOutCurve(fade))));
     logoAnimationFade = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: animationController, curve: Interval(0.5, 1.0)));
-
     areYouNewAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.35, relativeDuration + 0.35,

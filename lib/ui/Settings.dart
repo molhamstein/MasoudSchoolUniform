@@ -46,7 +46,7 @@ class _SettingsState extends State<Settings> {
                       padding: const EdgeInsets.only(
                           top: 32.0, bottom: 64, left: 32, right: 32),
                       child: Text(
-                        "ALMASAOOD TAILORING",
+                        "AL MASAOOD TAILORING",
                         style: TextStyle(fontSize: 22),
                         textAlign: TextAlign.center,
                       ),
@@ -152,7 +152,7 @@ class _SettingsState extends State<Settings> {
 
   _launchEmail() async {
     const url =
-        "mailto:noreplay@almasaood.com?subject=From Almasaood tailoring app&body=Hi there";
+        "mailto:noreplay@almasaood.com?subject=From Al Masaood Tailoring app&body=Hi there";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
