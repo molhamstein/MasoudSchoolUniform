@@ -22,10 +22,9 @@ class SingletonBloc {
   SingletonBloc._internal() {
     _shouldRotateController.sink.add(false);
     _cartController.sink.add(dataStore.cartList ?? null);
-    for(int i =0 ; i<dataStore.price.length ;i++ ){
-      price.add(double.parse( dataStore.price[i]));
+    for (int i = 0; i < dataStore.price.length; i++) {
+      price.add(double.parse(dataStore.price[i]));
     }
-
 
     withDelivery = false;
   }
@@ -195,16 +194,16 @@ class SingletonBloc {
   }
 
   f_getProducts() {
-
     f_loadCartData();
 
     _productsController.sink.add(dataStore.products ?? null);
     pro = dataStore.products ?? [];
-//    pro = [];
     apiProvider.products(dataStore.user.token).then((valPro) {
-
-
+      _productsController.sink.add([]);
+      pro = [];
       print(pro.length);
+      _productsController.sink.add(valPro.products);
+
       for (int i = 0; i < valPro.products.length; i++) {
         print("in");
         if (pro.length != 0) {
@@ -225,6 +224,7 @@ class SingletonBloc {
           _productsController.sink.add(pro);
         }
       }
+//      dataStore.setProducts([]);
       dataStore.setProducts(pro);
       print(pro.length.toString() + "prooooo lenght ouuuuuuuut");
     }).catchError((e) {
@@ -282,27 +282,25 @@ class SingletonBloc {
   List<ProductDetailsModel> cartItems = new List();
 
   f_loadCartData() {
-    print("loadCartData price" + dataStore.price.length.toString() ??"0");
+    print("loadCartData price" + dataStore.price.length.toString() ?? "0");
     print("loadCartData cartList" + dataStore.cartList.length.toString());
 
-    for(int i =0 ; i<dataStore.price.length ;i++ ){
-      price.add(double.parse( dataStore.price[i]));
+    for (int i = 0; i < dataStore.price.length; i++) {
+      price.add(double.parse(dataStore.price[i]));
     }
     cartItems = dataStore.cartList ?? null;
-
 
     _cartController.sink.add(cartItems);
   }
 
   f_getCartCount() {
-
     print("in" + cartItems.length.toString());
     int count = 0;
 
     for (int i = 0; i < cartItems.length; i++) {
       count += cartItems[i].count;
     }
-    print("f_getCartCount  " + dataStore.price.length.toString() ??"0");
+    print("f_getCartCount  " + dataStore.price.length.toString() ?? "0");
     _cartCountController.sink.add(count);
 
     return count;
@@ -349,8 +347,7 @@ class SingletonBloc {
 //      dataStore.setPrice();
       tempPrice.add(price[i].toString());
     }
-          dataStore.setPrice(tempPrice);
-
+    dataStore.setPrice(tempPrice);
 
     print(dataStore.cartList[0].price);
 
@@ -358,9 +355,6 @@ class SingletonBloc {
   }
 
   f_removeItemFromCart(int count, int index) {
-
-
-
     if (count == 1) {
       cartItems.removeAt(index);
       price.removeAt(index);
